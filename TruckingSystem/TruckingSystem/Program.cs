@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TruckingSystem.Data;
 
-namespace TruckingSystem
+namespace TruckingSystem.Web
 {
     public class Program
     {
@@ -11,13 +11,20 @@ namespace TruckingSystem
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            string? connectionString = builder.Configuration
+                .GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+            builder.Services
+                .AddDbContext<TruckingSystemDbContext>(options =>
+                {
+                    options.UseSqlServer(connectionString);
+                });
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<TruckingSystemDbContext>();
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

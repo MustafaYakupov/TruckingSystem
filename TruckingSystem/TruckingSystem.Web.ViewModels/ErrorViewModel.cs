@@ -1,4 +1,4 @@
-namespace TruckingSystem.Models
+namespace TruckingSystem.Web.ViewModels
 {
     public class ErrorViewModel
     {

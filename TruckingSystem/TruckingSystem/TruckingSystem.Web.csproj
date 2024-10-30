@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -13,6 +13,15 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TruckingSystem.Common\TruckingSystem.Common.csproj" />
+    <ProjectReference Include="..\TruckingSystem.Data\TruckingSystem.Data.csproj" />
+    <ProjectReference Include="..\TruckingSystem.Infrastructure\TruckingSystem.Infrastructure.csproj" />
+    <ProjectReference Include="..\TruckingSystem.Services.Data\TruckingSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\TruckingSystem.Web.ViewModels\TruckingSystem.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

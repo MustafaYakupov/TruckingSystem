@@ -9,7 +9,7 @@ using TruckingSystem.Data;
 
 namespace TruckingSystem.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(TruckingSystemDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {

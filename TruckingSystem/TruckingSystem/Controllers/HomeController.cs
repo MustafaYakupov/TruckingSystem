@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TruckingSystem.Models;
+using TruckingSystem.Web.ViewModels;
 
 namespace TruckingSystem.Controllers
 {

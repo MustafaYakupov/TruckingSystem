@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TruckingSystem.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class TruckingSystemDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public TruckingSystemDbContext(DbContextOptions<TruckingSystemDbContext> options)
             : base(options)
         {
         }
