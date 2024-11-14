@@ -28,7 +28,7 @@
             public const byte PickupLocationMaxLength = 255;
             public const byte DeliveryLocationMinLength = 5;
             public const byte DeliveryLocationMaxLength = 255;
-            public const string DateTimeFormat = "MMMM dd, yyyy";
+            public const string DateTimeFormat = "MMMM/dd/yyyy";
         }
 
         public static class PartConstants
