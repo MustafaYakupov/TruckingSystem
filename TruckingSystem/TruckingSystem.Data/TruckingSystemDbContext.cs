@@ -17,11 +17,7 @@ namespace TruckingSystem.Data
         {
         }
 
-        public DbSet<AvailableDispatch> AvailableDispatches { get; set; }
-
         public DbSet<BrokerCompany> BrokerCompanies { get; set; }
-
-        public DbSet<CompletedDispatch> CompletedDispatches { get; set; }
 
         public DbSet<Dispatch> Dispatches { get; set; }
 
