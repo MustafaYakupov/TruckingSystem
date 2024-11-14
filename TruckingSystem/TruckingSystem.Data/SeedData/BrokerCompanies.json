@@ -1,23 +1,11 @@
 ﻿[
   {
-    "Id": "b1f6b7a5-8c9e-4b85-b6d4-d3823b9fdc90",
-    "CompanyName": "Express Haulage Ltd"
-  },
-  {
     "Id": "a3f06f5a-99f8-4c5b-a4e4-323e543245b3",
     "CompanyName": "Swift Transports"
   },
   {
     "Id": "91a8b3d5-6319-4e09-9a5b-d4bb01c47bcf",
     "CompanyName": "Freight Partners LLC"
-  },
-  {
-    "Id": "ca342b9d-e07a-4b08-991f-6634f2a5a5e1",
-    "CompanyName": "Load Link Services"
-  },
-  {
-    "Id": "f3a5c3a9-2a8f-4a5a-9a32-9087fa5f4b89",
-    "CompanyName": "Heavy Haulers Inc."
   },
   {
     "Id": "e01235bc-6de9-4af2-a6f8-d431a40bc9a3",
@@ -30,13 +18,5 @@
   {
     "Id": "18f9e2c7-6e29-4bb7-b7d4-5383d8c9f1a7",
     "CompanyName": "Global Trucking Co."
-  },
-  {
-    "Id": "8a4a2b68-2ad4-4e67-b9c3-5d0fbb93c3b7",
-    "CompanyName": "Prime Carriers Ltd"
-  },
-  {
-    "Id": "b256e1d5-2e59-49ba-933e-7de578a1b5e9",
-    "CompanyName": "Unified Logistics"
   }
 ]

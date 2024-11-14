@@ -5,9 +5,10 @@
     "DeliveryLocation": "Los Angeles, CA",
     "Weight": 20000,
     "Temperature": 15,
-    "PickupTime": "11/14/2025",
-    "DeliveryTime": "11/22/2025",
-    "Distance": 2800
+    "PickupTime": "2025-11-14",
+    "DeliveryTime": "2025-11-22",
+    "Distance": 2800,
+    "BrokerCompanyId": "a3f06f5a-99f8-4c5b-a4e4-323e543245b3"
   },
   {
     "Id": "f1c9d2e4-8b8d-43a6-baf3-d48e51d4920a",
@@ -15,9 +16,10 @@
     "DeliveryLocation": "Houston, TX",
     "Weight": 18000,
     "Temperature": -5,
-    "PickupTime": "11/15/2025",
-    "DeliveryTime": "11/18/2025",
-    "Distance": 1080
+    "PickupTime": "2024-12-20",
+    "DeliveryTime": "2024-12-22",
+    "Distance": 1080,
+    "BrokerCompanyId": "a3f06f5a-99f8-4c5b-a4e4-323e543245b3"
   },
   {
     "Id": "3a9e2b56-957a-41a6-9bbd-b45d3f0d5e6f",
@@ -25,9 +27,10 @@
     "DeliveryLocation": "Phoenix, AZ",
     "Weight": 16000,
     "Temperature": 10,
-    "PickupTime": "11/13/2025",
-    "DeliveryTime": "11/15/2025",
-    "Distance": 600
+    "PickupTime": "2024-12-23",
+    "DeliveryTime": "2024-12-26",
+    "Distance": 600,
+    "BrokerCompanyId": "91a8b3d5-6319-4e09-9a5b-d4bb01c47bcf"
   },
   {
     "Id": "4b8c2d65-a3c5-4f7e-9943-ec2d3d48f88e",
@@ -35,9 +38,10 @@
     "DeliveryLocation": "San Francisco, CA",
     "Weight": 21000,
     "Temperature": 8,
-    "PickupTime": "11/16/2025",
-    "DeliveryTime": "11/18/2025",
-    "Distance": 800
+    "PickupTime": "2024-12-15",
+    "DeliveryTime": "2024-12-18",
+    "Distance": 800,
+    "BrokerCompanyId": "91a8b3d5-6319-4e09-9a5b-d4bb01c47bcf"
   },
   {
     "Id": "5c3f2b57-9f4d-4d85-b6f2-e73e5d88c77d",
@@ -45,9 +49,10 @@
     "DeliveryLocation": "Orlando, FL",
     "Weight": 12000,
     "Temperature": 4,
-    "PickupTime": "11/13/2025",
-    "DeliveryTime": "11/14/2025",
-    "Distance": 440
+    "PickupTime": "2024-12-13",
+    "DeliveryTime": "2024-12-14",
+    "Distance": 440,
+    "BrokerCompanyId": "e01235bc-6de9-4af2-a6f8-d431a40bc9a3"
   },
   {
     "Id": "6a7d5c4f-b4a6-44c6-af7d-9f2c3f88d4a3",
@@ -55,9 +60,10 @@
     "DeliveryLocation": "Dallas, TX",
     "Weight": 19000,
     "Temperature": 12,
-    "PickupTime": "11/17/2025",
-    "DeliveryTime": "11/19/2025",
-    "Distance": 1330
+    "PickupTime": "2025-01-10",
+    "DeliveryTime": "2025-01-13",
+    "Distance": 1330,
+    "BrokerCompanyId": "e01235bc-6de9-4af2-a6f8-d431a40bc9a3"
   },
   {
     "Id": "7b8f2e6c-4c5f-4d66-9bbd-b47e3e88f22d",
@@ -65,9 +71,10 @@
     "DeliveryLocation": "Philadelphia, PA",
     "Weight": 14000,
     "Temperature": -2,
-    "PickupTime": "11/13/2025",
-    "DeliveryTime": "11/13/2025",
-    "Distance": 300
+    "PickupTime": "2025-01-19",
+    "DeliveryTime": "2025-01-21",
+    "Distance": 300,
+    "BrokerCompanyId": "59c6e7d3-8aef-40bc-94c4-0f2f7a8f4d4f"
   },
   {
     "Id": "8c2f3a4e-5f3a-4f98-a3b6-b38e7e4d5e6f",
@@ -75,9 +82,10 @@
     "DeliveryLocation": "Salt Lake City, UT",
     "Weight": 22000,
     "Temperature": 20,
-    "PickupTime": "11/18/2025",
-    "DeliveryTime": "11/18/2025",
-    "Distance": 420
+    "PickupTime": "2024-09-15",
+    "DeliveryTime": "2024-09-17",
+    "Distance": 420,
+    "BrokerCompanyId": "59c6e7d3-8aef-40bc-94c4-0f2f7a8f4d4f"
   },
   {
     "Id": "9d6f5e3a-7d3b-45c7-b8e2-5f4a2f88e4f5",
@@ -85,9 +93,10 @@
     "DeliveryLocation": "Minneapolis, MN",
     "Weight": 16000,
     "Temperature": 5,
-    "PickupTime": "11/19/2025",
-    "DeliveryTime": "11/20/2025",
-    "Distance": 440
+    "PickupTime": "2024-10-19",
+    "DeliveryTime": "2024-10-20",
+    "Distance": 440,
+    "BrokerCompanyId": "18f9e2c7-6e29-4bb7-b7d4-5383d8c9f1a7"
   },
   {
     "Id": "0f3a4d6f-8b2d-47a5-b8c7-f2d4e8f5b8a7",
@@ -95,8 +104,9 @@
     "DeliveryLocation": "Indianapolis, IN",
     "Weight": 13000,
     "Temperature": -10,
-    "PickupTime": "11/12/2025",
-    "DeliveryTime": "11/12/2025",
-    "Distance": 290
+    "PickupTime": "2024-11-14",
+    "DeliveryTime": "2024-11-15",
+    "Distance": 290,
+    "BrokerCompanyId": "18f9e2c7-6e29-4bb7-b7d4-5383d8c9f1a7"
   }
 ]
