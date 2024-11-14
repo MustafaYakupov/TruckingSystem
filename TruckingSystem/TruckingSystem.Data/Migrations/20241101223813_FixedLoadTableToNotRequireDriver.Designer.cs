@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TruckingSystem.Data;
 
@@ -11,9 +12,11 @@ using TruckingSystem.Data;
 namespace TruckingSystem.Data.Migrations
 {
     [DbContext(typeof(TruckingSystemDbContext))]
-    partial class TruckingSystemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241101223813_FixedLoadTableToNotRequireDriver")]
+    partial class FixedLoadTableToNotRequireDriver
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace TruckingSystem.Data.Migrations
 
                     b.HasIndex("DriverManagersId");
 
-                    b.ToTable("BrokerCompanyDriverManager", (string)null);
+                    b.ToTable("BrokerCompanyDriverManager");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -248,7 +251,7 @@ namespace TruckingSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AvailableDispatches", (string)null);
+                    b.ToTable("AvailableDispatches");
                 });
 
             modelBuilder.Entity("TruckingSystem.Data.Models.BrokerCompany", b =>
@@ -270,7 +273,7 @@ namespace TruckingSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BrokerCompanies", (string)null);
+                    b.ToTable("BrokerCompanies");
                 });
 
             modelBuilder.Entity("TruckingSystem.Data.Models.CompletedDispatch", b =>
@@ -282,7 +285,7 @@ namespace TruckingSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CompletedDispatches", (string)null);
+                    b.ToTable("CompletedDispatches");
                 });
 
             modelBuilder.Entity("TruckingSystem.Data.Models.Dispatch", b =>
@@ -341,7 +344,7 @@ namespace TruckingSystem.Data.Migrations
 
                     b.HasIndex("TruckId");
 
-                    b.ToTable("Dispatches", (string)null);
+                    b.ToTable("Dispatches");
                 });
 
             modelBuilder.Entity("TruckingSystem.Data.Models.Driver", b =>
@@ -399,7 +402,7 @@ namespace TruckingSystem.Data.Migrations
                         .IsUnique()
                         .HasFilter("[TruckId] IS NOT NULL");
 
-                    b.ToTable("Drivers", (string)null);
+                    b.ToTable("Drivers");
                 });
 
             modelBuilder.Entity("TruckingSystem.Data.Models.DriverManager", b =>
@@ -426,7 +429,7 @@ namespace TruckingSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DriverManagers", (string)null);
+                    b.ToTable("DriverManagers");
                 });
 
             modelBuilder.Entity("TruckingSystem.Data.Models.Load", b =>
@@ -490,7 +493,7 @@ namespace TruckingSystem.Data.Migrations
 
                     b.HasIndex("DriverId");
 
-                    b.ToTable("Loads", (string)null);
+                    b.ToTable("Loads");
                 });
 
             modelBuilder.Entity("TruckingSystem.Data.Models.Part", b =>
@@ -518,7 +521,7 @@ namespace TruckingSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Parts", (string)null);
+                    b.ToTable("Parts");
                 });
 
             modelBuilder.Entity("TruckingSystem.Data.Models.Trailer", b =>
@@ -546,10 +549,6 @@ namespace TruckingSystem.Data.Migrations
                         .HasColumnType("int")
                         .HasComment("Trailer production year");
 
-                    b.Property<int>("TrailerNumber")
-                        .HasColumnType("int")
-                        .HasComment("Trailer number");
-
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -558,7 +557,7 @@ namespace TruckingSystem.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Trailers", (string)null);
+                    b.ToTable("Trailers");
                 });
 
             modelBuilder.Entity("TruckingSystem.Data.Models.Truck", b =>
@@ -584,8 +583,8 @@ namespace TruckingSystem.Data.Migrations
 
                     b.Property<string>("LicensePlate")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)")
                         .HasComment("Truck license plate");
 
                     b.Property<string>("Make")
@@ -618,7 +617,7 @@ namespace TruckingSystem.Data.Migrations
                         .IsUnique()
                         .HasFilter("[TrailerId] IS NOT NULL");
 
-                    b.ToTable("Trucks", (string)null);
+                    b.ToTable("Trucks");
                 });
 
             modelBuilder.Entity("TruckingSystem.Data.Models.TruckPart", b =>
@@ -635,7 +634,7 @@ namespace TruckingSystem.Data.Migrations
 
                     b.HasIndex("PartId");
 
-                    b.ToTable("TrucksParts", (string)null);
+                    b.ToTable("TrucksParts");
                 });
 
             modelBuilder.Entity("BrokerCompanyDriverManager", b =>

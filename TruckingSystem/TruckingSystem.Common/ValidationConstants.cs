@@ -28,6 +28,7 @@
             public const byte PickupLocationMaxLength = 255;
             public const byte DeliveryLocationMinLength = 5;
             public const byte DeliveryLocationMaxLength = 255;
+            public const string DateTimeFormat = "MMMM dd, yyyy";
         }
 
         public static class PartConstants
@@ -44,8 +45,8 @@
             public const byte TruckMakeMaxLenght = 50;
             public const byte TruckModelMinLenght = 3;
             public const byte TruckModelMaxLenght = 50;
-            public const byte TruckLicensePlateMaxLenght = 3;
-            public const byte TruckLicensePlateMinLenght = 20;
+            public const byte TruckLicensePlateMinLenght = 3;
+            public const byte TruckLicensePlateMaxLenght = 20;
             public const byte TruckColorMinLenght = 3;
             public const byte TruckColorMaxLenght = 20;
         }

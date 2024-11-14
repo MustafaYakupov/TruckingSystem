@@ -12,8 +12,8 @@ using TruckingSystem.Data;
 namespace TruckingSystem.Data.Migrations
 {
     [DbContext(typeof(TruckingSystemDbContext))]
-    [Migration("20241101211517_Initial")]
-    partial class Initial
+    [Migration("20241105132707_FixedLicencePlateNumberLength")]
+    partial class FixedLicencePlateNumberLength
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -457,7 +457,7 @@ namespace TruckingSystem.Data.Migrations
                         .HasColumnType("int")
                         .HasComment("Load distance");
 
-                    b.Property<Guid>("DriverId")
+                    b.Property<Guid?>("DriverId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Driver identifier");
 
@@ -549,6 +549,10 @@ namespace TruckingSystem.Data.Migrations
                         .HasColumnType("int")
                         .HasComment("Trailer production year");
 
+                    b.Property<int>("TrailerNumber")
+                        .HasColumnType("int")
+                        .HasComment("Trailer number");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -583,8 +587,8 @@ namespace TruckingSystem.Data.Migrations
 
                     b.Property<string>("LicensePlate")
                         .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
                         .HasComment("Truck license plate");
 
                     b.Property<string>("Make")
@@ -785,9 +789,7 @@ namespace TruckingSystem.Data.Migrations
 
                     b.HasOne("TruckingSystem.Data.Models.Driver", "Driver")
                         .WithMany("Loads")
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DriverId");
 
                     b.Navigation("BrokerCompany");
 

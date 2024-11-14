@@ -1,0 +1,102 @@
+﻿[
+  {
+    "Id": "e2e8fc12-5a4e-4d41-b8f2-c6ae5ea84600",
+    "PickupLocation": "New York, NY",
+    "DeliveryLocation": "Los Angeles, CA",
+    "Weight": 20000,
+    "Temperature": 15,
+    "PickupTime": "11/14/2025",
+    "DeliveryTime": "11/22/2025",
+    "Distance": 2800
+  },
+  {
+    "Id": "f1c9d2e4-8b8d-43a6-baf3-d48e51d4920a",
+    "PickupLocation": "Chicago, IL",
+    "DeliveryLocation": "Houston, TX",
+    "Weight": 18000,
+    "Temperature": -5,
+    "PickupTime": "11/15/2025",
+    "DeliveryTime": "11/18/2025",
+    "Distance": 1080
+  },
+  {
+    "Id": "3a9e2b56-957a-41a6-9bbd-b45d3f0d5e6f",
+    "PickupLocation": "Denver, CO",
+    "DeliveryLocation": "Phoenix, AZ",
+    "Weight": 16000,
+    "Temperature": 10,
+    "PickupTime": "11/13/2025",
+    "DeliveryTime": "11/15/2025",
+    "Distance": 600
+  },
+  {
+    "Id": "4b8c2d65-a3c5-4f7e-9943-ec2d3d48f88e",
+    "PickupLocation": "Seattle, WA",
+    "DeliveryLocation": "San Francisco, CA",
+    "Weight": 21000,
+    "Temperature": 8,
+    "PickupTime": "11/16/2025",
+    "DeliveryTime": "11/18/2025",
+    "Distance": 800
+  },
+  {
+    "Id": "5c3f2b57-9f4d-4d85-b6f2-e73e5d88c77d",
+    "PickupLocation": "Atlanta, GA",
+    "DeliveryLocation": "Orlando, FL",
+    "Weight": 12000,
+    "Temperature": 4,
+    "PickupTime": "11/13/2025",
+    "DeliveryTime": "11/14/2025",
+    "Distance": 440
+  },
+  {
+    "Id": "6a7d5c4f-b4a6-44c6-af7d-9f2c3f88d4a3",
+    "PickupLocation": "Miami, FL",
+    "DeliveryLocation": "Dallas, TX",
+    "Weight": 19000,
+    "Temperature": 12,
+    "PickupTime": "11/17/2025",
+    "DeliveryTime": "11/19/2025",
+    "Distance": 1330
+  },
+  {
+    "Id": "7b8f2e6c-4c5f-4d66-9bbd-b47e3e88f22d",
+    "PickupLocation": "Boston, MA",
+    "DeliveryLocation": "Philadelphia, PA",
+    "Weight": 14000,
+    "Temperature": -2,
+    "PickupTime": "11/13/2025",
+    "DeliveryTime": "11/13/2025",
+    "Distance": 300
+  },
+  {
+    "Id": "8c2f3a4e-5f3a-4f98-a3b6-b38e7e4d5e6f",
+    "PickupLocation": "Las Vegas, NV",
+    "DeliveryLocation": "Salt Lake City, UT",
+    "Weight": 22000,
+    "Temperature": 20,
+    "PickupTime": "11/18/2025",
+    "DeliveryTime": "11/18/2025",
+    "Distance": 420
+  },
+  {
+    "Id": "9d6f5e3a-7d3b-45c7-b8e2-5f4a2f88e4f5",
+    "PickupLocation": "Kansas City, MO",
+    "DeliveryLocation": "Minneapolis, MN",
+    "Weight": 16000,
+    "Temperature": 5,
+    "PickupTime": "11/19/2025",
+    "DeliveryTime": "11/20/2025",
+    "Distance": 440
+  },
+  {
+    "Id": "0f3a4d6f-8b2d-47a5-b8c7-f2d4e8f5b8a7",
+    "PickupLocation": "Nashville, TN",
+    "DeliveryLocation": "Indianapolis, IN",
+    "Weight": 13000,
+    "Temperature": -10,
+    "PickupTime": "11/12/2025",
+    "DeliveryTime": "11/12/2025",
+    "Distance": 290
+  }
+]

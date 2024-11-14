@@ -16,6 +16,9 @@ namespace TruckingSystem.Data.Models
         [Comment("Unique Identifier")]
         public Guid Id { get; set; }
 
+        [Comment("Trailer number")]
+        public int TrailerNumber { get; set; }
+
         [Required]
         [MaxLength(TrailerMakeMaxLenght)]
         [Comment("Trailer make")]

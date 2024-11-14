@@ -1,0 +1,27 @@
+﻿[
+  {
+    "Id": "f24baf3d-1f3c-4329-aafd-ea5cb99e5b6a",
+    "Type": "Engine",
+    "Make": "Cummins"
+  },
+  {
+    "Id": "4ed2e3d8-958d-4629-89f4-7e2b8d8d86b7",
+    "Type": "Transmission",
+    "Make": "Allison"
+  },
+  {
+    "Id": "8c49d3b5-3287-43f6-a6f1-2d8c9b1a7b8e",
+    "Type": "Brake System",
+    "Make": "Bendix"
+  },
+  {
+    "Id": "5a6ed2b7-b7a4-4fd9-8c49-b2e1d9f7c7b2",
+    "Type": "Suspension",
+    "Make": "Hendrickson"
+  },
+  {
+    "Id": "9d6ba2c5-d2e9-4c9b-8d8b-a2f9c6e8d7b3",
+    "Type": "Battery",
+    "Make": "Exide"
+  }
+]

@@ -1,0 +1,92 @@
+﻿[
+  {
+    "Id": "1c5a5bcf-0d38-4b2b-a8d2-b306a6d8b7da",
+    "TruckNumber": 101,
+    "Make": "Freightliner",
+    "Model": "Cascadia",
+    "LicensePlate": "LT101FL",
+    "ModelYear": 2021,
+    "Color": "White"
+  },
+  {
+    "Id": "bbbe9c6e-cda4-4b80-8988-e7456020dfe7",
+    "TruckNumber": 102,
+    "Make": "Volvo",
+    "Model": "VNL 760",
+    "LicensePlate": "LT102VL",
+    "ModelYear": 2020,
+    "Color": "Blue"
+  },
+  {
+    "Id": "d1fda9c2-5a0a-4ca0-8a3d-b417c40d68c9",
+    "TruckNumber": 103,
+    "Make": "Kenworth",
+    "Model": "T680",
+    "LicensePlate": "LT103KW",
+    "ModelYear": 2019,
+    "Color": "Red"
+  },
+  {
+    "Id": "d833d70d-e77e-4e39-b700-0a743b2f1ed6",
+    "TruckNumber": 104,
+    "Make": "Peterbilt",
+    "Model": "579",
+    "LicensePlate": "LT104PB",
+    "ModelYear": 2022,
+    "Color": "Black"
+  },
+  {
+    "Id": "5c1f054b-efef-4ee6-81cc-9f41e7c02ea2",
+    "TruckNumber": 105,
+    "Make": "Mack",
+    "Model": "Anthem",
+    "LicensePlate": "LT105MK",
+    "ModelYear": 2021,
+    "Color": "Silver"
+  },
+  {
+    "Id": "be8b8f36-0cfe-4509-98b5-2e779a9f8b07",
+    "TruckNumber": 106,
+    "Make": "International",
+    "Model": "LT",
+    "LicensePlate": "LT106IN",
+    "ModelYear": 2020,
+    "Color": "Yellow"
+  },
+  {
+    "Id": "f4b963fd-1d56-4296-92a6-c92366a67bfc",
+    "TruckNumber": 107,
+    "Make": "Freightliner",
+    "Model": "Coronado",
+    "LicensePlate": "LT107FL",
+    "ModelYear": 2018,
+    "Color": "Gray"
+  },
+  {
+    "Id": "cd0f5805-9409-420b-b6a3-740dfdba84a0",
+    "TruckNumber": 108,
+    "Make": "Kenworth",
+    "Model": "W990",
+    "LicensePlate": "LT108KW",
+    "ModelYear": 2021,
+    "Color": "White"
+  },
+  {
+    "Id": "c303b365-bb6e-4a43-b473-61d25a9e39d3",
+    "TruckNumber": 109,
+    "Make": "Volvo",
+    "Model": "VNL 860",
+    "LicensePlate": "LT109VL",
+    "ModelYear": 2022,
+    "Color": "Blue"
+  },
+  {
+    "Id": "bfa9f0a5-c189-4cc9-8e65-dfa218ec4f60",
+    "TruckNumber": 110,
+    "Make": "Peterbilt",
+    "Model": "389",
+    "LicensePlate": "LT110PB",
+    "ModelYear": 2020,
+    "Color": "Red"
+  }
+]

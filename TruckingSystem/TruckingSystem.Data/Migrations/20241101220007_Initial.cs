@@ -250,13 +250,13 @@ namespace TruckingSystem.Data.Migrations
                         column: x => x.BrokerCompaniesId,
                         principalTable: "BrokerCompanies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_BrokerCompanyDriverManager_DriverManagers_DriverManagersId",
                         column: x => x.DriverManagersId,
                         principalTable: "DriverManagers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(
@@ -333,13 +333,13 @@ namespace TruckingSystem.Data.Migrations
                         column: x => x.PartId,
                         principalTable: "Parts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_TrucksParts_Trucks_TruckId",
                         column: x => x.TruckId,
                         principalTable: "Trucks",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(

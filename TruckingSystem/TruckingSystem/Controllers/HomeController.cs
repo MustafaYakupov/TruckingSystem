@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TruckingSystem.Data;
 using TruckingSystem.Web.ViewModels;
 
 namespace TruckingSystem.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, TruckingSystemDbContext context)
         {
-            _logger = logger;
+            this.logger = logger;
         }
 
         public IActionResult Index()

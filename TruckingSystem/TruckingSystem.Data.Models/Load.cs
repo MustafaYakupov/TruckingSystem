@@ -42,16 +42,17 @@ namespace TruckingSystem.Data.Models
         public int Distance { get; set; }
 
         [Comment("Driver identifier")]
-        public Guid DriverId { get; set; }
+        public Guid? DriverId { get; set; }
 
         [ForeignKey(nameof(DriverId))]
-        public Driver Driver { get; set; }
+        public Driver? Driver { get; set; }
 
         [Comment("BrokerCompany identifier")]
         public Guid BrokerCompanyId { get; set; }
 
+        [Required]
         [ForeignKey(nameof(BrokerCompanyId))]
-        public BrokerCompany BrokerCompany { get; set; }
+        public BrokerCompany BrokerCompany { get; set; } = null!;
 
         [Comment("Shows if the load is assigned or not")]
         public bool IsAvailable { get; set; } = true;
