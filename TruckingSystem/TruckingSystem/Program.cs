@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TruckingSystem.Data;
+using TruckingSystem.Infrastructure.Repositories;
+using TruckingSystem.Infrastructure.Repositories.Contracts;
 
 namespace TruckingSystem.Web
 {
@@ -35,6 +37,8 @@ namespace TruckingSystem.Web
             {
                 cfg.LoginPath = "/Identity/Account/Login";
             });
+
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             builder.Services.AddControllersWithViews();
 
