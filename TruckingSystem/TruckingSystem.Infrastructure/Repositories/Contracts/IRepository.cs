@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TruckingSystem.Infrastructure.Repositories.Contracts
+﻿namespace TruckingSystem.Infrastructure.Repositories.Contracts
 {
-    internal interface IRepository
+    public interface IRepository<T>
+        where T : class
     {
+        Task<IEnumerable<T>> GetAllAsync();
+
+        IQueryable<T> GetAllAttached();
+
+        Task<T> GetByIdAsync(Guid id);
+
+        Task AddAsync(T entity);
+
+        Task UpdateAsync(T entity);
+
+        Task DeleteAsync(Guid id);
+
+        Task RemoveRange(ICollection<T> entities);
     }
 }
