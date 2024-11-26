@@ -1,0 +1,39 @@
+﻿@model DriverEditViewModel
+
+@{
+    ViewBag.Title = "Edit Driver";
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <h2>Edit Driver</h2>
+    <form asp-action="Edit" method="post">
+        <div class="form-group">
+            <label asp-for="FirstName">First Name</label>
+            <input asp-for="FirstName" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="LastName">Last Name</label>
+            <input asp-for="LastName" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="LicenseNumber">Licence Number</label>
+            <input asp-for="LicenseNumber" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label asp-for="TruckNumber">Truck Number</label>
+            <input asp-for="TruckNumber" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="TrailerNumber">Trailer Number</label>
+            <input asp-for="TrailerNumber" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="DriverManager">Driver Manager</label>
+            <input asp-for="DriverManager" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

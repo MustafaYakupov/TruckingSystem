@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TruckingSystem.Services.Data.Contracts;
 using TruckingSystem.Web.ViewModels.Driver;
 
 namespace TruckingSystem.Web.Controllers
 {
+    [Authorize]
     public class DriverController : Controller
     {
         private readonly IDriverService driverService;
@@ -30,7 +32,7 @@ namespace TruckingSystem.Web.Controllers
 
             if (viewModel == null)
             {
-                throw new ArgumentException("Non-existent driver!");
+                return RedirectToAction(nameof(Index));
             } 
 
             return View(viewModel);
