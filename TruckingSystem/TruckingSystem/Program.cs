@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using TruckingSystem.Data;
 using TruckingSystem.Infrastructure.Repositories;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
+using TruckingSystem.Services.Data;
+using TruckingSystem.Services.Data.Contracts;
 
 namespace TruckingSystem.Web
 {
@@ -39,6 +41,8 @@ namespace TruckingSystem.Web
             });
 
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            builder.Services.AddScoped<IDriverRepository, DriverRepository>();
+            builder.Services.AddScoped<IDriverService, DriverService>();
 
             builder.Services.AddControllersWithViews();
 
