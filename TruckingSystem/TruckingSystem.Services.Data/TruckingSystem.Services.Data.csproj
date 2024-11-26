@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\" />
+    <ProjectReference Include="..\TruckingSystem.Infrastructure\TruckingSystem.Infrastructure.csproj" />
+    <ProjectReference Include="..\TruckingSystem.Web.ViewModels\TruckingSystem.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
