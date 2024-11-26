@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using static TruckingSystem.Common.ValidationConstants.DriverConstants;
-using static TruckingSystem.Common.ValidationMessages.DriverValidationMessages;
-
-namespace TruckingSystem.Web.ViewModels.Driver
+﻿namespace TruckingSystem.Web.ViewModels.Driver
 {
     public class DriverAllViewModel
     {

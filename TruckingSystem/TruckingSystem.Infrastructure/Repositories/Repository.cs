@@ -34,7 +34,8 @@ namespace TruckingSystem.Infrastructure.Repositories
 
         public async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await this.dbSet.ToListAsync();
+            return await this.dbSet
+                .ToListAsync();
         }
 
         public IQueryable<T> GetAllAttached()

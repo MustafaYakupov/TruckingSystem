@@ -7,5 +7,7 @@ namespace TruckingSystem.Services.Data.Contracts
     public interface IDriverService
     {
         Task<IEnumerable<DriverAllViewModel>> GetAllDriversAsync();
+
+        Task<DriverEditViewModel> GetEditDriverByIdAsync(Guid id);
     }
 }

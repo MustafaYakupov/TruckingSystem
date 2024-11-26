@@ -21,5 +21,19 @@ namespace TruckingSystem.Web.Controllers
 
             return View(drivers);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            DriverEditViewModel? viewModel = await driverService
+                .GetEditDriverByIdAsync(id);
+
+            if (viewModel == null)
+            {
+                throw new ArgumentException("Non-existent driver!");
+            } 
+
+            return View(viewModel);
+        }
     }
 }
