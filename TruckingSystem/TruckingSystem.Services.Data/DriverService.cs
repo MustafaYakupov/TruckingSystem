@@ -63,5 +63,24 @@ namespace TruckingSystem.Services.Data
             
             return viewModel;
         }
+
+        //public async Task<bool> PostEditDriverByIdAsync(DriverEditViewModel model, Guid id)
+        //{
+        //    Driver? driver = await driverRepository
+        //        .GetByIdAsync(id);
+
+        //    if (driver == null || driver.IsDeleted)
+        //    {
+        //        return false;
+        //    }
+
+        //    driver.FirstName = model.FirstName;
+        //    driver.LastName = model.LastName;
+        //    driver.LicenseNumber = model.LicenseNumber;
+        //    driver.Truck.TruckNumber = model.TruckNumber;
+
+
+        //    return true;
+        //}
     }
 }

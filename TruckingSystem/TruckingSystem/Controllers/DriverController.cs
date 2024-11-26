@@ -33,9 +33,22 @@ namespace TruckingSystem.Web.Controllers
             if (viewModel == null)
             {
                 return RedirectToAction(nameof(Index));
-            } 
+            }
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(DriverEditViewModel model, Guid id)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return View(model);
+            }
+
+
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

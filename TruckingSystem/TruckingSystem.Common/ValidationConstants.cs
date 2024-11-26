@@ -49,6 +49,10 @@
             public const byte TruckLicensePlateMaxLenght = 20;
             public const byte TruckColorMinLenght = 3;
             public const byte TruckColorMaxLenght = 20;
+            public const byte TruckNumberMinLenght = 1;
+            public const byte TruckNumberMaxLenght = 10;
+            public const byte TruckModelYearMinLenght = 4;
+            public const byte TruckModelYearMaxLenght = 4;
         }
 
         public static class TrailerConstants
@@ -57,6 +61,10 @@
             public const byte TrailerMakeMaxLenght = 50;
             public const byte TrailerTypeMinLenght = 3;
             public const byte TrailerTypeMaxLenght = 10;
+            public const byte TrailerNumberMinLenght = 1;
+            public const byte TrailerNumberMaxLenght = 10;
+            public const byte TrailerModelYearMinLenght = 4;
+            public const byte TrailerModelYearMaxLenght = 4;
         }
     }
 }

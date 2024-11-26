@@ -16,8 +16,10 @@ namespace TruckingSystem.Data.Models
         [Comment("Unique Identifier")]
         public Guid Id { get; set; }
 
+        [Required]
         [Comment("Truck number")]
-        public int TruckNumber { get; set; }
+        [MaxLength(TruckNumberMaxLenght)]
+        public string TruckNumber { get; set; } = null!;
 
         [Required]
         [Comment("Truck make")]
@@ -34,8 +36,10 @@ namespace TruckingSystem.Data.Models
         [MaxLength(TruckLicensePlateMaxLenght)]
         public string LicensePlate { get; set; } = null!;
 
+        [Required]
         [Comment("Truck produciton year")]
-        public int ModelYear { get; set; }
+        [MaxLength(TruckModelYearMaxLenght)]
+        public string ModelYear { get; set; } = null!;
 
         [Required]
         [Comment("Truck color")]

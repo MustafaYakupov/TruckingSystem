@@ -1,72 +1,72 @@
 ﻿[
   {
     "Id": "ae48c5b1-2c1f-4a7b-8cc1-4b89d7cc9f42",
-    "TrailerNumber": 500,
+    "TrailerNumber": "500",
     "Make": "Utility",
     "Type": "Reefer",
-    "ModelYear": 2021
+    "ModelYear": "2021"
   },
   {
     "Id": "c3e8b097-6340-45b0-8eb0-9578f8409f52",
-    "TrailerNumber": 501,
+    "TrailerNumber": "501",
     "Make": "Great Dane",
     "Type": "Reefer",
-    "ModelYear": 2020
+    "ModelYear": "2020"
   },
   {
     "Id": "bfaad345-3a44-4d9a-b015-7f7b4f85d3a1",
-    "TrailerNumber": 502,
+    "TrailerNumber": "502",
     "Make": "Carrier",
     "Type": "Reefer",
-    "ModelYear": 2019
+    "ModelYear": "2019"
   },
   {
     "Id": "83274bc8-bef1-47ab-bbb1-b4422eae8d44",
-    "TrailerNumber": 503,
+    "TrailerNumber": "503",
     "Make": "Utility",
     "Type": "Reefer",
-    "ModelYear": 2022
+    "ModelYear": "2022"
   },
   {
     "Id": "263fe327-e883-468e-83b3-ff072b38944a",
-    "TrailerNumber": 504,
+    "TrailerNumber": "504",
     "Make": "Thermo King",
     "Type": "Reefer",
-    "ModelYear": 2020
+    "ModelYear": "2020"
   },
   {
     "Id": "54830d70-bc69-4539-bd97-36d2093dfd0e",
-    "TrailerNumber": 505,
+    "TrailerNumber": "505",
     "Make": "Carrier",
     "Type": "Reefer",
-    "ModelYear": 2018
+    "ModelYear": "2018"
   },
   {
     "Id": "47c3d1b7-9fa9-4ca6-9549-b9742fcf85cb",
-    "TrailerNumber": 506,
+    "TrailerNumber": "506",
     "Make": "Great Dane",
     "Type": "Reefer",
-    "ModelYear": 2021
+    "ModelYear": "2021"
   },
   {
     "Id": "a189e23d-8eb9-4b83-b6ed-61ec5d8b04bc",
-    "TrailerNumber": 507,
+    "TrailerNumber": "507",
     "Make": "Utility",
     "Type": "Reefer",
-    "ModelYear": 2019
+    "ModelYear": "2019"
   },
   {
     "Id": "cb49e342-d2b3-4b2b-9bb9-c2346d823dc0",
-    "TrailerNumber": 508,
+    "TrailerNumber": "508",
     "Make": "Carrier",
     "Type": "Reefer",
-    "ModelYear": 2022
+    "ModelYear": "2022"
   },
   {
     "Id": "d1b99cfa-cf73-4786-ae4a-4a49d1b179b5",
-    "TrailerNumber": 509,
+    "TrailerNumber": "509",
     "Make": "Great Dane",
     "Type": "Reefer",
-    "ModelYear": 2020
+    "ModelYear": "2020"
   }
 ]
