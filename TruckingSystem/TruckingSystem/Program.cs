@@ -43,6 +43,9 @@ namespace TruckingSystem.Web
             builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IDriverRepository, DriverRepository>();
             builder.Services.AddScoped<IDriverService, DriverService>();
+            builder.Services.AddScoped<IDriverManagerRepository, DriverManagerRepository>();
+            builder.Services.AddScoped<ITruckRepository, TruckRepository>();
+            builder.Services.AddScoped<ITrailerRepository, TrailerRepository>();
 
             builder.Services.AddControllersWithViews();
 

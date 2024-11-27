@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TruckingSystem.Common\TruckingSystem.Common.csproj" />
+    <ProjectReference Include="..\TruckingSystem.Data.Models\TruckingSystem.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

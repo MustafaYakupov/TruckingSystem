@@ -46,7 +46,12 @@ namespace TruckingSystem.Web.Controllers
                 return View(model);
             }
 
+            bool successfullyEdited = await driverService.PostEditDriverByIdAsync(model, id);
 
+            if (successfullyEdited == false)
+            {
+                return View(model);
+            }
 
             return RedirectToAction(nameof(Index));
         }

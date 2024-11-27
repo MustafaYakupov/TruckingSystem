@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using TruckingSystem.Data.Models;
+using System.ComponentModel.DataAnnotations;
 using static TruckingSystem.Common.ValidationConstants.DriverConstants;
 using static TruckingSystem.Common.ValidationMessages.DriverValidationMessages;
 
@@ -18,10 +19,16 @@ namespace TruckingSystem.Web.ViewModels.Driver
         [StringLength(DriverLicenseNumberMaxLength, MinimumLength = DriverLicenseNumberMinLength, ErrorMessage = DriverLicenseNumberLenghtErrorMessage)]
         public required string LicenseNumber { get; set; }
 
-        public string? TruckNumber { get; set; }
+        public Guid? TruckId { get; set; }
 
-        public string? TrailerNumber { get; set; }
+        public Guid? TrailerId { get; set; }
 
-        public string? DriverManager { get; set; }
+        public Guid? DriverManagerId { get; set; }
+
+        public IEnumerable<Truck> AvailableTrucks { get; set; } = new List<Truck>();  
+
+        public IEnumerable<Trailer> AvailableTrailers { get; set; } = new List<Trailer>();  
+
+        public IEnumerable<DriverManager> DriverManagers { get; set; } = new List<DriverManager>();
     }
 }

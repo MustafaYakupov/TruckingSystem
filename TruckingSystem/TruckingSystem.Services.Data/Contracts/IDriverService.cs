@@ -9,5 +9,13 @@ namespace TruckingSystem.Services.Data.Contracts
         Task<IEnumerable<DriverAllViewModel>> GetAllDriversAsync();
 
         Task<DriverEditViewModel> GetEditDriverByIdAsync(Guid id);
+
+        Task<bool> PostEditDriverByIdAsync(DriverEditViewModel model, Guid id);
+
+        Task<IEnumerable<Truck>> GetTrucks();
+
+        Task<IEnumerable<Trailer>> GetTrailers();
+
+        Task<IEnumerable<DriverManager>> GetDriverManagers();
     }
 }

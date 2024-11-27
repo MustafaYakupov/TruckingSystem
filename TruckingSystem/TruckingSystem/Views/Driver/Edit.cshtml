@@ -22,16 +22,25 @@
             <input asp-for="LicenseNumber" class="form-control" required />
         </div>
         <div class="form-group">
-            <label asp-for="TruckNumber">Truck Number</label>
-            <input asp-for="TruckNumber" class="form-control" />
+            <label for="TruckId">Select Truck</label>
+            <select asp-for="TruckId" class="form-control" asp-items="@(new SelectList(Model.AvailableTrucks, "Id", "TruckNumber"))">
+                <option value="">-- Select a Truck --</option>
+            </select>
+            <span asp-validation-for="TruckId" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="TrailerNumber">Trailer Number</label>
-            <input asp-for="TrailerNumber" class="form-control" />
+            <label for="TrailerId">Select Trailer</label>
+            <select asp-for="TrailerId" class="form-control" asp-items="@(new SelectList(Model.AvailableTrailers, "Id", "TrailerNumber"))">
+                <option value="">-- Select a Trailer --</option>
+            </select>
+            <span asp-validation-for="TrailerId" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label asp-for="DriverManager">Driver Manager</label>
-            <input asp-for="DriverManager" class="form-control" />
+            <label for="TruckId">Select Driver Manager</label>
+            <select asp-for="DriverManagerId" class="form-control" asp-items="@(new SelectList(Model.DriverManagers, "Id", "FirstName"))">
+                <option value="">-- Select a Driver Manager --</option>
+            </select>
+            <span asp-validation-for="DriverManagerId" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-primary">Save Changes</button>
         <a asp-action="Index" class="btn btn-secondary">Cancel</a>
