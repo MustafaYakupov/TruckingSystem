@@ -14,9 +14,9 @@ namespace TruckingSystem.Services.Data
         private IRepository<Trailer> trailerRepository;
 
         public DriverService(
-            IRepository<Driver> driverRepository, 
-            IRepository<DriverManager> driverManagerRepository, 
-            IRepository<Truck> truckRepository, 
+            IRepository<Driver> driverRepository,
+            IRepository<DriverManager> driverManagerRepository,
+            IRepository<Truck> truckRepository,
             IRepository<Trailer> trailerRepository)
         {
             this.driverRepository = driverRepository;
@@ -29,8 +29,10 @@ namespace TruckingSystem.Services.Data
         {
             IEnumerable<Driver> drivers = await this.driverRepository
                 .GetAllAttached()
+                .Include(d => d.Truck)
+                .Include(d => d.Trailer)
+                .Include(d => d.DriverManager)
                 .Where(d => d.IsDeleted == false)
-                .AsNoTracking()
                 .ToListAsync();
 
             IEnumerable<DriverAllViewModel> driverViewModel = drivers
@@ -40,8 +42,8 @@ namespace TruckingSystem.Services.Data
                     FirstName = d.FirstName,
                     LastName = d.LastName,
                     LicenseNumber = d.LicenseNumber,
-                    TruckNumber = d.Truck?.TruckNumber.ToString() ?? string.Empty,
-                    TrailerNumber = d.Trailer?.TrailerNumber.ToString() ?? string.Empty,
+                    TruckNumber = d.Truck?.TruckNumber ?? string.Empty,
+                    TrailerNumber = d.Trailer?.TrailerNumber ?? string.Empty,
                     DriverManager = d.DriverManager?.FirstName + " " + d.DriverManager?.LastName ?? string.Empty,
                 });
 
@@ -71,56 +73,152 @@ namespace TruckingSystem.Services.Data
                 return null;
             }
 
-            viewModel.AvailableTrucks = await GetTrucks();
-            viewModel.AvailableTrailers = await GetTrailers();
-            viewModel.DriverManagers = await GetDriverManagers();
+            await LoadSelectLists(viewModel);
 
 
             return viewModel;
         }
 
-        //public async Task<bool> PostEditDriverByIdAsync(DriverEditViewModel model, Guid id)
-        //{
-        //    //Driver? driver = await driverRepository
-        //    //    .GetByIdAsync(id);
+        public async Task<bool> PostEditDriverByIdAsync(DriverEditViewModel model, Guid id)
+        {
+            Driver? driver = await driverRepository
+                .GetAllAttached()
+                .Where(d => d.Id == id)
+                .Where(d => d.IsDeleted == false)
+                .Include(d => d.Truck)
+                .Include(d => d.Trailer)
+                .FirstOrDefaultAsync();
 
-        //    //if (driver == null || driver.IsDeleted)
-        //    //{
-        //    //    return false;
-        //    //}
+            if (driver == null || driver.IsDeleted)
+            {
+                return false;
+            }
 
-        //    //DriverManager? driverManager = await driverManagerRepository
-        //    //    .GetAllAttached()
-        //    //    .Where(m => m.FirstName == model.DriverManager)
-        //    //    .Where(m => m.IsDeleted == false)
-        //    //    .AsNoTracking()
-        //    //    .FirstOrDefaultAsync();
+            driver.FirstName = model.FirstName;
+            driver.LastName = model.LastName;
+            driver.LicenseNumber = model.LicenseNumber;
+            driver.DriverManagerId = model.DriverManagerId;
 
-        //    //Truck? truck = await truckRepository
-        //    //    .GetAllAttached()
-        //    //    .Where(t => t.TruckNumber == model.TruckNumber)
-        //    //    .Where(t => t.IsDeleted == false)
-        //    //    .AsNoTracking()
-        //    //    .FirstOrDefaultAsync();
+            if (model.DriverManagerId != null)
+            {
+                DriverManager? manager = await driverManagerRepository.GetAllAttached()
+                    .Where(m => m.Id == model.DriverManagerId)
+                    .FirstOrDefaultAsync();
 
-        //    //Trailer? trailer = await trailerRepository
-        //    //    .GetAllAttached()
-        //    //    .Where(t => t.TrailerNumber == model.TrailerNumber)
-        //    //    .Where(t => t.IsDeleted == false)
-        //    //    .AsNoTracking()
-        //    //    .FirstOrDefaultAsync();
+                if (manager != null)
+                {
+                    manager.Drivers.Add(driver);
+                }
+            }
 
-        //    //driver.FirstName = model.FirstName;
-        //    //driver.LastName = model.LastName;
-        //    //driver.LicenseNumber = model.LicenseNumber;
-        //    //driver.Truck = truck ?? null;
-        //    //driver.Trailer = trailer ?? null;
-        //    //driver.DriverManager = driverManager ?? null;
+            if (model.TruckId != driver.TruckId)
+            {
+                // Set previous truck's availability to true
+                if (driver.TruckId.HasValue)
+                {
+                    var oldTruck = await truckRepository.GetAllAttached()
+                        .Where(t => t.Id == driver.TruckId)
+                        .FirstOrDefaultAsync();
 
-        //    //await driverRepository.UpdateAsync(driver);
+                    var newTruck = await truckRepository.GetAllAttached()
+                        .Where(t => t.Id == model.TruckId)
+                        .FirstOrDefaultAsync();
 
-        //    return true;
-        //}
+                    if (oldTruck != newTruck)
+                    {
+                        if (oldTruck != null)
+                        {
+                            oldTruck.IsAvailable = true;
+                            await truckRepository.UpdateAsync(oldTruck);
+                        }
+
+                        // Assign new truck and set its availability to false
+                        if (model.TruckId.HasValue)
+                        {
+                            if (newTruck != null)
+                            {
+                                newTruck.IsAvailable = false;
+                                driver.TruckId = newTruck.Id;
+                                await truckRepository.UpdateAsync(newTruck);
+                            }
+                        }
+                        else
+                        {
+                            driver.TruckId = null;
+                        }
+                    }
+                }
+                else
+                {
+                    var newTruck = await truckRepository.GetAllAttached()
+                        .Where(t => t.Id == model.TruckId)
+                        .FirstOrDefaultAsync();
+
+                    if (newTruck != null)
+                    {
+                        newTruck.IsAvailable = false;
+                        driver.TruckId = newTruck.Id;
+                        await truckRepository.UpdateAsync(newTruck);
+                    }
+                }
+            }
+
+            if (model.TrailerId != driver.TrailerId)
+            {
+                // Set previous trailer's availability to true
+                if (driver.TrailerId.HasValue)
+                {
+                    var oldTrailer = await trailerRepository.GetAllAttached()
+                        .Where(t => t.Id == driver.TrailerId)
+                        .FirstOrDefaultAsync();
+
+                    var newTrailer = await trailerRepository.GetAllAttached()
+                        .Where(t => t.Id == model.TrailerId)
+                        .FirstOrDefaultAsync();
+
+                    if (oldTrailer != newTrailer)
+                    {
+                        if (oldTrailer != null)
+                        {
+                            oldTrailer.IsAvailable = true;
+                            await trailerRepository.UpdateAsync(oldTrailer);
+                        }
+
+                        // Assign new trailer and set its availability to false
+                        if (model.TrailerId.HasValue)
+                        {
+                            if (newTrailer != null)
+                            {
+                                newTrailer.IsAvailable = false;
+                                driver.TrailerId = newTrailer.Id;
+                                await trailerRepository.UpdateAsync(newTrailer);
+                            }
+                        }
+                        else
+                        {
+                            driver.TrailerId = null;
+                        }
+                    }
+                }
+                else
+                {
+                    var newTrailer = await trailerRepository.GetAllAttached()
+                        .Where(t => t.Id == model.TrailerId)
+                        .FirstOrDefaultAsync();
+
+                    if (newTrailer != null)
+                    {
+                        newTrailer.IsAvailable = false;
+                        driver.TrailerId = newTrailer.Id;
+                        await trailerRepository.UpdateAsync(newTrailer);
+                    }
+                }
+            }
+
+            await driverRepository.UpdateAsync(driver);
+
+            return true;
+        }
 
         public async Task<IEnumerable<Trailer>> GetTrailers()
         {
@@ -146,6 +244,13 @@ namespace TruckingSystem.Services.Data
                 .GetAllAttached()
                 .Where(t => t.IsDeleted == false)
                 .ToListAsync();
+        }
+
+        public async Task LoadSelectLists(DriverEditViewModel model)
+        {
+            model.AvailableTrucks = await GetTrucks();
+            model.AvailableTrailers = await GetTrailers();
+            model.DriverManagers = await GetDriverManagers();
         }
     }
 }

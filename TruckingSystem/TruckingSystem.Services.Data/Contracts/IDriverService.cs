@@ -17,5 +17,7 @@ namespace TruckingSystem.Services.Data.Contracts
         Task<IEnumerable<Trailer>> GetTrailers();
 
         Task<IEnumerable<DriverManager>> GetDriverManagers();
+
+        Task LoadSelectLists(DriverEditViewModel model);
     }
 }

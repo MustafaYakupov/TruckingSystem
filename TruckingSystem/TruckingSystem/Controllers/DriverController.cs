@@ -43,6 +43,7 @@ namespace TruckingSystem.Web.Controllers
         {
             if (ModelState.IsValid == false)
             {
+                await driverService.LoadSelectLists(model);
                 return View(model);
             }
 
@@ -50,6 +51,7 @@ namespace TruckingSystem.Web.Controllers
 
             if (successfullyEdited == false)
             {
+                await driverService.LoadSelectLists(model);
                 return View(model);
             }
 
