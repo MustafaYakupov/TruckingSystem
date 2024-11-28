@@ -12,12 +12,6 @@ namespace TruckingSystem.Services.Data.Contracts
 
         Task<bool> PostEditDriverByIdAsync(DriverEditInputModel model, Guid id);
 
-        Task<IEnumerable<Truck>> GetTrucks();
-
-        Task<IEnumerable<Trailer>> GetTrailers();
-
-        Task<IEnumerable<DriverManager>> GetDriverManagers();
-
         Task LoadSelectLists(DriverEditInputModel model);
 
         Task LoadSelectLists(DriverAddInputModel model);
@@ -25,5 +19,8 @@ namespace TruckingSystem.Services.Data.Contracts
         Task CreateDriverAsync(DriverAddInputModel model);
 
         Task<DriverDeleteViewModel> DeleteDriverGetAsync(Guid id);
-	}
+
+        Task DeleteDriverAsync(DriverDeleteViewModel model);
+
+    }
 }

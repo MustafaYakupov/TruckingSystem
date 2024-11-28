@@ -238,7 +238,6 @@ namespace TruckingSystem.Services.Data
             return true;
         }
 
-		[HttpGet]
 		public async Task<DriverDeleteViewModel> DeleteDriverGetAsync(Guid id)
 		{
 			DriverDeleteViewModel? deleteModel  = await driverRepository
@@ -257,30 +256,19 @@ namespace TruckingSystem.Services.Data
             return deleteModel;
 		}
 
-		public async Task<IEnumerable<Trailer>> GetTrailers()
+        public async Task DeleteDriverAsync(DriverDeleteViewModel model)
         {
-            return await trailerRepository
+            Driver? driver = await driverRepository
                 .GetAllAttached()
-                .Where(t => t.IsDeleted == false)
-                .Where(t => t.IsAvailable == true)
-                .ToListAsync();
-        }
+                .Where(d => d.Id == model.Id)
+                .Where(d => d.IsDeleted == false)
+                .FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<Truck>> GetTrucks()
-        {
-            return await truckRepository
-                .GetAllAttached()
-                .Where(t => t.IsDeleted == false)
-                .Where(t => t.IsAvailable == true)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<DriverManager>> GetDriverManagers()
-        {
-            return await driverManagerRepository
-                .GetAllAttached()
-                .Where(t => t.IsDeleted == false)
-                .ToListAsync();
+            if (driver != null)
+            {
+                driver.IsDeleted = true;
+                await driverRepository.UpdateAsync(driver);
+            }
         }
 
         public async Task LoadSelectLists(DriverEditInputModel model)
@@ -289,11 +277,38 @@ namespace TruckingSystem.Services.Data
             model.AvailableTrailers = await GetTrailers();
             model.DriverManagers = await GetDriverManagers();
         }
-		public async Task LoadSelectLists(DriverAddInputModel model)
-		{
-			model.AvailableTrucks = await GetTrucks();
-			model.AvailableTrailers = await GetTrailers();
-			model.DriverManagers = await GetDriverManagers();
-		}
+
+        public async Task LoadSelectLists(DriverAddInputModel model)
+        {
+            model.AvailableTrucks = await GetTrucks();
+            model.AvailableTrailers = await GetTrailers();
+            model.DriverManagers = await GetDriverManagers();
+        }
+
+        private async Task<IEnumerable<Trailer>> GetTrailers()
+        {
+            return await trailerRepository
+                .GetAllAttached()
+                .Where(t => t.IsDeleted == false)
+                .Where(t => t.IsAvailable == true)
+                .ToListAsync();
+        }
+
+        private async Task<IEnumerable<Truck>> GetTrucks()
+        {
+            return await truckRepository
+                .GetAllAttached()
+                .Where(t => t.IsDeleted == false)
+                .Where(t => t.IsAvailable == true)
+                .ToListAsync();
+        }
+
+        private async Task<IEnumerable<DriverManager>> GetDriverManagers()
+        {
+            return await driverManagerRepository
+                .GetAllAttached()
+                .Where(t => t.IsDeleted == false)
+                .ToListAsync();
+        }
 	}
 }

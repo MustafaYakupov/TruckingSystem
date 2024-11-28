@@ -89,5 +89,13 @@ namespace TruckingSystem.Web.Controllers
 
 			return View(model);
 		}
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(DriverDeleteViewModel model)
+        {
+            await driverService.DeleteDriverAsync(model);
+
+            return RedirectToAction(nameof(Index));
+        }
 	}
 }
