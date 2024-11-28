@@ -1,0 +1,33 @@
+﻿@model DriverDeleteViewModel
+
+@{
+    ViewBag.Title = "Delete Driver";
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-danger text-white">
+            <h3>Delete Driver</h3>
+        </div>
+        <div class="card-body">
+            <p>Are you sure you want to delete this driver?</p>
+            <dl class="row">
+                <dt class="col-sm-4">First Name:</dt>
+                <dd class="col-sm-8">@Model.FirstName</dd>
+
+                <dt class="col-sm-4">Last Name:</dt>
+                <dd class="col-sm-8">@Model.LastName</dd>
+            </dl>
+
+            <form asp-action="DeleteConfirmed" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

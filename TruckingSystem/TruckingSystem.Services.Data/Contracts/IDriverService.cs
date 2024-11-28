@@ -21,5 +21,9 @@ namespace TruckingSystem.Services.Data.Contracts
         Task LoadSelectLists(DriverEditInputModel model);
 
         Task LoadSelectLists(DriverAddInputModel model);
+
+        Task CreateDriverAsync(DriverAddInputModel model);
+
+        Task<DriverDeleteViewModel> DeleteDriverGetAsync(Guid id);
 	}
 }

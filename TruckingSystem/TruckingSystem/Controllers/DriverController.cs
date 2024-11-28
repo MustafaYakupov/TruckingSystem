@@ -28,10 +28,24 @@ namespace TruckingSystem.Web.Controllers
 		public async Task<IActionResult> Create()
 		{
 			DriverAddInputModel model = new DriverAddInputModel();
-
+             
 			await driverService.LoadSelectLists(model);
 
 			return View(model);
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Create(DriverAddInputModel model)
+		{
+			if (ModelState.IsValid == false)
+			{
+				await driverService.LoadSelectLists(model);
+				return View(model);
+			}
+
+			await driverService.CreateDriverAsync(model);
+
+			return RedirectToAction(nameof(Index));
 		}
 
 		[HttpGet]
@@ -67,5 +81,13 @@ namespace TruckingSystem.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-    }
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(Guid id)
+		{
+			DriverDeleteViewModel model = await driverService.DeleteDriverGetAsync(id);
+
+			return View(model);
+		}
+	}
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TruckingSystem.Data.Models;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
@@ -50,7 +51,22 @@ namespace TruckingSystem.Services.Data
             return driverViewModel;
         }
 
-        public async Task<DriverEditInputModel> GetEditDriverByIdAsync(Guid id)
+		public async Task CreateDriverAsync(DriverAddInputModel model)
+		{
+            Driver driver = new Driver()
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                LicenseNumber = model.LicenseNumber,
+                TruckId = model.TruckId,
+                TrailerId = model.TrailerId,
+                DriverManagerId = model.DriverManagerId,
+            };
+
+            await driverRepository.AddAsync(driver);
+		}
+
+		public async Task<DriverEditInputModel> GetEditDriverByIdAsync(Guid id)
         {
 			DriverEditInputModel? viewModel = await driverRepository
                 .GetAllAttached()
@@ -222,7 +238,26 @@ namespace TruckingSystem.Services.Data
             return true;
         }
 
-        public async Task<IEnumerable<Trailer>> GetTrailers()
+		[HttpGet]
+		public async Task<DriverDeleteViewModel> DeleteDriverGetAsync(Guid id)
+		{
+			DriverDeleteViewModel? deleteModel  = await driverRepository
+                .GetAllAttached()
+				.Where(d => d.Id == id)
+				.Where(d => d.IsDeleted == false)
+				.AsNoTracking()
+				.Select(d => new DriverDeleteViewModel()
+				{
+					Id = d.Id,
+					FirstName = d.FirstName,
+					LastName = d.LastName
+				})
+				.FirstOrDefaultAsync();
+
+            return deleteModel;
+		}
+
+		public async Task<IEnumerable<Trailer>> GetTrailers()
         {
             return await trailerRepository
                 .GetAllAttached()
