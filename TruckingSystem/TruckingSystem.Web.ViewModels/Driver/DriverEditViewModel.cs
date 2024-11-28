@@ -19,7 +19,11 @@ namespace TruckingSystem.Web.ViewModels.Driver
         [StringLength(DriverLicenseNumberMaxLength, MinimumLength = DriverLicenseNumberMinLength, ErrorMessage = DriverLicenseNumberLenghtErrorMessage)]
         public required string LicenseNumber { get; set; }
 
-        public Guid? TruckId { get; set; }
+        public string? TruckNumber { get; set; }
+
+        public string? TrailerNumber { get; set; }
+
+		public Guid? TruckId { get; set; }
 
         public Guid? TrailerId { get; set; }
 

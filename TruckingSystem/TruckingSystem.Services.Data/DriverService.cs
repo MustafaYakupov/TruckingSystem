@@ -64,6 +64,8 @@ namespace TruckingSystem.Services.Data
                     LicenseNumber = d.LicenseNumber,
                     TruckId = d.TruckId,
                     TrailerId = d.TrailerId,
+                    TrailerNumber = d.Trailer.TrailerNumber ?? null,
+                    TruckNumber = d.Truck.TruckNumber ?? null,
                     DriverManagerId = d.DriverManagerId,
                 })
                 .FirstOrDefaultAsync();
