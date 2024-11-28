@@ -1,0 +1,43 @@
+﻿@model IEnumerable<TrailerAllViewModel>
+
+@{
+    ViewBag.Title = "Trailers";
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <h2 class="mb-4">Trailers List</h2>
+
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Trailer Number</th>
+                <th>Make</th>
+                <th>Type</th>
+                <th>Model Year</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trailer in Model)
+            {
+                <tr>
+                    <td>@trailer.TrailerNumber</td>
+                    <td>@trailer.Make</td>
+                    <td>@trailer.Type</td>
+                    <td>@trailer.ModelYear</td>
+                    <td>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <a asp-action="Edit" asp-route-id="@trailer.Id" class="btn btn-md btn-primary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@trailer.Id" class="btn btn-md btn-danger">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-right">
+        <a asp-action="Create" class="btn btn-success">Create New Trailer</a>
+    </div>
+</div>

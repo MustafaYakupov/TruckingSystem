@@ -134,11 +134,11 @@ namespace TruckingSystem.Services.Data
                 // Set previous truck's availability to true
                 if (driver.TruckId.HasValue)
                 {
-                    var oldTruck = await truckRepository.GetAllAttached()
+                    Truck? oldTruck = await truckRepository.GetAllAttached()
                         .Where(t => t.Id == driver.TruckId)
                         .FirstOrDefaultAsync();
 
-                    var newTruck = await truckRepository.GetAllAttached()
+                    Truck? newTruck = await truckRepository.GetAllAttached()
                         .Where(t => t.Id == model.TruckId)
                         .FirstOrDefaultAsync();
 
@@ -168,7 +168,7 @@ namespace TruckingSystem.Services.Data
                 }
                 else
                 {
-                    var newTruck = await truckRepository.GetAllAttached()
+                    Truck? newTruck = await truckRepository.GetAllAttached()
                         .Where(t => t.Id == model.TruckId)
                         .FirstOrDefaultAsync();
 
@@ -186,11 +186,11 @@ namespace TruckingSystem.Services.Data
                 // Set previous trailer's availability to true
                 if (driver.TrailerId.HasValue)
                 {
-                    var oldTrailer = await trailerRepository.GetAllAttached()
+                    Trailer? oldTrailer = await trailerRepository.GetAllAttached()
                         .Where(t => t.Id == driver.TrailerId)
                         .FirstOrDefaultAsync();
 
-                    var newTrailer = await trailerRepository.GetAllAttached()
+                    Trailer? newTrailer = await trailerRepository.GetAllAttached()
                         .Where(t => t.Id == model.TrailerId)
                         .FirstOrDefaultAsync();
 
@@ -220,7 +220,7 @@ namespace TruckingSystem.Services.Data
                 }
                 else
                 {
-                    var newTrailer = await trailerRepository.GetAllAttached()
+                    Trailer? newTrailer = await trailerRepository.GetAllAttached()
                         .Where(t => t.Id == model.TrailerId)
                         .FirstOrDefaultAsync();
 

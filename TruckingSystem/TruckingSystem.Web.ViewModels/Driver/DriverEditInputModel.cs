@@ -31,7 +31,7 @@ namespace TruckingSystem.Web.ViewModels.Driver
 
         public IEnumerable<Truck> AvailableTrucks { get; set; } = new List<Truck>();  
 
-        public IEnumerable<Trailer> AvailableTrailers { get; set; } = new List<Trailer>();  
+        public IEnumerable<Data.Models.Trailer> AvailableTrailers { get; set; } = new List<Data.Models.Trailer>();  
 
         public IEnumerable<DriverManager> DriverManagers { get; set; } = new List<DriverManager>();
     }
