@@ -1,14 +1,14 @@
-﻿@model DriverEditInputModel
+﻿@model DriverAddInputModel
 
 @{
-	ViewBag.Title = "Edit Driver";
+	ViewBag.Title = "Craete Driver";
 }
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 <div class="container mt-5">
 	<h2>Edit Driver</h2>
-	<form asp-action="Edit" method="post">
+	<form asp-action="Create" method="post">
 		<div class="form-group">
 			<label asp-for="FirstName">First Name</label>
 			<input asp-for="FirstName" class="form-control" required />
@@ -25,7 +25,7 @@
 			<label for="TruckId">Select Truck</label>
 			<select asp-for="TruckId" class="form-control" asp-items="@(new SelectList(Model.AvailableTrucks, "Id", "TruckNumber"))">
 				<option value="@Model.TruckId">
-					@(Model.TruckId != null ? Model.TruckNumber : "-- Select a Truck --")
+					-- Select a Truck --
 				</option>
 			</select>
 			<span asp-validation-for="TruckId" class="text-danger"></span>
@@ -34,7 +34,7 @@
 			<label for="TrailerId">Select Trailer</label>
 			<select asp-for="TrailerId" class="form-control" asp-items="@(new SelectList(Model.AvailableTrailers, "Id", "TrailerNumber"))">
 				<option value="@Model.TrailerId">
-					@(Model.TrailerId != null ? Model.TrailerNumber : "-- Select a Trailer --")
+					-- Select a Trailer --
 				</option>
 			</select>
 			<span asp-validation-for="TrailerId" class="text-danger"></span>
@@ -46,7 +46,7 @@
 			</select>
 			<span asp-validation-for="DriverManagerId" class="text-danger"></span>
 		</div>
-		<button type="submit" class="btn btn-primary">Save Changes</button>
+		<button type="submit" class="btn btn-primary">Create</button>
 		<a asp-action="Index" class="btn btn-secondary btn-danger">Cancel</a>
 	</form>
 </div>

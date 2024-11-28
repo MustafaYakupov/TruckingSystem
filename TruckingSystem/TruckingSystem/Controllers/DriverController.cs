@@ -24,10 +24,20 @@ namespace TruckingSystem.Web.Controllers
             return View(drivers);
         }
 
-        [HttpGet]
+		[HttpGet]
+		public async Task<IActionResult> Create()
+		{
+			DriverAddInputModel model = new DriverAddInputModel();
+
+			await driverService.LoadSelectLists(model);
+
+			return View(model);
+		}
+
+		[HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            DriverEditViewModel? viewModel = await driverService
+            DriverEditInputModel? viewModel = await driverService
                 .GetEditDriverByIdAsync(id);
 
             if (viewModel == null)
@@ -39,7 +49,7 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(DriverEditViewModel model, Guid id)
+        public async Task<IActionResult> Edit(DriverEditInputModel model, Guid id)
         {
             if (ModelState.IsValid == false)
             {

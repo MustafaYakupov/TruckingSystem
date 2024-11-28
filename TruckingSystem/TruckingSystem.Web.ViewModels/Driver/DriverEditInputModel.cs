@@ -5,7 +5,7 @@ using static TruckingSystem.Common.ValidationMessages.DriverValidationMessages;
 
 namespace TruckingSystem.Web.ViewModels.Driver
 {
-    public class DriverEditViewModel
+    public class DriverEditInputModel
     {
         [Required(ErrorMessage = DriverNameRequiredMessage)]
         [StringLength(DriverFirstAndLastNameMaxLength, MinimumLength = DriverFirstAndLastNameMinLength, ErrorMessage = DriverNameLengthErrorMessage)]

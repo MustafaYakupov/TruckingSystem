@@ -11,17 +11,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{EB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{8EEFD43E-EA8D-46B5-8475-E81E6640E377}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TruckingSystem.Common", "TruckingSystem.Common\TruckingSystem.Common.csproj", "{53CBCE5A-2473-4C81-AB0A-1520832A253F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruckingSystem.Common", "TruckingSystem.Common\TruckingSystem.Common.csproj", "{53CBCE5A-2473-4C81-AB0A-1520832A253F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TruckingSystem.Data", "TruckingSystem.Data\TruckingSystem.Data.csproj", "{EFD322AA-0F70-411D-9BFA-1D926705AEAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruckingSystem.Data", "TruckingSystem.Data\TruckingSystem.Data.csproj", "{EFD322AA-0F70-411D-9BFA-1D926705AEAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TruckingSystem.Data.Models", "TruckingSystem.Data.Models\TruckingSystem.Data.Models.csproj", "{86EBB41C-58C9-4D5D-B432-C72ABA8FCE9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruckingSystem.Data.Models", "TruckingSystem.Data.Models\TruckingSystem.Data.Models.csproj", "{86EBB41C-58C9-4D5D-B432-C72ABA8FCE9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TruckingSystem.Services.Data", "TruckingSystem.Services.Data\TruckingSystem.Services.Data.csproj", "{86168A7F-B644-4032-8A62-E63E5A565928}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruckingSystem.Services.Data", "TruckingSystem.Services.Data\TruckingSystem.Services.Data.csproj", "{86168A7F-B644-4032-8A62-E63E5A565928}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TruckingSystem.Infrastructure", "TruckingSystem.Infrastructure\TruckingSystem.Infrastructure.csproj", "{12F995EA-4F48-460C-83E8-B154266C8750}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruckingSystem.Infrastructure", "TruckingSystem.Infrastructure\TruckingSystem.Infrastructure.csproj", "{12F995EA-4F48-460C-83E8-B154266C8750}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TruckingSystem.Web.ViewModels", "TruckingSystem.Web.ViewModels\TruckingSystem.Web.ViewModels.csproj", "{195D7526-EC39-4C4F-9056-2499BB952A2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TruckingSystem.Web.ViewModels", "TruckingSystem.Web.ViewModels\TruckingSystem.Web.ViewModels.csproj", "{195D7526-EC39-4C4F-9056-2499BB952A2B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0AB4C45A-5B20-4189-BB46-119DB303731C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

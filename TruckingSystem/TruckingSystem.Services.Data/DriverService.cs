@@ -50,14 +50,14 @@ namespace TruckingSystem.Services.Data
             return driverViewModel;
         }
 
-        public async Task<DriverEditViewModel> GetEditDriverByIdAsync(Guid id)
+        public async Task<DriverEditInputModel> GetEditDriverByIdAsync(Guid id)
         {
-            DriverEditViewModel? viewModel = await driverRepository
+			DriverEditInputModel? viewModel = await driverRepository
                 .GetAllAttached()
                 .Where(d => d.Id == id)
                 .Where(d => d.IsDeleted == false)
                 .AsNoTracking()
-                .Select(d => new DriverEditViewModel()
+                .Select(d => new DriverEditInputModel()
                 {
                     FirstName = d.FirstName,
                     LastName = d.LastName,
@@ -81,7 +81,7 @@ namespace TruckingSystem.Services.Data
             return viewModel;
         }
 
-        public async Task<bool> PostEditDriverByIdAsync(DriverEditViewModel model, Guid id)
+        public async Task<bool> PostEditDriverByIdAsync(DriverEditInputModel model, Guid id)
         {
             Driver? driver = await driverRepository
                 .GetAllAttached()
@@ -248,11 +248,17 @@ namespace TruckingSystem.Services.Data
                 .ToListAsync();
         }
 
-        public async Task LoadSelectLists(DriverEditViewModel model)
+        public async Task LoadSelectLists(DriverEditInputModel model)
         {
             model.AvailableTrucks = await GetTrucks();
             model.AvailableTrailers = await GetTrailers();
             model.DriverManagers = await GetDriverManagers();
         }
-    }
+		public async Task LoadSelectLists(DriverAddInputModel model)
+		{
+			model.AvailableTrucks = await GetTrucks();
+			model.AvailableTrailers = await GetTrailers();
+			model.DriverManagers = await GetDriverManagers();
+		}
+	}
 }
