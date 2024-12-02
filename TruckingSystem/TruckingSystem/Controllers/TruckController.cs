@@ -25,6 +25,16 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            TruckAddInputModel model = new TruckAddInputModel();
+
+            await truckService.LoadPartsList(model);
+
+            return View(model);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
             TruckDeleteViewModel model = await truckService.DeleteTruckGetAsync(id);
