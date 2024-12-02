@@ -34,5 +34,18 @@ namespace TruckingSystem.Services.Data
 
             return trailerViewModel;
         }
+
+        public async Task CreateTrailerAsync(TrailerAddInputModel model)
+        {
+            Trailer trailer = new Trailer()
+            {
+                TrailerNumber = model.TrailerNumber,
+                Make = model.Make,
+                Type = model.Type,
+                ModelYear = model.ModelYear,
+            };
+
+            await trailerRepository.AddAsync(trailer);
+        }
     }
 }

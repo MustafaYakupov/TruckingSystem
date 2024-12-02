@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TruckingSystem.Services.Data;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Trailer;
 
 namespace TruckingSystem.Web.Controllers
@@ -22,6 +24,27 @@ namespace TruckingSystem.Web.Controllers
                 await this.trailerService.GetAllTrailersAsync();
 
             return View(trailers);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            TrailerAddInputModel model = new TrailerAddInputModel();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Create(TrailerAddInputModel model)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return View(model);
+            }
+
+            await trailerService.CreateTrailerAsync(model);
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
