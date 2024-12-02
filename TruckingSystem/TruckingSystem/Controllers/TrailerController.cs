@@ -46,5 +46,21 @@ namespace TruckingSystem.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            TrailerDeleteViewModel model = await trailerService.DeleteTrailerGetAsync(id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(TrailerDeleteViewModel model)
+        {
+            await trailerService.DeleteTrailerAsync(model);
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

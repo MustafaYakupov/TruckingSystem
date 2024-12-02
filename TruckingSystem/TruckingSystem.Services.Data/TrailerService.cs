@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TruckingSystem.Data.Models;
+using TruckingSystem.Infrastructure.Repositories;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Trailer;
 
 namespace TruckingSystem.Services.Data
@@ -46,6 +48,38 @@ namespace TruckingSystem.Services.Data
             };
 
             await trailerRepository.AddAsync(trailer);
+        }
+
+        public async Task<TrailerDeleteViewModel> DeleteTrailerGetAsync(Guid id)
+        {
+            TrailerDeleteViewModel? deleteModel = await trailerRepository
+                .GetAllAttached()
+                .Where(t => t.Id == id)
+                .Where(t => t.IsDeleted == false)
+                .AsNoTracking()
+                .Select(t => new TrailerDeleteViewModel()
+                {
+                    Id = t.Id,
+                    TrailerNumber = t.TrailerNumber
+                })
+                .FirstOrDefaultAsync();
+
+            return deleteModel;
+        }
+
+        public async Task DeleteTrailerAsync(TrailerDeleteViewModel model)
+        {
+            Trailer? trailer = await trailerRepository
+                .GetAllAttached()
+                .Where(t => t.Id == model.Id)
+                .Where(t => t.IsDeleted == false)
+                .FirstOrDefaultAsync();
+
+            if (trailer != null)
+            {
+                trailer.IsDeleted = true;
+                await trailerRepository.UpdateAsync(trailer);
+            }
         }
     }
 }
