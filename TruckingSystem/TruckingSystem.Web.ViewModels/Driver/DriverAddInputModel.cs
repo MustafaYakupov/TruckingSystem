@@ -25,7 +25,7 @@ namespace TruckingSystem.Web.ViewModels.Driver
 
 		public Guid? DriverManagerId { get; set; }
 
-		public IEnumerable<Truck> AvailableTrucks { get; set; } = new List<Truck>();
+		public IEnumerable<Data.Models.Truck> AvailableTrucks { get; set; } = new List<Data.Models.Truck>();
 
 		public IEnumerable<Data.Models.Trailer> AvailableTrailers { get; set; } = new List<Data.Models.Trailer>();
 

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<TruckAllViewModel>
+
+@{
+    ViewBag.Title = "Trucks";
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <h2 class="mb-4">Truck List</h2>
+
+    <table class="table table-striped table-responsive-md">
+        <thead class="thead-dark">
+            <tr>
+                <th>Truck Number</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>License Plate</th>
+                <th>Model Year</th>
+                <th>Color</th>
+                <th>Parts on Truck</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var truck in Model)
+            {
+                <tr>
+                    <td>@truck.TruckNumber</td>
+                    <td>@truck.Make</td>
+                    <td>@truck.Model</td>
+                    <td>@truck.LicensePlate</td>
+                    <td>@truck.ModelYear</td>
+                    <td>@truck.Color</td>
+                    @if ((truck.TrucksParts.Count() != 0))
+                    {
+                        <td>@truck.TrucksParts</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@truck.Id" class="btn btn-sm btn-primary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@truck.Id" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-right">
+        <a asp-action="Create" class="btn btn-success">Create New Truck</a>
+    </div>
+</div>

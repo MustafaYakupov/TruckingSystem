@@ -1,12 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels.Truck;
 
 namespace TruckingSystem.Web.Controllers
 {
     public class TruckController : Controller
     {
-        public IActionResult Index()
+        private readonly ITruckService truckService;
+
+        public TruckController(ITruckService truckService)
         {
-            return View();
+            this.truckService = truckService;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            IEnumerable<TruckAllViewModel> trucks =
+                await this.truckService.GetAllTrucksAsync();
+
+            return View(trucks);
         }
     }
 }
