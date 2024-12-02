@@ -81,5 +81,52 @@ namespace TruckingSystem.Services.Data
                 await trailerRepository.UpdateAsync(trailer);
             }
         }
-    }
+
+        public async Task<TrailerEditInputModel> GetEditTrailerByIdAsync(Guid id)
+        {
+            TrailerEditInputModel? viewModel = await trailerRepository
+                .GetAllAttached()
+                .Where(t => t.Id == id)
+                .Where(t => t.IsDeleted == false)
+                .AsNoTracking()
+                .Select(t =>  new TrailerEditInputModel()
+                {
+                    TrailerNumber = t.TrailerNumber,
+                    Make = t.Make,
+                    Type = t.Type,
+                    ModelYear = t.ModelYear,
+                })
+                .FirstOrDefaultAsync();
+
+            if (viewModel == null)
+            {
+                return null;
+            }
+
+            return viewModel;
+        }
+
+		public async Task<bool> PostEditTrailerByIdAsync(TrailerEditInputModel model, Guid id)
+		{
+			Trailer? trailer = await trailerRepository
+				.GetAllAttached()
+				.Where(t => t.Id == id)
+				.Where(t => t.IsDeleted == false)
+				.FirstOrDefaultAsync();
+
+            if (trailer == null || trailer.IsDeleted)
+            {
+                return false;
+            }
+
+            trailer.TrailerNumber = model.TrailerNumber;
+            trailer.Make = model.Make;
+            trailer.Type = model.Type;
+            trailer.ModelYear = model.ModelYear;
+
+            await trailerRepository.UpdateAsync(trailer);
+
+            return true;
+		}
+	}
 }

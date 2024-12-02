@@ -12,5 +12,10 @@ namespace TruckingSystem.Services.Data.Contracts
         Task<TrailerDeleteViewModel> DeleteTrailerGetAsync(Guid id);
 
         Task DeleteTrailerAsync(TrailerDeleteViewModel model);
-    }
+
+        Task<TrailerEditInputModel> GetEditTrailerByIdAsync(Guid id);
+
+        Task<bool> PostEditTrailerByIdAsync(TrailerEditInputModel model, Guid id);
+
+	}
 }

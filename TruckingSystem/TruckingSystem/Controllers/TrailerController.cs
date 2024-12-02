@@ -62,5 +62,37 @@ namespace TruckingSystem.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-    }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            TrailerEditInputModel? viewModel = await trailerService
+                .GetEditTrailerByIdAsync(id);
+
+            if (viewModel == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(viewModel);
+        }
+
+		[HttpPost]
+		public async Task<IActionResult> Edit(TrailerEditInputModel model, Guid id)
+		{
+			if (ModelState.IsValid == false)
+			{
+				return View(model);
+			}
+
+			bool successfullyEdited = await trailerService.PostEditTrailerByIdAsync(model, id);
+
+			if (successfullyEdited == false)
+			{
+				return View(model);
+			}
+
+			return RedirectToAction(nameof(Index));
+		}
+	}
 }
