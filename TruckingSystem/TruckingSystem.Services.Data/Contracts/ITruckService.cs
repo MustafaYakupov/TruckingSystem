@@ -5,5 +5,9 @@ namespace TruckingSystem.Services.Data.Contracts
 	public interface ITruckService
 	{
         Task<IEnumerable<TruckAllViewModel>> GetAllTrucksAsync();
+
+        Task<TruckDeleteViewModel> DeleteTruckGetAsync(Guid id);
+
+        Task DeleteTruckAsync(TruckDeleteViewModel model);
     }
 }
