@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Security.AccessControl;
 using TruckingSystem.Data.Models;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
@@ -9,10 +10,12 @@ namespace TruckingSystem.Services.Data
     public class TruckService : ITruckService
     {
         private IRepository<Truck> truckRepository;
+        private IRepository<Part> partRepository;
 
-        public TruckService(IRepository<Truck> truckRepository)
+        public TruckService(IRepository<Truck> truckRepository, IRepository<Part> partRepository)
         {
             this.truckRepository = truckRepository;
+            this.partRepository = partRepository;
         }
 
         public async Task<IEnumerable<TruckAllViewModel>> GetAllTrucksAsync()
@@ -70,6 +73,18 @@ namespace TruckingSystem.Services.Data
                 truck.IsDeleted = true;
                 await truckRepository.UpdateAsync(truck);
             }
+        }
+
+        public async Task LoadPartsList(TruckAddInputModel model)
+        {
+            model.Parts = await GetParts();
+        }
+
+        private async Task<IEnumerable<Part>> GetParts()
+        {
+            return await partRepository
+                .GetAllAttached()
+                .ToListAsync();
         }
     }
 }

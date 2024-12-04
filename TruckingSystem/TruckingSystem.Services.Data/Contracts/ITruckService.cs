@@ -1,4 +1,5 @@
-﻿using TruckingSystem.Web.ViewModels.Truck;
+﻿using TruckingSystem.Data.Models;
+using TruckingSystem.Web.ViewModels.Truck;
 
 namespace TruckingSystem.Services.Data.Contracts
 {
@@ -9,5 +10,7 @@ namespace TruckingSystem.Services.Data.Contracts
         Task<TruckDeleteViewModel> DeleteTruckGetAsync(Guid id);
 
         Task DeleteTruckAsync(TruckDeleteViewModel model);
+
+        Task LoadPartsList(TruckAddInputModel model);
     }
 }

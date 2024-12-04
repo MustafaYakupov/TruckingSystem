@@ -53,6 +53,8 @@ namespace TruckingSystem.Web
             builder.Services.AddScoped<ITrailerRepository, TrailerRepository>();
             builder.Services.AddScoped<ITrailerService, TrailerService>();
 
+            builder.Services.AddScoped<IPartRepository, PartRepository>();
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
