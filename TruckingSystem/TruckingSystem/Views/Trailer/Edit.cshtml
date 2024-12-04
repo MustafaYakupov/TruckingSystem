@@ -12,20 +12,28 @@
 		<div class="form-group">
 			<label asp-for="TrailerNumber">Trailer Number</label>
 			<input asp-for="TrailerNumber" class="form-control" required />
+			<span asp-validation-for="TrailerNumber" class="text-danger"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="Make">Make</label>
 			<input asp-for="Make" class="form-control" required />
+			<span asp-validation-for="Make" class="text-danger"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="Type">Type</label>
 			<input asp-for="Type" class="form-control" required />
+			<span asp-validation-for="Type" class="text-danger"></span>
 		</div>
 		<div class="form-group">
 			<label asp-for="ModelYear">Model Year</label>
 			<input asp-for="ModelYear" class="form-control" required />
+			<span asp-validation-for="ModelYear" class="text-danger"></span>
 		</div>
 		<button type="submit" class="btn btn-primary">Save Changes</button>
 		<a asp-action="Index" class="btn btn-secondary btn-danger">Cancel</a>
 	</form>
 </div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
