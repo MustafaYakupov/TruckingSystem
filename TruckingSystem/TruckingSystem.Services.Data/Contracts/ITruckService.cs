@@ -11,7 +11,7 @@ namespace TruckingSystem.Services.Data.Contracts
 
         Task DeleteTruckAsync(TruckDeleteViewModel model);
 
-        Task LoadPartsList(TruckAddInputModel model);
+        Task LoadPartsListAsync(TruckAddInputModel model);
 
         Task CreateTruckAsync(TruckAddInputModel model);
 

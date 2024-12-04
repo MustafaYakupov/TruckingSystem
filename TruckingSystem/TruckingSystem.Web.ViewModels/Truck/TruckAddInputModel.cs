@@ -33,6 +33,6 @@ namespace TruckingSystem.Web.ViewModels.Truck
 
 		public Guid? PartId { get; set; }
 
-		public IEnumerable<Part> Parts { get; set; } = new HashSet<Part>();
+		public IList<PartSelectionViewModel> Parts { get; set; } = new List<PartSelectionViewModel>();
     }
 }

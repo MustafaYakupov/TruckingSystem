@@ -29,7 +29,7 @@ namespace TruckingSystem.Web.Controllers
         {
             TruckAddInputModel model = new TruckAddInputModel();
 
-            await truckService.LoadPartsList(model);
+            await truckService.LoadPartsListAsync(model);
 
             return View(model);
         }
@@ -39,7 +39,7 @@ namespace TruckingSystem.Web.Controllers
 		{
 			if (ModelState.IsValid == false)
 			{
-				await truckService.LoadPartsList(truckModel);
+				await truckService.LoadPartsListAsync(truckModel);
 				return View(truckModel);
 			}
 

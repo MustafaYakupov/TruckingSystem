@@ -32,9 +32,23 @@
                     <td>@truck.LicensePlate</td>
                     <td>@truck.ModelYear</td>
                     <td>@truck.Color</td>
-                    @if ((truck.TrucksParts.Count() != 0))
+                    @if ((truck.Parts.Count() != 0))
                     {
-                        <td>@truck.TrucksParts</td>
+                        <td>
+                            <details>
+                                <summary>View Parts</summary>
+                                <ul>
+                                    @foreach (var part in truck.Parts)
+                                    {
+                                        <li>@($"{part.Make} - {part.Type}")</li>
+                                    }
+                                </ul>
+                            </details>
+                        </td>
+                        @* @foreach (var part in truck.Parts)
+                        {
+                            <td>@part.Make - @part.Type</td>
+                        } *@
                     }
                     else
                     {

@@ -40,17 +40,18 @@
 			<span asp-validation-for="Color" class="text-danger"></span>
 		</div>
 		<div class="form-group">
-			<label for="TruckPartId">Select Part</label>
-			<select asp-for="PartId" class="form-control">
-				<option value="">-- Select a Part --</option>
-				@foreach (var part in Model.Parts)
-				{
-					<option value="@part.Id">
-						@($"{part.Type} - {part.Make}")
-					</option>
-				}
-			</select>
-			<span asp-validation-for="PartId" class="text-danger"></span>
+			@for (int i = 0; i < Model.Parts.Count(); i++)
+			{
+				<div class="form-check">
+					<input asp-for="Parts[i].IsSelected" class="form-check-input" />
+					<label class="form-check-label">
+						@($"{Model.Parts[i].PartType} - {Model.Parts[i].PartMake}")
+					</label>
+					<input type="hidden" asp-for="Parts[i].PartId" />
+					<input type="hidden" asp-for="Parts[i].PartType" />
+					<input type="hidden" asp-for="Parts[i].PartMake" />
+				</div>
+			}
 		</div>
 		<button type="submit" class="btn btn-primary">Create</button>
 		<a asp-action="Index" class="btn btn-secondary btn-danger">Cancel</a>

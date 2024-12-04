@@ -18,7 +18,7 @@ namespace TruckingSystem.Web.ViewModels.Truck
 
         public required string Color { get; set; }
 
-        public ICollection<TruckPart> TrucksParts { get; set; } = new List<TruckPart>();
+        public IEnumerable<Part> Parts { get; set; } = new List<Part>();
 
     }
 }
