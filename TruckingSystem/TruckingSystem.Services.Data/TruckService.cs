@@ -43,7 +43,33 @@ namespace TruckingSystem.Services.Data
             return truckViewModel;
         }
 
-        public async Task<TruckDeleteViewModel> DeleteTruckGetAsync(Guid id)
+		public async Task CreateTruckAsync(TruckAddInputModel model)
+		{
+            Truck truck = new Truck()
+            {
+                TruckNumber = model.TruckNumber,
+                Make = model.Make,
+                Model = model.Model,
+                LicensePlate = model.LicensePlate,
+                ModelYear = model.ModelYear,
+                Color = model.Color,
+            };
+
+            if (model.Parts.Any())
+            {
+				TruckPart truckPart = new TruckPart()
+				{
+					TruckId = truck.Id,
+					PartId = model.PartId.Value,
+				};
+
+                truck.TrucksParts.Add(truckPart);
+			}
+
+            await truckRepository.AddAsync(truck);
+		}
+
+		public async Task<TruckDeleteViewModel> DeleteTruckGetAsync(Guid id)
         {
             TruckDeleteViewModel? deleteModel = await truckRepository
                 .GetAllAttached()
@@ -86,5 +112,5 @@ namespace TruckingSystem.Services.Data
                 .GetAllAttached()
                 .ToListAsync();
         }
-    }
+	}
 }
