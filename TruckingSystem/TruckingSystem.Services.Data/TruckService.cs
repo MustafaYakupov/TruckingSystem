@@ -73,14 +73,14 @@ namespace TruckingSystem.Services.Data
 			await truckRepository.AddAsync(truck);
 		}
 
-        public async Task<TruckEditInputModel> GetEditTruckByIdAsync(Guid id)
-        {
+		public async Task<TruckEditInputModel> GetEditTruckByIdAsync(Guid id)
+		{
 			TruckEditInputModel? viewModel = await truckRepository
 				.GetAllAttached()
-				.Include(t => t.TrucksParts)
-				.ThenInclude(tp => tp.Part.TruckParts)
 				.Where(t => t.Id == id)
 				.Where(t => t.IsDeleted == false)
+				.Include(t => t.TrucksParts)
+				.ThenInclude(tp => tp.Part.TruckParts)
 				.AsNoTracking()
 				.Select(t => new TruckEditInputModel()
 				{
@@ -98,12 +98,59 @@ namespace TruckingSystem.Services.Data
 				return null;
 			}
 
-            await LoadPartsListAsync(viewModel);
+			await LoadPartsListAsync(viewModel);
 
 			return viewModel;
-        }
+		}
 
-        public async Task<TruckDeleteViewModel> DeleteTruckGetAsync(Guid id)
+		public async Task<bool> PostEditTruckByIdAsync(TruckEditInputModel model, Guid id)
+		{
+			Truck? truck = await truckRepository
+				.GetAllAttached()
+				.Where(t => t.Id == id)
+				.Where(t => t.IsDeleted == false)
+				.Include(t => t.TrucksParts)
+				.ThenInclude(tp => tp.Part.TruckParts)
+				.FirstOrDefaultAsync();
+
+			if (truck == null || truck.IsDeleted)
+			{
+				return false;
+			}
+
+			truck.TruckNumber = model.TruckNumber;
+			truck.Make = model.Make;
+			truck.Model = model.Model;
+			truck.LicensePlate = model.LicensePlate;
+			truck.ModelYear = model.ModelYear;
+			truck.Color = model.Color;
+
+			if (model.Parts.Any(p => p.IsSelected == true))
+			{
+				foreach (var part in model.Parts.Where(p => p.IsSelected == true))
+				{
+					TruckPart truckPart = new TruckPart()
+					{
+						TruckId = truck.Id,
+						PartId = part.PartId,
+					};
+
+					if (truck.TrucksParts.Any(tp => tp.PartId == truckPart.PartId) == false)
+					{
+						truck.TrucksParts.Add(truckPart);
+					}
+				}
+			}
+			else
+			{
+				truck.TrucksParts = new HashSet<TruckPart>();
+			}
+
+			await truckRepository.UpdateAsync(truck);
+			return true;
+		}
+
+		public async Task<TruckDeleteViewModel> DeleteTruckGetAsync(Guid id)
 		{
 			TruckDeleteViewModel? deleteModel = await truckRepository
 				.GetAllAttached()
@@ -140,15 +187,16 @@ namespace TruckingSystem.Services.Data
 			model.Parts = await GetPartsAsync();
 		}
 
-        public async Task LoadPartsListAsync(TruckEditInputModel model)
-        {
-            model.Parts = await GetPartsAsync();
-        }
+		public async Task LoadPartsListAsync(TruckEditInputModel model)
+		{
+			model.Parts = await GetPartsAsync();
+		}
 
-        private async Task<IList<PartSelectionViewModel>> GetPartsAsync()
+		private async Task<IList<PartSelectionViewModel>> GetPartsAsync()
 		{
 			return await partRepository
 				.GetAllAttached()
+				.AsNoTracking()
 				.Select(p => new PartSelectionViewModel()
 				{
 					PartId = p.Id,
@@ -158,5 +206,5 @@ namespace TruckingSystem.Services.Data
 				})
 				.ToListAsync();
 		}
-    }
+	}
 }

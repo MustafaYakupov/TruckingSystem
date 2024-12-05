@@ -13,9 +13,13 @@ namespace TruckingSystem.Services.Data.Contracts
 
         Task LoadPartsListAsync(TruckAddInputModel model);
 
-        Task CreateTruckAsync(TruckAddInputModel model);
+        Task LoadPartsListAsync(TruckEditInputModel model);
+
+		Task CreateTruckAsync(TruckAddInputModel model);
 
         Task<TruckEditInputModel> GetEditTruckByIdAsync(Guid id);
+
+        Task<bool> PostEditTruckByIdAsync(TruckEditInputModel model, Guid id);
 
     }
 }

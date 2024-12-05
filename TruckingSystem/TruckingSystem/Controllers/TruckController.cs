@@ -62,7 +62,28 @@ namespace TruckingSystem.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
+		[HttpPost]
+		public async Task<IActionResult> Edit(TruckEditInputModel truckModel, Guid id)
+		{
+			if (ModelState.IsValid == false)
+			{
+				await truckService.LoadPartsListAsync(truckModel);
+
+				return View(truckModel);
+			}
+
+			bool successfullyEdited = await truckService.PostEditTruckByIdAsync(truckModel, id);
+
+			if (successfullyEdited == false)
+			{
+				await truckService.LoadPartsListAsync(truckModel);
+				return View(truckModel);
+			}
+
+			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
             TruckDeleteViewModel model = await truckService.DeleteTruckGetAsync(id);
