@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 using TruckingSystem.Data;
 using TruckingSystem.Infrastructure.Repositories;
@@ -54,6 +55,9 @@ namespace TruckingSystem.Web
             builder.Services.AddScoped<ITrailerService, TrailerService>();
 
             builder.Services.AddScoped<IPartRepository, PartRepository>();
+
+            builder.Services.AddScoped<ILoadRepository, LoadRepository>();
+            builder.Services.AddScoped<ILoadService, LoadService>();
 
             builder.Services.AddControllersWithViews();
 

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<LoadAllViewModel>
+
+@{
+    ViewBag.Title = "Available Loads";
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <h2 class="mb-4">Available Loads</h2>
+    <table class="table table-striped table-responsive-md">
+        <thead class="thead-dark">
+            <tr>
+                <th>Pickup Location</th>
+                <th>Delivery Location</th>
+                <th>Weight</th>
+                <th>Temperature</th>
+                <th>Pickup Time</th>
+                <th>Delivery Time</th>
+                <th>Distance</th>
+                <th>Broker Company</th>
+                <th>Driver</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var load in Model)
+            {
+                <tr>
+                    <td>@load.PickupLocation</td>
+                    <td>@load.DeliveryLocation</td>
+                    <td>@load.Weight</td>
+                    <td>@load.Temperature</td>
+                    <td>@load.PickupTime</td>
+                    <td>@load.DeliveryTime</td>
+                    <td>@load.Distance</td>
+                    <td>@load.BrokerCompany</td>
+                    <td>Not assigned</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@load.Id" class="btn btn-sm btn-primary">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@load.Id" class="btn btn-sm btn-danger">Delete</a>
+                        <a asp-action="Delete" asp-route-id="@load.Id" class="btn btn-sm btn-success">Assign Driver</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="text-right">
+        <a asp-action="Create" class="btn btn-success">Create New Load</a>
+    </div>
+</div>

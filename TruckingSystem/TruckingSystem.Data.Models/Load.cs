@@ -41,12 +41,6 @@ namespace TruckingSystem.Data.Models
         [Comment("Load distance")]
         public int Distance { get; set; }
 
-        [Comment("Driver identifier")]
-        public Guid? DriverId { get; set; }
-
-        [ForeignKey(nameof(DriverId))]
-        public Driver? Driver { get; set; }
-
         [Comment("BrokerCompany identifier")]
         public Guid BrokerCompanyId { get; set; }
 
@@ -54,7 +48,13 @@ namespace TruckingSystem.Data.Models
         [ForeignKey(nameof(BrokerCompanyId))]
         public BrokerCompany BrokerCompany { get; set; } = null!;
 
-        [Comment("Shows if the load is assigned or not")]
+		[Comment("Driver identifier")]
+		public Guid? DriverId { get; set; }
+
+		[ForeignKey(nameof(DriverId))]
+		public Driver? Driver { get; set; }
+
+		[Comment("Shows if the load is assigned or not")]
         public bool IsAvailable { get; set; } = true;
 
         [Comment("Shows weather load is deleted or not")]
