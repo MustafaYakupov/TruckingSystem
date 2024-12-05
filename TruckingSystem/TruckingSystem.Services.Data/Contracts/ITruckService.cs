@@ -15,5 +15,7 @@ namespace TruckingSystem.Services.Data.Contracts
 
         Task CreateTruckAsync(TruckAddInputModel model);
 
-	}
+        Task<TruckEditInputModel> GetEditTruckByIdAsync(Guid id);
+
+    }
 }
