@@ -102,7 +102,23 @@ namespace TruckingSystem.Services.Data
 			return deleteModel;
 		}
 
-		public async Task LoadBrokerCompanies(LoadAddInputModel model)
+        public async Task DeleteLoadAsync(LoadDeleteViewModel model)
+        {
+            Load? load = await loadRepository
+                .GetAllAttached()
+                .Where(l => l.Id == model.Id)
+                .Where(l => l.IsDeleted == false)
+                .FirstOrDefaultAsync();
+
+            if (load != null)
+            {
+                load.IsDeleted = true;
+                await loadRepository.UpdateAsync(load);
+            }
+        }
+
+
+        public async Task LoadBrokerCompanies(LoadAddInputModel model)
         {
             model.BrokerCompanies = await GetBrokerCompanies();
         }

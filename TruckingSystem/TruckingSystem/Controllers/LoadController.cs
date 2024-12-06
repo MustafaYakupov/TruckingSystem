@@ -69,5 +69,13 @@ namespace TruckingSystem.Web.Controllers
 
 			return View(model);
 		}
-	}
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(LoadDeleteViewModel model)
+        {
+            await loadService.DeleteLoadAsync(model);
+
+            return RedirectToAction(nameof(Index));
+        }
+    }
 }
