@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using TruckingSystem.Services.Data;
 using TruckingSystem.Services.Data.Contracts;
@@ -9,7 +10,8 @@ using static TruckingSystem.Common.ValidationMessages.LoadValidationMessages;
 
 namespace TruckingSystem.Web.Controllers
 {
-    public class LoadController : Controller
+	[Authorize]
+	public class LoadController : Controller
     {
         private readonly ILoadService loadService;
 
@@ -57,6 +59,15 @@ namespace TruckingSystem.Web.Controllers
 			}
 
 			return RedirectToAction(nameof(Index));
+		}
+
+
+		[HttpGet]
+		public async Task<IActionResult> Delete(Guid id)
+		{
+			LoadDeleteViewModel model = await loadService.DeleteLoadGetAsync(id);
+
+			return View(model);
 		}
 	}
 }

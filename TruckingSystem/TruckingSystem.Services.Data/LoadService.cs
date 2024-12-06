@@ -2,8 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using TruckingSystem.Data.Models;
+using TruckingSystem.Infrastructure.Repositories;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Load;
 using static TruckingSystem.Common.ValidationConstants.LoadConstants;
 
@@ -80,8 +82,25 @@ namespace TruckingSystem.Services.Data
             await loadRepository.AddAsync(load);
 
             return true;
-        }
+		}
 
+		public async Task<LoadDeleteViewModel> DeleteLoadGetAsync(Guid id)
+		{
+            LoadDeleteViewModel? deleteModel = await loadRepository
+				.GetAllAttached()
+				.Where(l => l.Id == id)
+				.Where(l => l.IsDeleted == false)
+				.AsNoTracking()
+				.Select(l => new LoadDeleteViewModel()
+				{
+                    Id = l.Id,
+                    PickupLocation = l.PickupLocation,
+                    DeliveryLocation = l.DeliveryLocation
+				})
+				.FirstOrDefaultAsync();
+
+			return deleteModel;
+		}
 
 		public async Task LoadBrokerCompanies(LoadAddInputModel model)
         {

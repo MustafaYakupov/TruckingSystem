@@ -10,5 +10,6 @@ namespace TruckingSystem.Services.Data.Contracts
 
         Task<bool> CreateLoadAsync(LoadAddInputModel model);
 
+        Task<LoadDeleteViewModel> DeleteLoadGetAsync(Guid id);
 	}
 }
