@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DispatchInProgressViewModel>
+
+@{
+    ViewBag.Title = "Loads in Progress";
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <h2 class="mb-4">Loads in Progress</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Driver</th>
+                    <th>Truck</th>
+                    <th>Trailer</th>
+                    <th>DriverManager</th>
+                    <th>Load</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var dispatch in Model)
+                {
+                    <tr>
+                        <td>@dispatch.Driver</td>
+                        <td>@dispatch.Truck</td>
+                        <td>@dispatch.Trailer</td>
+                        <td>@dispatch.DriverManager</td>
+                        <td>@dispatch.Load</td>
+                        <td>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                <a asp-action="DispatchComplete" asp-route-id="@dispatch.Id" class="btn btn-md btn-success">Mark as Completed</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-info text-center" role="alert">
+            No In Progress Loads!
+        </div>
+    }
+</div>

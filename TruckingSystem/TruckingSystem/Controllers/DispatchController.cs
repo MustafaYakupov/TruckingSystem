@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels.Dispatch;
 
 namespace TruckingSystem.Web.Controllers
 {
@@ -14,9 +15,13 @@ namespace TruckingSystem.Web.Controllers
             this.dispatchService = dispatchService;
         }
 
-        public IActionResult Index()
+		[HttpGet]
+        public async Task<IActionResult> LoadsInProgress()
 		{
-			return View();
+			IEnumerable<DispatchInProgressViewModel> dispatchesInProgress =
+				await this.dispatchService.GetAllDispatchesInProgressAsync();
+
+			return View(dispatchesInProgress);
 		}
 	}
 }
