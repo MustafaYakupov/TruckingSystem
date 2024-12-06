@@ -51,25 +51,25 @@ namespace TruckingSystem.Services.Data
         public async Task<bool> CreateLoadAsync(LoadAddInputModel model)
         {
             bool isPickupTimeValid = DateTime.TryParseExact(model.PickupTime,
-				DateTimeFormat,
+                DateTimeFormat,
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
                 out DateTime pickupTime);
 
-			bool isDeliveryTimeValid = DateTime.TryParseExact(model.DeliveryTime,
-				DateTimeFormat,
-				CultureInfo.InvariantCulture,
-				DateTimeStyles.None,
-				out DateTime deliveryTime);
+            bool isDeliveryTimeValid = DateTime.TryParseExact(model.DeliveryTime,
+                DateTimeFormat,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out DateTime deliveryTime);
 
             if (isPickupTimeValid == false || isDeliveryTimeValid == false)
             {
                 return false;
             }
 
-			Load load = new Load()
+            Load load = new Load()
             {
-				PickupLocation = model.PickupLocation,
+                PickupLocation = model.PickupLocation,
                 DeliveryLocation = model.DeliveryLocation,
                 Weight = model.Weight,
                 Temperature = model?.Temperature ?? null,
@@ -77,30 +77,61 @@ namespace TruckingSystem.Services.Data
                 DeliveryTime = deliveryTime,
                 Distance = model.Distance,
                 BrokerCompanyId = model.BrokerCompanyId
-			};
+            };
 
             await loadRepository.AddAsync(load);
 
             return true;
-		}
+        }
 
-		public async Task<LoadDeleteViewModel> DeleteLoadGetAsync(Guid id)
-		{
+        public async Task<LoadEditInputModel> GetEditLoadByIdAsync(Guid id)
+        {
+            LoadEditInputModel? viewModel = await loadRepository
+                .GetAllAttached()
+                .Where(l => l.Id == id)
+                .Where(l => l.IsDeleted == false)
+                .AsNoTracking()
+                .Select(l => new LoadEditInputModel()
+                {
+                    PickupLocation = l.PickupLocation,
+                    DeliveryLocation = l.DeliveryLocation,
+                    Weight = l.Weight,
+                    Temperature = l.Temperature ?? null,
+                    PickupTime = l.PickupTime.ToString(DateTimeFormat),
+                    DeliveryTime = l.DeliveryTime.ToString(DateTimeFormat),
+                    Distance = l.Distance,
+                    BrokerCompanyId = l.BrokerCompanyId
+				})
+                .FirstOrDefaultAsync();
+
+            if (viewModel == null)
+            {
+                return null;
+            }
+
+            await LoadBrokerCompanies(viewModel);
+
+
+            return viewModel;
+        }
+
+        public async Task<LoadDeleteViewModel> DeleteLoadGetAsync(Guid id)
+        {
             LoadDeleteViewModel? deleteModel = await loadRepository
-				.GetAllAttached()
-				.Where(l => l.Id == id)
-				.Where(l => l.IsDeleted == false)
-				.AsNoTracking()
-				.Select(l => new LoadDeleteViewModel()
-				{
+                .GetAllAttached()
+                .Where(l => l.Id == id)
+                .Where(l => l.IsDeleted == false)
+                .AsNoTracking()
+                .Select(l => new LoadDeleteViewModel()
+                {
                     Id = l.Id,
                     PickupLocation = l.PickupLocation,
                     DeliveryLocation = l.DeliveryLocation
-				})
-				.FirstOrDefaultAsync();
+                })
+                .FirstOrDefaultAsync();
 
-			return deleteModel;
-		}
+            return deleteModel;
+        }
 
         public async Task DeleteLoadAsync(LoadDeleteViewModel model)
         {
@@ -119,6 +150,11 @@ namespace TruckingSystem.Services.Data
 
 
         public async Task LoadBrokerCompanies(LoadAddInputModel model)
+        {
+            model.BrokerCompanies = await GetBrokerCompanies();
+        }
+
+        public async Task LoadBrokerCompanies(LoadEditInputModel model)
         {
             model.BrokerCompanies = await GetBrokerCompanies();
         }

@@ -61,8 +61,21 @@ namespace TruckingSystem.Web.Controllers
 			return RedirectToAction(nameof(Index));
 		}
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            LoadEditInputModel? viewModel = await loadService
+                .GetEditLoadByIdAsync(id);
 
-		[HttpGet]
+            if (viewModel == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
 		public async Task<IActionResult> Delete(Guid id)
 		{
 			LoadDeleteViewModel model = await loadService.DeleteLoadGetAsync(id);
