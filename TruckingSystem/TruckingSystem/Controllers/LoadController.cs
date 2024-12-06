@@ -75,7 +75,27 @@ namespace TruckingSystem.Web.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
+		[HttpPost]
+		public async Task<IActionResult> Edit(LoadEditInputModel model, Guid id)
+		{
+			if (ModelState.IsValid == false)
+			{
+				await loadService.LoadBrokerCompanies(model);
+				return View(model);
+			}
+
+			bool successfullyEdited = await loadService.PostEditLoadByIdAsync(model, id);
+
+			if (successfullyEdited == false)
+			{
+				await loadService.LoadBrokerCompanies(model);
+				return View(model);
+			}
+
+			return RedirectToAction(nameof(Index));
+		}
+
+		[HttpGet]
 		public async Task<IActionResult> Delete(Guid id)
 		{
 			LoadDeleteViewModel model = await loadService.DeleteLoadGetAsync(id);

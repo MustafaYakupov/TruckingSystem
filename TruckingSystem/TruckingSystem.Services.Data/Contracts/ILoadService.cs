@@ -8,7 +8,9 @@ namespace TruckingSystem.Services.Data.Contracts
 
         Task LoadBrokerCompanies(LoadAddInputModel model);
 
-        Task<bool> CreateLoadAsync(LoadAddInputModel model);
+		Task LoadBrokerCompanies(LoadEditInputModel model);
+
+		Task<bool> CreateLoadAsync(LoadAddInputModel model);
 
         Task<LoadDeleteViewModel> DeleteLoadGetAsync(Guid id);
 
@@ -16,5 +18,6 @@ namespace TruckingSystem.Services.Data.Contracts
 
         Task<LoadEditInputModel> GetEditLoadByIdAsync(Guid id);
 
-    }
+        Task<bool> PostEditLoadByIdAsync(LoadEditInputModel model, Guid id);
+	}
 }

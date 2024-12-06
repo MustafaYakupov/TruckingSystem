@@ -115,7 +115,52 @@ namespace TruckingSystem.Services.Data
             return viewModel;
         }
 
-        public async Task<LoadDeleteViewModel> DeleteLoadGetAsync(Guid id)
+        public async Task<bool> PostEditLoadByIdAsync(LoadEditInputModel model, Guid id)
+        {
+			Load? load = await loadRepository
+			   .GetAllAttached()
+			   .Where(l => l.Id == id)
+			   .Where(l => l.IsDeleted == false)
+               .Include(l => l.BrokerCompany)
+			   .FirstOrDefaultAsync();
+
+            if (load == null || load.IsDeleted)
+            {
+                return false;
+            }
+
+			bool isPickupTimeValid = DateTime.TryParseExact(model.PickupTime,
+				DateTimeFormat,
+				CultureInfo.InvariantCulture,
+				DateTimeStyles.None,
+				out DateTime pickupTime);
+
+			bool isDeliveryTimeValid = DateTime.TryParseExact(model.DeliveryTime,
+				DateTimeFormat,
+				CultureInfo.InvariantCulture,
+				DateTimeStyles.None,
+				out DateTime deliveryTime);
+
+			if (isPickupTimeValid == false || isDeliveryTimeValid == false)
+			{
+				return false;
+			}
+
+			load.PickupLocation = model.PickupLocation;
+            load.DeliveryLocation = model.DeliveryLocation;
+            load.Weight = model.Weight;
+            load.Temperature = model.Temperature ?? null;
+            load.Distance = model.Distance;
+            load.BrokerCompanyId = model.BrokerCompanyId;
+            load.PickupTime = pickupTime;
+            load.DeliveryTime = deliveryTime;
+
+            await loadRepository.UpdateAsync(load);
+
+            return true;
+		}
+
+		public async Task<LoadDeleteViewModel> DeleteLoadGetAsync(Guid id)
         {
             LoadDeleteViewModel? deleteModel = await loadRepository
                 .GetAllAttached()
