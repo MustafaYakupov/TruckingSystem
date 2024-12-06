@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TruckingSystem.Services.Data;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Load;
 
 namespace TruckingSystem.Web.Controllers
@@ -20,6 +22,16 @@ namespace TruckingSystem.Web.Controllers
                 await this.loadService.GetAllLoadsAsync();
 
             return View(loads);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            LoadAddInputModel model = new LoadAddInputModel();
+
+            await loadService.LoadBrokerCompanies(model);
+
+            return View(model);
         }
     }
 }

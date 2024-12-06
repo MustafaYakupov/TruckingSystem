@@ -10,10 +10,12 @@ namespace TruckingSystem.Services.Data
     public class LoadService : ILoadService
     {
         private IRepository<Load> loadRepository;
+        private IRepository<BrokerCompany> brokerCompanyRepository;
 
-        public LoadService(IRepository<Load> loadRepository)
+        public LoadService(IRepository<Load> loadRepository, IRepository<BrokerCompany> brokerCompanyRepository)
         {
             this.loadRepository = loadRepository;
+            this.brokerCompanyRepository = brokerCompanyRepository;
         }
 
         public async Task<IEnumerable<LoadAllViewModel>> GetAllLoadsAsync()
@@ -40,6 +42,17 @@ namespace TruckingSystem.Services.Data
                 });
 
             return loadViewModel;
+        }
+
+        public async Task LoadBrokerCompanies(LoadAddInputModel model)
+        {
+            model.BrokerCompanies = await GetBrokerCompanies();
+        }
+
+        private async Task<IEnumerable<BrokerCompany>> GetBrokerCompanies()
+        {
+            return await brokerCompanyRepository
+                .GetAllAsync();
         }
     }
 }
