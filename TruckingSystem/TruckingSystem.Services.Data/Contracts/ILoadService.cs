@@ -7,5 +7,8 @@ namespace TruckingSystem.Services.Data.Contracts
         Task<IEnumerable<LoadAllViewModel>> GetAllLoadsAsync();
 
         Task LoadBrokerCompanies(LoadAddInputModel model);
-    }
+
+        Task<bool> CreateLoadAsync(LoadAddInputModel model);
+
+	}
 }

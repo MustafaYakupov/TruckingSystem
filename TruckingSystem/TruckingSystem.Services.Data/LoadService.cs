@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using TruckingSystem.Data.Models;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
@@ -44,7 +46,44 @@ namespace TruckingSystem.Services.Data
             return loadViewModel;
         }
 
-        public async Task LoadBrokerCompanies(LoadAddInputModel model)
+        public async Task<bool> CreateLoadAsync(LoadAddInputModel model)
+        {
+            bool isPickupTimeValid = DateTime.TryParseExact(model.PickupTime,
+				DateTimeFormat,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out DateTime pickupTime);
+
+			bool isDeliveryTimeValid = DateTime.TryParseExact(model.DeliveryTime,
+				DateTimeFormat,
+				CultureInfo.InvariantCulture,
+				DateTimeStyles.None,
+				out DateTime deliveryTime);
+
+            if (isPickupTimeValid == false || isDeliveryTimeValid == false)
+            {
+                return false;
+            }
+
+			Load load = new Load()
+            {
+				PickupLocation = model.PickupLocation,
+                DeliveryLocation = model.DeliveryLocation,
+                Weight = model.Weight,
+                Temperature = model?.Temperature ?? null,
+                PickupTime = pickupTime,
+                DeliveryTime = deliveryTime,
+                Distance = model.Distance,
+                BrokerCompanyId = model.BrokerCompanyId
+			};
+
+            await loadRepository.AddAsync(load);
+
+            return true;
+        }
+
+
+		public async Task LoadBrokerCompanies(LoadAddInputModel model)
         {
             model.BrokerCompanies = await GetBrokerCompanies();
         }

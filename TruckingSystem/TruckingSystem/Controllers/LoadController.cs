@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 using TruckingSystem.Services.Data;
 using TruckingSystem.Services.Data.Contracts;
 using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Load;
+using static TruckingSystem.Common.ValidationMessages.LoadValidationMessages;
+
 
 namespace TruckingSystem.Web.Controllers
 {
@@ -33,5 +36,27 @@ namespace TruckingSystem.Web.Controllers
 
             return View(model);
         }
-    }
+
+		[HttpPost]
+		public async Task<IActionResult> Create(LoadAddInputModel model)
+		{
+			if (ModelState.IsValid == false)
+			{
+				await loadService.LoadBrokerCompanies(model);
+				return View(model);
+			}
+
+            bool result = await loadService.CreateLoadAsync(model);
+
+            if (result == false)
+            {
+                this.ModelState.AddModelError(nameof(model.PickupTime), LoadDateTimeFormatErrorMessage);
+                this.ModelState.AddModelError(nameof(model.DeliveryTime), LoadDateTimeFormatErrorMessage);
+				await loadService.LoadBrokerCompanies(model);
+				return View(model);
+			}
+
+			return RedirectToAction(nameof(Index));
+		}
+	}
 }

@@ -55,7 +55,7 @@
             public const string LoadDeliveryLocationRequiredMessage = "The load's delivery location is required!";
             public const string LoadDeliveryLocationLengthErrorMessage = "The load's delivery location must be between 5 and 255 characters";
 
-            public const string LoadDateTimeFormatErrorMessage = "The date must be in format (Year-Month-Day)";
+            public const string LoadDateTimeFormatErrorMessage = "The date must be in format (yyyy-MM-dd)";
 
             public const string LoadWeightRequiredMessage = "The load's weight is required";
             public const string LoadPickupTimeRequiredMessage = "The load's Pickup time is required";
