@@ -110,5 +110,19 @@ namespace TruckingSystem.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AssignDriverToLoad(Guid id)
+        {
+            LoadAssignInputModel? viewModel = await loadService
+                .GetAssignLoadByIdAsync(id);
+
+            if (viewModel == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(viewModel);
+        }
     }
 }

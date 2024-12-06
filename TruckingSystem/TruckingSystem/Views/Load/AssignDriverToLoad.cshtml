@@ -1,0 +1,30 @@
+﻿@model LoadAssignInputModel
+
+@{
+	ViewBag.Title = "Assign Driver";
+}
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+	<h2>Assign Driver</h2>
+	<form asp-action="AssignDriverToLoadConfirmed" method="post">
+		
+		<div class="form-group">
+			<label for="DriverId">Select Driver</label>
+			<select asp-for="DriverId" class="form-control" asp-items="@(new SelectList(Model.Drivers.Select(d => new { Id = d.Id, FullName = d.FirstName + ' ' + d.LastName }), "Id", "FullName"))">
+				<option value="@Model.DriverId">
+					 -- Select a Driver --
+				</option>
+			</select>
+			<span asp-validation-for="DriverId" class="text-success"></span>
+		</div>
+		
+		<button type="submit" class="btn btn-primary">Assign Driver</button>
+		<a asp-action="Index" class="btn btn-secondary btn-danger">Cancel</a>
+	</form>
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

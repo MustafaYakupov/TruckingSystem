@@ -19,5 +19,7 @@ namespace TruckingSystem.Services.Data.Contracts
         Task<LoadEditInputModel> GetEditLoadByIdAsync(Guid id);
 
         Task<bool> PostEditLoadByIdAsync(LoadEditInputModel model, Guid id);
-	}
+
+        Task<LoadAssignInputModel> GetAssignLoadByIdAsync(Guid id);
+    }
 }

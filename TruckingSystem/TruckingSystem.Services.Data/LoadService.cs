@@ -15,11 +15,16 @@ namespace TruckingSystem.Services.Data
     {
         private IRepository<Load> loadRepository;
         private IRepository<BrokerCompany> brokerCompanyRepository;
+        private IRepository<Driver> driverRepository;
 
-        public LoadService(IRepository<Load> loadRepository, IRepository<BrokerCompany> brokerCompanyRepository)
+        public LoadService(
+            IRepository<Load> loadRepository, 
+            IRepository<BrokerCompany> brokerCompanyRepository, 
+            IRepository<Driver> driverRepository)
         {
             this.loadRepository = loadRepository;
             this.brokerCompanyRepository = brokerCompanyRepository;
+            this.driverRepository = driverRepository;
         }
 
         public async Task<IEnumerable<LoadAllViewModel>> GetAllLoadsAsync()
@@ -193,6 +198,44 @@ namespace TruckingSystem.Services.Data
             }
         }
 
+        public async Task<LoadAssignInputModel> GetAssignLoadByIdAsync(Guid id)
+        {
+            LoadAssignInputModel? viewModel = await loadRepository
+                .GetAllAttached()
+                .Where(l => l.Id == id)
+                .Where(l => l.IsDeleted == false)
+                .Include(l => l.Driver)
+                .AsNoTracking()
+                .Select(l => new LoadAssignInputModel()
+                {
+                    DriverId = l.DriverId ?? Guid.Empty,
+                })
+                .FirstOrDefaultAsync();
+
+            if (viewModel == null)
+            {
+                return null;
+            }
+
+            await LoadAvailableDrivers(viewModel);
+
+
+            return viewModel;
+        }
+
+        public async Task LoadAvailableDrivers(LoadAssignInputModel model)
+        {
+            model.Drivers = await this.driverRepository
+                .GetAllAttached()
+                .Include(d => d.Truck)
+                .Include(d => d.Trailer)
+                .Include(d => d.DriverManager)
+                .Where(d => d.IsDeleted == false)
+                .Where(d => d.Truck != null)
+                .Where(d => d.Trailer != null)
+                .Where(d => d.DriverManager != null)
+                .ToListAsync();
+        }
 
         public async Task LoadBrokerCompanies(LoadAddInputModel model)
         {
