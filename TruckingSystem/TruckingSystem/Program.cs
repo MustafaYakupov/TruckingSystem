@@ -59,6 +59,9 @@ namespace TruckingSystem.Web
             builder.Services.AddScoped<ILoadRepository, LoadRepository>();
             builder.Services.AddScoped<ILoadService, LoadService>();
 
+            builder.Services.AddScoped<IDispatchRepository, DispatchRepository>();
+            builder.Services.AddScoped<IDispatchService, DispatchService>();
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
