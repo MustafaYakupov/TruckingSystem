@@ -39,7 +39,7 @@ namespace TruckingSystem.Services.Data
 
         public async Task CreateTrailerAsync(TrailerAddInputModel model)
         {
-            Trailer trailer = new Trailer()
+            Trailer trailer = new()
             {
                 TrailerNumber = model.TrailerNumber,
                 Make = model.Make,

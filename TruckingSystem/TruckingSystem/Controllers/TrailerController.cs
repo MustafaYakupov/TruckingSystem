@@ -29,7 +29,7 @@ namespace TruckingSystem.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            TrailerAddInputModel model = new TrailerAddInputModel();
+            TrailerAddInputModel model = new();
 
             return View(model);
         }

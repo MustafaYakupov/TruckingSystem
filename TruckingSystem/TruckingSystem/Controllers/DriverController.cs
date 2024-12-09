@@ -27,7 +27,7 @@ namespace TruckingSystem.Web.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Create()
 		{
-			DriverAddInputModel model = new DriverAddInputModel();
+			DriverAddInputModel model = new();
              
 			await this.driverService.LoadSelectLists(model);
 

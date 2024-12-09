@@ -32,7 +32,7 @@ namespace TruckingSystem.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            LoadAddInputModel model = new LoadAddInputModel();
+            LoadAddInputModel model = new();
 
             await this.loadService.LoadBrokerCompanies(model);
 

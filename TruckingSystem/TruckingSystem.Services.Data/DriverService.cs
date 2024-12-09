@@ -53,7 +53,7 @@ namespace TruckingSystem.Services.Data
 
 		public async Task CreateDriverAsync(DriverAddInputModel model)
 		{
-            Driver driver = new Driver()
+            Driver driver = new()
             {
                 FirstName = model.FirstName,
                 LastName = model.LastName,

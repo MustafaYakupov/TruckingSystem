@@ -77,7 +77,7 @@ namespace TruckingSystem.Services.Data
                 return false;
             }
 
-            Load load = new Load()
+            Load load = new()
             {
                 PickupLocation = model.PickupLocation,
                 DeliveryLocation = model.DeliveryLocation,
@@ -263,7 +263,7 @@ namespace TruckingSystem.Services.Data
 			await this.loadRepository.UpdateAsync(load);
 			await this.driverRepository.UpdateAsync(driver);
 
-			Dispatch dispatch = new Dispatch()
+			Dispatch dispatch = new()
             {
                 DriverId = driver.Id,
                 DriverManagerId = load.Driver?.DriverManagerId ?? Guid.Empty,

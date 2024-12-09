@@ -46,7 +46,7 @@ namespace TruckingSystem.Services.Data
 
 		public async Task CreateTruckAsync(TruckAddInputModel model)
 		{
-			Truck truck = new Truck()
+			Truck truck = new()
 			{
 				TruckNumber = model.TruckNumber,
 				Make = model.Make,
@@ -60,7 +60,7 @@ namespace TruckingSystem.Services.Data
 			{
 				foreach (var part in model.Parts)
 				{
-					TruckPart truckPart = new TruckPart()
+					TruckPart truckPart = new()
 					{
 						TruckId = truck.Id,
 						PartId = part.PartId,
@@ -129,7 +129,7 @@ namespace TruckingSystem.Services.Data
 			{
 				foreach (var part in model.Parts.Where(p => p.IsSelected == true))
 				{
-					TruckPart truckPart = new TruckPart()
+					TruckPart truckPart = new()
 					{
 						TruckId = truck.Id,
 						PartId = part.PartId,

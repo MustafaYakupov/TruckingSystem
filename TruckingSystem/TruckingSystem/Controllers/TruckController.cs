@@ -29,7 +29,7 @@ namespace TruckingSystem.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            TruckAddInputModel model = new TruckAddInputModel();
+            TruckAddInputModel model = new();
 
             await this.truckService.LoadPartsListAsync(model);
 
