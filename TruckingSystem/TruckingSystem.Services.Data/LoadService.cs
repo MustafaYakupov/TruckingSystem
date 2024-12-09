@@ -89,14 +89,14 @@ namespace TruckingSystem.Services.Data
                 BrokerCompanyId = model.BrokerCompanyId
             };
 
-            await loadRepository.AddAsync(load);
+            await this.loadRepository.AddAsync(load);
 
             return true;
         }
 
         public async Task<LoadEditInputModel> GetEditLoadByIdAsync(Guid id)
         {
-            LoadEditInputModel? viewModel = await loadRepository
+            LoadEditInputModel? viewModel = await this.loadRepository
                 .GetAllAttached()
                 .Where(l => l.Id == id)
                 .Where(l => l.IsDeleted == false)
@@ -127,7 +127,7 @@ namespace TruckingSystem.Services.Data
 
         public async Task<bool> PostEditLoadByIdAsync(LoadEditInputModel model, Guid id)
         {
-			Load? load = await loadRepository
+			Load? load = await this.loadRepository
 			   .GetAllAttached()
 			   .Where(l => l.Id == id)
 			   .Where(l => l.IsDeleted == false)
@@ -165,14 +165,14 @@ namespace TruckingSystem.Services.Data
             load.PickupTime = pickupTime;
             load.DeliveryTime = deliveryTime;
 
-            await loadRepository.UpdateAsync(load);
+            await this.loadRepository.UpdateAsync(load);
 
             return true;
 		}
 
 		public async Task<LoadDeleteViewModel> DeleteLoadGetAsync(Guid id)
         {
-            LoadDeleteViewModel? deleteModel = await loadRepository
+            LoadDeleteViewModel? deleteModel = await this.loadRepository
                 .GetAllAttached()
                 .Where(l => l.Id == id)
                 .Where(l => l.IsDeleted == false)
@@ -190,7 +190,7 @@ namespace TruckingSystem.Services.Data
 
         public async Task DeleteLoadAsync(LoadDeleteViewModel model)
         {
-            Load? load = await loadRepository
+            Load? load = await this.loadRepository
                 .GetAllAttached()
                 .Where(l => l.Id == model.Id)
                 .Where(l => l.IsDeleted == false)
@@ -199,13 +199,13 @@ namespace TruckingSystem.Services.Data
             if (load != null)
             {
                 load.IsDeleted = true;
-                await loadRepository.UpdateAsync(load);
+                await this.loadRepository.UpdateAsync(load);
             }
         }
 
         public async Task<LoadAssignInputModel> GetAssignLoadByIdAsync(Guid id)
         {
-            LoadAssignInputModel? viewModel = await loadRepository
+            LoadAssignInputModel? viewModel = await this.loadRepository
                 .GetAllAttached()
                 .Where(l => l.Id == id)
                 .Where(l => l.IsDeleted == false)
@@ -304,7 +304,7 @@ namespace TruckingSystem.Services.Data
 
         private async Task<IEnumerable<BrokerCompany>> GetBrokerCompanies()
         {
-            return await brokerCompanyRepository
+            return await this.brokerCompanyRepository
                 .GetAllAsync();
         }
     }

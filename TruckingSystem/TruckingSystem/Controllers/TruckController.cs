@@ -31,7 +31,7 @@ namespace TruckingSystem.Web.Controllers
         {
             TruckAddInputModel model = new TruckAddInputModel();
 
-            await truckService.LoadPartsListAsync(model);
+            await this.truckService.LoadPartsListAsync(model);
 
             return View(model);
         }
@@ -41,11 +41,11 @@ namespace TruckingSystem.Web.Controllers
 		{
 			if (ModelState.IsValid == false)
 			{
-				await truckService.LoadPartsListAsync(truckModel);
+				await this.truckService.LoadPartsListAsync(truckModel);
 				return View(truckModel);
 			}
 
-			await truckService.CreateTruckAsync(truckModel);
+			await this.truckService.CreateTruckAsync(truckModel);
 
 			return RedirectToAction(nameof(Index));
 		}
@@ -53,7 +53,7 @@ namespace TruckingSystem.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            TruckEditInputModel? viewModel = await truckService
+            TruckEditInputModel? viewModel = await this.truckService
                 .GetEditTruckByIdAsync(id);
 
             if (viewModel == null)
@@ -69,16 +69,16 @@ namespace TruckingSystem.Web.Controllers
 		{
 			if (ModelState.IsValid == false)
 			{
-				await truckService.LoadPartsListAsync(truckModel);
+				await this.truckService.LoadPartsListAsync(truckModel);
 
 				return View(truckModel);
 			}
 
-			bool successfullyEdited = await truckService.PostEditTruckByIdAsync(truckModel, id);
+			bool successfullyEdited = await this.truckService.PostEditTruckByIdAsync(truckModel, id);
 
 			if (successfullyEdited == false)
 			{
-				await truckService.LoadPartsListAsync(truckModel);
+				await this.truckService.LoadPartsListAsync(truckModel);
 				return View(truckModel);
 			}
 
@@ -88,7 +88,7 @@ namespace TruckingSystem.Web.Controllers
 		[HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            TruckDeleteViewModel model = await truckService.DeleteTruckGetAsync(id);
+            TruckDeleteViewModel model = await this.truckService.DeleteTruckGetAsync(id);
 
             return View(model);
         }
@@ -96,7 +96,7 @@ namespace TruckingSystem.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(TruckDeleteViewModel model)
         {
-            await truckService.DeleteTruckAsync(model);
+            await this.truckService.DeleteTruckAsync(model);
 
             return RedirectToAction(nameof(Index));
         }

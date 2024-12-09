@@ -42,7 +42,7 @@ namespace TruckingSystem.Web.Controllers
                 return View(model);
             }
 
-            await trailerService.CreateTrailerAsync(model);
+            await this.trailerService.CreateTrailerAsync(model);
 
             return RedirectToAction(nameof(Index));
         }
@@ -50,7 +50,7 @@ namespace TruckingSystem.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            TrailerDeleteViewModel model = await trailerService.DeleteTrailerGetAsync(id);
+            TrailerDeleteViewModel model = await this.trailerService.DeleteTrailerGetAsync(id);
 
             return View(model);
         }
@@ -58,7 +58,7 @@ namespace TruckingSystem.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(TrailerDeleteViewModel model)
         {
-            await trailerService.DeleteTrailerAsync(model);
+            await this.trailerService.DeleteTrailerAsync(model);
 
             return RedirectToAction(nameof(Index));
         }
@@ -66,7 +66,7 @@ namespace TruckingSystem.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            TrailerEditInputModel? viewModel = await trailerService
+            TrailerEditInputModel? viewModel = await this.trailerService
                 .GetEditTrailerByIdAsync(id);
 
             if (viewModel == null)
@@ -85,7 +85,7 @@ namespace TruckingSystem.Web.Controllers
 				return View(model);
 			}
 
-			bool successfullyEdited = await trailerService.PostEditTrailerByIdAsync(model, id);
+			bool successfullyEdited = await this.trailerService.PostEditTrailerByIdAsync(model, id);
 
 			if (successfullyEdited == false)
 			{

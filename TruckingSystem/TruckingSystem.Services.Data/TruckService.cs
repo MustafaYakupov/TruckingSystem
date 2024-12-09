@@ -70,12 +70,12 @@ namespace TruckingSystem.Services.Data
 				}
 			}
 
-			await truckRepository.AddAsync(truck);
+			await this.truckRepository.AddAsync(truck);
 		}
 
 		public async Task<TruckEditInputModel> GetEditTruckByIdAsync(Guid id)
 		{
-			TruckEditInputModel? viewModel = await truckRepository
+			TruckEditInputModel? viewModel = await this.truckRepository
 				.GetAllAttached()
 				.Where(t => t.Id == id)
 				.Where(t => t.IsDeleted == false)
@@ -105,7 +105,7 @@ namespace TruckingSystem.Services.Data
 
 		public async Task<bool> PostEditTruckByIdAsync(TruckEditInputModel model, Guid id)
 		{
-			Truck? truck = await truckRepository
+			Truck? truck = await this.truckRepository
 				.GetAllAttached()
 				.Where(t => t.Id == id)
 				.Where(t => t.IsDeleted == false)
@@ -146,13 +146,13 @@ namespace TruckingSystem.Services.Data
 				truck.TrucksParts = new HashSet<TruckPart>();
 			}
 
-			await truckRepository.UpdateAsync(truck);
+			await this.truckRepository.UpdateAsync(truck);
 			return true;
 		}
 
 		public async Task<TruckDeleteViewModel> DeleteTruckGetAsync(Guid id)
 		{
-			TruckDeleteViewModel? deleteModel = await truckRepository
+			TruckDeleteViewModel? deleteModel = await this.truckRepository
 				.GetAllAttached()
 				.Where(t => t.Id == id)
 				.Where(t => t.IsDeleted == false)
@@ -169,7 +169,7 @@ namespace TruckingSystem.Services.Data
 
 		public async Task DeleteTruckAsync(TruckDeleteViewModel model)
 		{
-			Truck? truck = await truckRepository
+			Truck? truck = await this.truckRepository
 				.GetAllAttached()
 				.Where(t => t.Id == model.Id)
 				.Where(t => t.IsDeleted == false)
@@ -178,7 +178,7 @@ namespace TruckingSystem.Services.Data
 			if (truck != null)
 			{
 				truck.IsDeleted = true;
-				await truckRepository.UpdateAsync(truck);
+				await this.truckRepository.UpdateAsync(truck);
 			}
 		}
 
@@ -194,7 +194,7 @@ namespace TruckingSystem.Services.Data
 
 		private async Task<IList<PartSelectionViewModel>> GetPartsAsync()
 		{
-			return await partRepository
+			return await this.partRepository
 				.GetAllAttached()
 				.AsNoTracking()
 				.Select(p => new PartSelectionViewModel()

@@ -63,12 +63,12 @@ namespace TruckingSystem.Services.Data
                 DriverManagerId = model.DriverManagerId,
             };
 
-            await driverRepository.AddAsync(driver);
+            await this.driverRepository.AddAsync(driver);
 		}
 
 		public async Task<DriverEditInputModel> GetEditDriverByIdAsync(Guid id)
         {
-			DriverEditInputModel? viewModel = await driverRepository
+			DriverEditInputModel? viewModel = await this.driverRepository
                 .GetAllAttached()
                 .Where(d => d.Id == id)
                 .Where(d => d.IsDeleted == false)
@@ -99,7 +99,7 @@ namespace TruckingSystem.Services.Data
 
         public async Task<bool> PostEditDriverByIdAsync(DriverEditInputModel model, Guid id)
         {
-            Driver? driver = await driverRepository
+            Driver? driver = await this.driverRepository
                 .GetAllAttached()
                 .Where(d => d.Id == id)
                 .Where(d => d.IsDeleted == false)
@@ -119,7 +119,7 @@ namespace TruckingSystem.Services.Data
 
             if (model.DriverManagerId != null)
             {
-                DriverManager? manager = await driverManagerRepository.GetAllAttached()
+                DriverManager? manager = await this.driverManagerRepository.GetAllAttached()
                     .Where(m => m.Id == model.DriverManagerId)
                     .FirstOrDefaultAsync();
 
@@ -134,11 +134,11 @@ namespace TruckingSystem.Services.Data
                 // Set previous truck's availability to true
                 if (driver.TruckId.HasValue)
                 {
-                    Truck? oldTruck = await truckRepository.GetAllAttached()
+                    Truck? oldTruck = await this.truckRepository.GetAllAttached()
                         .Where(t => t.Id == driver.TruckId)
                         .FirstOrDefaultAsync();
 
-                    Truck? newTruck = await truckRepository.GetAllAttached()
+                    Truck? newTruck = await this.truckRepository.GetAllAttached()
                         .Where(t => t.Id == model.TruckId)
                         .FirstOrDefaultAsync();
 
@@ -147,7 +147,7 @@ namespace TruckingSystem.Services.Data
                         if (oldTruck != null)
                         {
                             oldTruck.IsAvailable = true;
-                            await truckRepository.UpdateAsync(oldTruck);
+                            await this.truckRepository.UpdateAsync(oldTruck);
                         }
 
                         // Assign new truck and set its availability to false
@@ -157,7 +157,7 @@ namespace TruckingSystem.Services.Data
                             {
                                 newTruck.IsAvailable = false;
                                 driver.TruckId = newTruck.Id;
-                                await truckRepository.UpdateAsync(newTruck);
+                                await this.truckRepository.UpdateAsync(newTruck);
                             }
                         }
                         else
@@ -168,7 +168,7 @@ namespace TruckingSystem.Services.Data
                 }
                 else
                 {
-                    Truck? newTruck = await truckRepository.GetAllAttached()
+                    Truck? newTruck = await this.truckRepository.GetAllAttached()
                         .Where(t => t.Id == model.TruckId)
                         .FirstOrDefaultAsync();
 
@@ -176,7 +176,7 @@ namespace TruckingSystem.Services.Data
                     {
                         newTruck.IsAvailable = false;
                         driver.TruckId = newTruck.Id;
-                        await truckRepository.UpdateAsync(newTruck);
+                        await this.truckRepository.UpdateAsync(newTruck);
                     }
                 }
             }
@@ -186,11 +186,11 @@ namespace TruckingSystem.Services.Data
                 // Set previous trailer's availability to true
                 if (driver.TrailerId.HasValue)
                 {
-                    Trailer? oldTrailer = await trailerRepository.GetAllAttached()
+                    Trailer? oldTrailer = await this.trailerRepository.GetAllAttached()
                         .Where(t => t.Id == driver.TrailerId)
                         .FirstOrDefaultAsync();
 
-                    Trailer? newTrailer = await trailerRepository.GetAllAttached()
+                    Trailer? newTrailer = await this.trailerRepository.GetAllAttached()
                         .Where(t => t.Id == model.TrailerId)
                         .FirstOrDefaultAsync();
 
@@ -199,7 +199,7 @@ namespace TruckingSystem.Services.Data
                         if (oldTrailer != null)
                         {
                             oldTrailer.IsAvailable = true;
-                            await trailerRepository.UpdateAsync(oldTrailer);
+                            await this.trailerRepository.UpdateAsync(oldTrailer);
                         }
 
                         // Assign new trailer and set its availability to false
@@ -209,7 +209,7 @@ namespace TruckingSystem.Services.Data
                             {
                                 newTrailer.IsAvailable = false;
                                 driver.TrailerId = newTrailer.Id;
-                                await trailerRepository.UpdateAsync(newTrailer);
+                                await this.trailerRepository.UpdateAsync(newTrailer);
                             }
                         }
                         else
@@ -220,7 +220,7 @@ namespace TruckingSystem.Services.Data
                 }
                 else
                 {
-                    Trailer? newTrailer = await trailerRepository.GetAllAttached()
+                    Trailer? newTrailer = await this.trailerRepository.GetAllAttached()
                         .Where(t => t.Id == model.TrailerId)
                         .FirstOrDefaultAsync();
 
@@ -228,19 +228,19 @@ namespace TruckingSystem.Services.Data
                     {
                         newTrailer.IsAvailable = false;
                         driver.TrailerId = newTrailer.Id;
-                        await trailerRepository.UpdateAsync(newTrailer);
+                        await this.trailerRepository.UpdateAsync(newTrailer);
                     }
                 }
             }
 
-            await driverRepository.UpdateAsync(driver);
+            await this.driverRepository.UpdateAsync(driver);
 
             return true;
         }
 
 		public async Task<DriverDeleteViewModel> DeleteDriverGetAsync(Guid id)
 		{
-			DriverDeleteViewModel? deleteModel  = await driverRepository
+			DriverDeleteViewModel? deleteModel  = await this.driverRepository
                 .GetAllAttached()
 				.Where(d => d.Id == id)
 				.Where(d => d.IsDeleted == false)
@@ -258,7 +258,7 @@ namespace TruckingSystem.Services.Data
 
         public async Task DeleteDriverAsync(DriverDeleteViewModel model)
         {
-            Driver? driver = await driverRepository
+            Driver? driver = await this.driverRepository
                 .GetAllAttached()
                 .Where(d => d.Id == model.Id)
                 .Where(d => d.IsDeleted == false)
@@ -267,7 +267,7 @@ namespace TruckingSystem.Services.Data
             if (driver != null)
             {
                 driver.IsDeleted = true;
-                await driverRepository.UpdateAsync(driver);
+                await this.driverRepository.UpdateAsync(driver);
             }
         }
 
@@ -287,7 +287,7 @@ namespace TruckingSystem.Services.Data
 
         private async Task<IEnumerable<Trailer>> GetTrailers()
         {
-            return await trailerRepository
+            return await this.trailerRepository
                 .GetAllAttached()
                 .Where(t => t.IsDeleted == false)
                 .Where(t => t.IsAvailable == true)
@@ -296,7 +296,7 @@ namespace TruckingSystem.Services.Data
 
         private async Task<IEnumerable<Truck>> GetTrucks()
         {
-            return await truckRepository
+            return await this.truckRepository
                 .GetAllAttached()
                 .Where(t => t.IsDeleted == false)
                 .Where(t => t.IsAvailable == true)
@@ -305,7 +305,7 @@ namespace TruckingSystem.Services.Data
 
         private async Task<IEnumerable<DriverManager>> GetDriverManagers()
         {
-            return await driverManagerRepository
+            return await this.driverManagerRepository
                 .GetAllAttached()
                 .Where(t => t.IsDeleted == false)
                 .ToListAsync();

@@ -96,7 +96,7 @@ namespace TruckingSystem.Services.Data
 
         public async Task<bool> CompleteDispatchByIdAsync(Guid loadId)
 		{
-			Dispatch? dispatch = await dispatchRepository
+			Dispatch? dispatch = await this.dispatchRepository
 				.GetAllAttached()
 				.Where(d => d.LoadId == loadId)
 				.Where(d => d.IsDeleted == false)
@@ -115,7 +115,7 @@ namespace TruckingSystem.Services.Data
 			load.Status = DispatchStatus.Completed;
             dispatch.Status = DispatchStatus.Completed;
 
-			await dispatchRepository.UpdateAsync(dispatch);
+			await this.dispatchRepository.UpdateAsync(dispatch);
 
 			return true;
 		}

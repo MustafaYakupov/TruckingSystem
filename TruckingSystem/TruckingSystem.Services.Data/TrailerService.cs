@@ -47,12 +47,12 @@ namespace TruckingSystem.Services.Data
                 ModelYear = model.ModelYear,
             };
 
-            await trailerRepository.AddAsync(trailer);
+            await this.trailerRepository.AddAsync(trailer);
         }
 
         public async Task<TrailerDeleteViewModel> DeleteTrailerGetAsync(Guid id)
         {
-            TrailerDeleteViewModel? deleteModel = await trailerRepository
+            TrailerDeleteViewModel? deleteModel = await this.trailerRepository
                 .GetAllAttached()
                 .Where(t => t.Id == id)
                 .Where(t => t.IsDeleted == false)
@@ -69,7 +69,7 @@ namespace TruckingSystem.Services.Data
 
         public async Task DeleteTrailerAsync(TrailerDeleteViewModel model)
         {
-            Trailer? trailer = await trailerRepository
+            Trailer? trailer = await this.trailerRepository
                 .GetAllAttached()
                 .Where(t => t.Id == model.Id)
                 .Where(t => t.IsDeleted == false)
@@ -78,13 +78,13 @@ namespace TruckingSystem.Services.Data
             if (trailer != null)
             {
                 trailer.IsDeleted = true;
-                await trailerRepository.UpdateAsync(trailer);
+                await this.trailerRepository.UpdateAsync(trailer);
             }
         }
 
         public async Task<TrailerEditInputModel> GetEditTrailerByIdAsync(Guid id)
         {
-            TrailerEditInputModel? viewModel = await trailerRepository
+            TrailerEditInputModel? viewModel = await this.trailerRepository
                 .GetAllAttached()
                 .Where(t => t.Id == id)
                 .Where(t => t.IsDeleted == false)
@@ -108,7 +108,7 @@ namespace TruckingSystem.Services.Data
 
 		public async Task<bool> PostEditTrailerByIdAsync(TrailerEditInputModel model, Guid id)
 		{
-			Trailer? trailer = await trailerRepository
+			Trailer? trailer = await this.trailerRepository
 				.GetAllAttached()
 				.Where(t => t.Id == id)
 				.Where(t => t.IsDeleted == false)
@@ -124,7 +124,7 @@ namespace TruckingSystem.Services.Data
             trailer.Type = model.Type;
             trailer.ModelYear = model.ModelYear;
 
-            await trailerRepository.UpdateAsync(trailer);
+            await this.trailerRepository.UpdateAsync(trailer);
 
             return true;
 		}

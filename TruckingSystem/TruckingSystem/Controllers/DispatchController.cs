@@ -38,7 +38,7 @@ namespace TruckingSystem.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> CompleteLoad(Guid id)
         {
-            bool result = await dispatchService.CompleteDispatchByIdAsync(id);
+            bool result = await this.dispatchService.CompleteDispatchByIdAsync(id);
 
             if (result == false)
             {

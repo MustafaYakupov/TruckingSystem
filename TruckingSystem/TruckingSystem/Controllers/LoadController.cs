@@ -34,7 +34,7 @@ namespace TruckingSystem.Web.Controllers
         {
             LoadAddInputModel model = new LoadAddInputModel();
 
-            await loadService.LoadBrokerCompanies(model);
+            await this.loadService.LoadBrokerCompanies(model);
 
             return View(model);
         }
@@ -44,17 +44,17 @@ namespace TruckingSystem.Web.Controllers
 		{
 			if (ModelState.IsValid == false)
 			{
-				await loadService.LoadBrokerCompanies(model);
+				await this.loadService.LoadBrokerCompanies(model);
 				return View(model);
 			}
 
-            bool result = await loadService.CreateLoadAsync(model);
+            bool result = await this.loadService.CreateLoadAsync(model);
 
             if (result == false)
             {
                 this.ModelState.AddModelError(nameof(model.PickupTime), LoadDateTimeFormatErrorMessage);
                 this.ModelState.AddModelError(nameof(model.DeliveryTime), LoadDateTimeFormatErrorMessage);
-				await loadService.LoadBrokerCompanies(model);
+				await this.loadService.LoadBrokerCompanies(model);
 				return View(model);
 			}
 
@@ -64,7 +64,7 @@ namespace TruckingSystem.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            LoadEditInputModel? viewModel = await loadService
+            LoadEditInputModel? viewModel = await this.loadService
                 .GetEditLoadByIdAsync(id);
 
             if (viewModel == null)
@@ -80,15 +80,15 @@ namespace TruckingSystem.Web.Controllers
 		{
 			if (ModelState.IsValid == false)
 			{
-				await loadService.LoadBrokerCompanies(model);
+				await this.loadService.LoadBrokerCompanies(model);
 				return View(model);
 			}
 
-			bool successfullyEdited = await loadService.PostEditLoadByIdAsync(model, id);
+			bool successfullyEdited = await this.loadService.PostEditLoadByIdAsync(model, id);
 
 			if (successfullyEdited == false)
 			{
-				await loadService.LoadBrokerCompanies(model);
+				await this.loadService.LoadBrokerCompanies(model);
 				return View(model);
 			}
 
@@ -98,7 +98,7 @@ namespace TruckingSystem.Web.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Delete(Guid id)
 		{
-			LoadDeleteViewModel model = await loadService.DeleteLoadGetAsync(id);
+			LoadDeleteViewModel model = await this.loadService.DeleteLoadGetAsync(id);
 
 			return View(model);
 		}
@@ -106,7 +106,7 @@ namespace TruckingSystem.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(LoadDeleteViewModel model)
         {
-            await loadService.DeleteLoadAsync(model);
+            await this.loadService.DeleteLoadAsync(model);
 
             return RedirectToAction(nameof(Index));
         }
@@ -114,7 +114,7 @@ namespace TruckingSystem.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> AssignDriverToLoad(Guid id)
         {
-            LoadAssignInputModel? viewModel = await loadService
+            LoadAssignInputModel? viewModel = await this.loadService
                 .GetAssignLoadByIdAsync(id);
 
             if (viewModel == null)
@@ -130,15 +130,15 @@ namespace TruckingSystem.Web.Controllers
 		{
             if (ModelState.IsValid == false)
             {
-                await loadService.LoadAvailableDrivers(model);
+                await this.loadService.LoadAvailableDrivers(model);
 				return RedirectToAction(nameof(Index));
 			}
 
-            bool successfullyAssigned = await loadService.PostAssignLoadByIdAsync(model, model.LoadId);
+            bool successfullyAssigned = await this.loadService.PostAssignLoadByIdAsync(model, model.LoadId);
 
             if (successfullyAssigned == false)
             {
-				await loadService.LoadAvailableDrivers(model);
+				await this.loadService.LoadAvailableDrivers(model);
 				return RedirectToAction(nameof(Index));
 			}
 
