@@ -37,7 +37,7 @@ namespace TruckingSystem.Services.Data
             IEnumerable<Load> loads = await this.loadRepository
                 .GetAllAttached()
                 .Where(l => l.IsDeleted == false)
-                .Where(l => l.IsAvailable == true)
+                .Where(l => l.Status == DispatchStatus.Available)
                 .Include(l => l.BrokerCompany)
                 .ToListAsync();
 
@@ -256,7 +256,7 @@ namespace TruckingSystem.Services.Data
 			}
 
 			load.DriverId = model.DriverId;
-            load.IsAvailable = false;
+            load.Status = DispatchStatus.InProgress;
 
             driver.IsAvailable = false;
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TruckingSystem.Data.Models.Enums;
 using static TruckingSystem.Common.ValidationConstants.LoadConstants;
 
 namespace TruckingSystem.Data.Models
@@ -54,8 +55,8 @@ namespace TruckingSystem.Data.Models
 		[ForeignKey(nameof(DriverId))]
 		public Driver? Driver { get; set; }
 
-		[Comment("Shows if the load is assigned or not")]
-        public bool IsAvailable { get; set; } = true;
+		[Comment("Shows the status of the load")]
+        public DispatchStatus Status { get; set; } = DispatchStatus.Available;
 
         [Comment("Shows weather load is deleted or not")]
         public bool IsDeleted { get; set; }

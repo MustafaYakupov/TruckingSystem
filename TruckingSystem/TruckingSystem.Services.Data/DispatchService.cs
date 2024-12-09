@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using TruckingSystem.Data.Models;
 using TruckingSystem.Data.Models.Enums;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
@@ -25,7 +26,7 @@ namespace TruckingSystem.Services.Data
 				.GetAllAttached()
 				.Where(l => l.IsDeleted == false)
 				.Where(l => l.Driver != null)
-				.Where(l => l.IsAvailable == false)
+				.Where(l => l.Status == DispatchStatus.InProgress)
 				.Include(l => l.BrokerCompany)
 				.Include(l => l.Driver)
 					.ThenInclude(d => d.Truck)
@@ -106,7 +107,13 @@ namespace TruckingSystem.Services.Data
 				return false;
 			}
 
-			dispatch.Status = DispatchStatus.Completed;
+			Load? load = await this.loadRepository
+				.GetAllAttached()
+				.Where(l => l.Id == loadId)
+				.FirstOrDefaultAsync();
+
+			load.Status = DispatchStatus.Completed;
+            dispatch.Status = DispatchStatus.Completed;
 
 			await dispatchRepository.UpdateAsync(dispatch);
 
