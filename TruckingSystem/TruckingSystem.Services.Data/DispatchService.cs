@@ -20,7 +20,7 @@ namespace TruckingSystem.Services.Data
 			this.loadRepository = loadRepository;
 		}
 
-		public async Task<IEnumerable<DispatchInProgressViewModel>> GetAllDispatchesInProgressAsync()
+		public async Task<IEnumerable<DispatchInProgressViewModel>> GetAllDispatchesInProgressAsync(string searchString)
 		{
 			IEnumerable<Load> loadsInProgress = await this.loadRepository
 				.GetAllAttached()
@@ -36,7 +36,14 @@ namespace TruckingSystem.Services.Data
 					.ThenInclude(d => d.DriverManager)
 				.ToListAsync();
 
-			IEnumerable<DispatchInProgressViewModel> viewModel = loadsInProgress
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                loadsInProgress = loadsInProgress
+                    .Where(l => l.Driver.LastName.Contains(searchString)
+                                       || l.Driver.FirstName.Contains(searchString));
+            }
+
+            IEnumerable<DispatchInProgressViewModel> viewModel = loadsInProgress
 				.Select(l => new DispatchInProgressViewModel()
 				{
 					Id = l.Id,
@@ -58,7 +65,7 @@ namespace TruckingSystem.Services.Data
 
 		}
 
-        public async Task<IEnumerable<DispatchCompletedViewModel>> GetAllDispatchesCompletedAsync()
+        public async Task<IEnumerable<DispatchCompletedViewModel>> GetAllDispatchesCompletedAsync(string searchString)
         {
             IEnumerable<Dispatch> dispatchesCompleted = await this.dispatchRepository
                 .GetAllAttached()
@@ -71,6 +78,13 @@ namespace TruckingSystem.Services.Data
                 .Include(d => d.Load)
 					.ThenInclude(l => l.BrokerCompany)
                 .ToListAsync();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                dispatchesCompleted = dispatchesCompleted
+					.Where(d => d.Driver.LastName.Contains(searchString)
+                                       || d.Driver.FirstName.Contains(searchString));
+            }
 
             IEnumerable<DispatchCompletedViewModel> viewModel = dispatchesCompleted
                 .Select(d => new DispatchCompletedViewModel()

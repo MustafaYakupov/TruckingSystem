@@ -9,6 +9,21 @@
 <div class="container mt-5">
     <h2 class="mb-4">Completed Loads</h2>
 
+    <form asp-action="CompletedLoads" method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text"
+                   name="searchString"
+                   value="@ViewBag.searchString"
+                   class="form-control"
+                   placeholder="Search by Driver Name..."
+                   aria-label="Search by Driver Name">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Search</button>
+                <a asp-action="CompletedLoads" class="btn btn-primary ms-2">Full List</a>
+            </div>
+        </div>
+    </form>
+
     @if (Model != null && Model.Any())
     {
         <table class="table table-striped table-bordered">

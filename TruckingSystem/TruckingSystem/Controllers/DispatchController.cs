@@ -18,19 +18,19 @@ namespace TruckingSystem.Web.Controllers
         }
 
 		[HttpGet]
-        public async Task<IActionResult> LoadsInProgress()
+        public async Task<IActionResult> LoadsInProgress(string searchString)
 		{
 			IEnumerable<DispatchInProgressViewModel> dispatchesInProgress =
-				await this.dispatchService.GetAllDispatchesInProgressAsync();
+				await this.dispatchService.GetAllDispatchesInProgressAsync(searchString);
 
 			return View(dispatchesInProgress);
 		}
 
         [HttpGet]
-        public async Task<IActionResult> CompletedLoads()
+        public async Task<IActionResult> CompletedLoads(string searchString)
         {
             IEnumerable<DispatchCompletedViewModel> dispatchesCompleted =
-                await this.dispatchService.GetAllDispatchesCompletedAsync();
+                await this.dispatchService.GetAllDispatchesCompletedAsync(searchString);
 
             return View(dispatchesCompleted);
         }
