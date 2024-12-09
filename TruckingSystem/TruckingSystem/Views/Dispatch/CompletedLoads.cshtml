@@ -1,13 +1,13 @@
-﻿@model IEnumerable<DispatchInProgressViewModel>
+﻿@model IEnumerable<DispatchCompletedViewModel>
 
 @{
-    ViewBag.Title = "Loads in Progress";
+    ViewBag.Title = "Completed Loads";
 }
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 <div class="container mt-5">
-    <h2 class="mb-4">Loads in Progress</h2>
+    <h2 class="mb-4">Completed Loads</h2>
 
     @if (Model != null && Model.Any())
     {
@@ -26,7 +26,6 @@
                     <th>Weight</th>
                     <th>Temperature</th>
                     <th>Broker Company</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,14 +44,6 @@
                         <td>@dispatch.Weight</td>
                         <td>@dispatch.Temperature</td>
                         <td>@dispatch.BrokerCompany</td>
-                        <td>
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                                <form asp-action="CompleteLoad" method="post" class="d-inline">
-                                    <input type="hidden" name="id" value="@dispatch.Id" />
-                                    <button type="submit" class="btn btn-md btn-success">Mark as Completed</button>
-                                </form>
-                            </div>
-                        </td>
                     </tr>
                 }
             </tbody>
@@ -61,7 +52,7 @@
     else
     {
         <div class="alert alert-info text-center" role="alert">
-            No Loads in Progress!
+            No Completed Loads!
         </div>
     }
 </div>
