@@ -1,4 +1,5 @@
-﻿using TruckingSystem.Web.ViewModels.Load;
+﻿using TruckingSystem.Web.ViewModels.Driver;
+using TruckingSystem.Web.ViewModels.Load;
 
 namespace TruckingSystem.Services.Data.Contracts
 {
@@ -21,5 +22,9 @@ namespace TruckingSystem.Services.Data.Contracts
         Task<bool> PostEditLoadByIdAsync(LoadEditInputModel model, Guid id);
 
         Task<LoadAssignInputModel> GetAssignLoadByIdAsync(Guid id);
-    }
+
+        Task LoadAvailableDrivers(LoadAssignInputModel model);
+
+        Task<bool> PostAssignLoadByIdAsync(LoadAssignInputModel model, Guid id);
+	}
 }

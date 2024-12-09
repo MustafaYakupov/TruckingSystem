@@ -124,5 +124,25 @@ namespace TruckingSystem.Web.Controllers
 
             return View(viewModel);
         }
-    }
+
+		[HttpPost]
+		public async Task<IActionResult> AssignDriverToLoadConfirmed(LoadAssignInputModel model)
+		{
+            if (ModelState.IsValid == false)
+            {
+                await loadService.LoadAvailableDrivers(model);
+				return RedirectToAction(nameof(Index));
+			}
+
+            bool successfullyAssigned = await loadService.PostAssignLoadByIdAsync(model, model.LoadId);
+
+            if (successfullyAssigned == false)
+            {
+				await loadService.LoadAvailableDrivers(model);
+				return RedirectToAction(nameof(Index));
+			}
+
+            return RedirectToAction("LoadsInProgress", "Dispatch");
+		}
+	}
 }

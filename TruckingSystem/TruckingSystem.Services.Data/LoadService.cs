@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Globalization;
 using TruckingSystem.Data.Models;
+using TruckingSystem.Data.Models.Enums;
 using TruckingSystem.Infrastructure.Repositories;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
@@ -16,15 +18,18 @@ namespace TruckingSystem.Services.Data
         private IRepository<Load> loadRepository;
         private IRepository<BrokerCompany> brokerCompanyRepository;
         private IRepository<Driver> driverRepository;
+        private IRepository<Dispatch> dispatchRepository;
 
-        public LoadService(
+		public LoadService(
             IRepository<Load> loadRepository, 
             IRepository<BrokerCompany> brokerCompanyRepository, 
-            IRepository<Driver> driverRepository)
+            IRepository<Driver> driverRepository,
+			IRepository<Dispatch> dispatchRepository)
         {
             this.loadRepository = loadRepository;
             this.brokerCompanyRepository = brokerCompanyRepository;
             this.driverRepository = driverRepository;
+            this.dispatchRepository = dispatchRepository;
         }
 
         public async Task<IEnumerable<LoadAllViewModel>> GetAllLoadsAsync()
@@ -208,6 +213,7 @@ namespace TruckingSystem.Services.Data
                 .AsNoTracking()
                 .Select(l => new LoadAssignInputModel()
                 {
+                    LoadId = l.Id,
                     DriverId = l.DriverId ?? Guid.Empty,
                 })
                 .FirstOrDefaultAsync();
@@ -223,7 +229,56 @@ namespace TruckingSystem.Services.Data
             return viewModel;
         }
 
-        public async Task LoadAvailableDrivers(LoadAssignInputModel model)
+		public async Task<bool> PostAssignLoadByIdAsync(LoadAssignInputModel model, Guid id)
+		{
+			Load? load = await this.loadRepository
+			   .GetAllAttached()
+			   .Where(l => l.Id == id)
+			   .Where(l => l.IsDeleted == false)
+			   .Include(l => l.BrokerCompany)
+               .Include(l => l.Driver)
+			   .FirstOrDefaultAsync();
+
+			if (load == null || load.IsDeleted)
+			{
+				return false;
+			}
+
+            Driver? driver = await this.driverRepository
+                .GetAllAttached().
+                Where(d => d.Id == model.DriverId).
+                Where(d => d.IsDeleted == false)
+				.FirstOrDefaultAsync();
+
+            if (driver == null || driver.IsDeleted)
+            {
+				return false;
+			}
+
+			load.DriverId = model.DriverId;
+            load.IsAvailable = false;
+
+            driver.IsAvailable = false;
+
+			await this.loadRepository.UpdateAsync(load);
+			await this.driverRepository.UpdateAsync(driver);
+
+			Dispatch dispatch = new Dispatch()
+            {
+                DriverId = driver.Id,
+                DriverManagerId = load.Driver?.DriverManagerId ?? Guid.Empty,
+                LoadId = load.Id,
+                TruckId = driver.TruckId ?? Guid.Empty,
+                TrailerId = driver.TrailerId ?? Guid.Empty,
+                Status = DispatchStatus.InProgress,
+            };
+
+            await this.dispatchRepository.AddAsync(dispatch);
+
+			return true;
+		}
+
+		public async Task LoadAvailableDrivers(LoadAssignInputModel model)
         {
             model.Drivers = await this.driverRepository
                 .GetAllAttached()
