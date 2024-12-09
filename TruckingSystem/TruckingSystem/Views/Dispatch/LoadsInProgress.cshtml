@@ -18,7 +18,14 @@
                     <th>Truck</th>
                     <th>Trailer</th>
                     <th>DriverManager</th>
-                    <th>Load</th>
+                    <th>Pickup Address</th>
+                    <th>Delivery Address</th>
+                    <th>Pickup Date</th>
+                    <th>Delivery Date</th>
+                    <th>Distance</th>
+                    <th>Weight</th>
+                    <th>Temperature</th>
+                    <th>Broker Company</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -30,7 +37,14 @@
                         <td>@dispatch.Truck</td>
                         <td>@dispatch.Trailer</td>
                         <td>@dispatch.DriverManager</td>
-                        <td>@dispatch.Load</td>
+                        <td>@dispatch.PickupAddress</td>
+                        <td>@dispatch.DeliveryAddress</td>
+                        <td>@dispatch.PickupTime</td>
+                        <td>@dispatch.DeliveryTime</td>
+                        <td>@dispatch.Distance</td>
+                        <td>@dispatch.Weight</td>
+                        <td>@dispatch.Temperature</td>
+                        <td>@dispatch.BrokerCompany</td>
                         <td>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-center">
                                 <a asp-action="DispatchComplete" asp-route-id="@dispatch.Id" class="btn btn-md btn-success">Mark as Completed</a>

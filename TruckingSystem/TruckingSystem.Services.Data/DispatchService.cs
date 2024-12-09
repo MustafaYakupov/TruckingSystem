@@ -3,6 +3,7 @@ using TruckingSystem.Data.Models;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
 using TruckingSystem.Web.ViewModels.Dispatch;
+using static TruckingSystem.Common.ValidationConstants.LoadConstants;
 
 namespace TruckingSystem.Services.Data
 {
@@ -41,7 +42,14 @@ namespace TruckingSystem.Services.Data
 					Truck = l.Driver.Truck.TruckNumber,
 					Trailer = l.Driver.Trailer.TrailerNumber,
 					DriverManager = l.Driver.DriverManager.FirstName + " " + l.Driver.DriverManager.LastName,
-					Load = l.PickupLocation + "-" + l.DeliveryLocation
+					PickupAddress = l.PickupLocation,
+					DeliveryAddress = l.DeliveryLocation,
+					BrokerCompany = l.BrokerCompany.CompanyName,
+					PickupTime = l.PickupTime.ToString(DateTimeFormat),
+					DeliveryTime = l.DeliveryTime.ToString(DateTimeFormat),
+					Distance = l.Distance,
+					Weight = l.Weight,
+					Temperature = l.Temperature?.ToString() ?? String.Empty
 				});
 
 			return viewModel;
