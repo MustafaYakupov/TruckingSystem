@@ -9,8 +9,8 @@ namespace TruckingSystem.Services.Data
 {
 	public class TruckService : ITruckService
 	{
-		private IRepository<Truck> truckRepository;
-		private IRepository<Part> partRepository;
+		private readonly IRepository<Truck> truckRepository;
+		private readonly IRepository<Part> partRepository;
 
 		public TruckService(IRepository<Truck> truckRepository, IRepository<Part> partRepository)
 		{

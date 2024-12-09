@@ -10,7 +10,7 @@ namespace TruckingSystem.Services.Data
 {
     public class TrailerService : ITrailerService
     {
-        private IRepository<Trailer> trailerRepository;
+        private readonly IRepository<Trailer> trailerRepository;
 
         public TrailerService(IRepository<Trailer> trailerRepository)
         {

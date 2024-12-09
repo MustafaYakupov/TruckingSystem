@@ -11,8 +11,8 @@ namespace TruckingSystem.Services.Data
 {
 	public class DispatchService : IDispatchService
 	{
-		private IRepository<Dispatch> dispatchRepository;
-		private IRepository<Load> loadRepository;
+		private readonly IRepository<Dispatch> dispatchRepository;
+		private readonly IRepository<Load> loadRepository;
 
 		public DispatchService(IRepository<Dispatch> dispatchRepository, IRepository<Load> loadRepository)
 		{

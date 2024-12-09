@@ -9,10 +9,10 @@ namespace TruckingSystem.Services.Data
 {
     public class DriverService : IDriverService
     {
-        private IRepository<Driver> driverRepository;
-        private IRepository<DriverManager> driverManagerRepository;
-        private IRepository<Truck> truckRepository;
-        private IRepository<Trailer> trailerRepository;
+        private readonly IRepository<Driver> driverRepository;
+        private readonly IRepository<DriverManager> driverManagerRepository;
+        private readonly IRepository<Truck> truckRepository;
+        private readonly IRepository<Trailer> trailerRepository;
 
         public DriverService(
             IRepository<Driver> driverRepository,

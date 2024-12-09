@@ -15,10 +15,10 @@ namespace TruckingSystem.Services.Data
 {
     public class LoadService : ILoadService
     {
-        private IRepository<Load> loadRepository;
-        private IRepository<BrokerCompany> brokerCompanyRepository;
-        private IRepository<Driver> driverRepository;
-        private IRepository<Dispatch> dispatchRepository;
+        private readonly IRepository<Load> loadRepository;
+        private readonly IRepository<BrokerCompany> brokerCompanyRepository;
+        private readonly IRepository<Driver> driverRepository;
+        private readonly IRepository<Dispatch> dispatchRepository;
 
 		public LoadService(
             IRepository<Load> loadRepository, 
