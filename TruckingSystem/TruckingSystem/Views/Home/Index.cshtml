@@ -1,8 +1,54 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-6 text-center text-lg-start">
+            <h1 class="display-4 fw-bold">Welcome to the Trucking Management System</h1>
+            <p class="lead text-muted">
+                Streamline your operations, manage drivers, trucks, and loads efficiently with our comprehensive solution.
+            </p>
+            <a href="@Url.Action("Index", "Driver")" class="btn btn-primary btn-lg mt-3">Get Started</a>
+        </div>
+        <div class="col-lg-6 text-center">
+            <img src="~/Images/truck-image.jpg" alt="Trucking System Illustration" class="img-fluid rounded">
+        </div>
+    </div>
+
+    <div class="row text-center mb-5">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-truck display-4 text-primary"></i>
+                    <h5 class="card-title mt-3">Manage Trucks</h5>
+                    <p class="card-text text-muted">Easily track and maintain your fleet of trucks for smooth operations.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-person-lines-fill display-4 text-success"></i>
+                    <h5 class="card-title mt-3">Driver Assignments</h5>
+                    <p class="card-text text-muted">Assign loads and track driver progress with ease.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <i class="bi bi-box-seam display-4 text-warning"></i>
+                    <h5 class="card-title mt-3">Load Tracking</h5>
+                    <p class="card-text text-muted">Monitor available loads, ongoing deliveries, and completed tasks.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <p class="lead">Ready to simplify your trucking operations?</p>
+        <a href="@Url.Action("Index", "Load")" class="btn btn-outline-primary btn-lg">Explore Available Loads</a>
+    </div>
 </div>
