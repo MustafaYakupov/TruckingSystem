@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TruckingSystem.Services.Tests", "TruckingSystem.Services.Tests\TruckingSystem.Services.Tests.csproj", "{14F67BB5-6227-4F97-BD6F-4115DFD69B1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +64,10 @@ Global
 		{195D7526-EC39-4C4F-9056-2499BB952A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{195D7526-EC39-4C4F-9056-2499BB952A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{195D7526-EC39-4C4F-9056-2499BB952A2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14F67BB5-6227-4F97-BD6F-4115DFD69B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14F67BB5-6227-4F97-BD6F-4115DFD69B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14F67BB5-6227-4F97-BD6F-4115DFD69B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14F67BB5-6227-4F97-BD6F-4115DFD69B1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{86168A7F-B644-4032-8A62-E63E5A565928} = {EB64A921-26F5-403A-B0B3-F212CBA1A78A}
 		{12F995EA-4F48-460C-83E8-B154266C8750} = {8EEFD43E-EA8D-46B5-8475-E81E6640E377}
 		{195D7526-EC39-4C4F-9056-2499BB952A2B} = {8EEFD43E-EA8D-46B5-8475-E81E6640E377}
+		{14F67BB5-6227-4F97-BD6F-4115DFD69B1D} = {EB64A921-26F5-403A-B0B3-F212CBA1A78A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {623CCF25-3844-402E-8076-6ACDD9127DAF}
