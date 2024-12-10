@@ -7,7 +7,7 @@ using TruckingSystem.Data.Models;
 
 namespace TruckingSystem.Data
 {
-    public class TruckingSystemDbContext : IdentityDbContext
+    public class TruckingSystemDbContext : IdentityDbContext<IdentityUser>
     {
         public TruckingSystemDbContext()
         {

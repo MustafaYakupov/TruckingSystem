@@ -27,12 +27,20 @@
                     <td>@trailer.Make</td>
                     <td>@trailer.Type</td>
                     <td>@trailer.ModelYear</td>
-                    <td>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                        <a asp-action="Edit" asp-route-id="@trailer.Id" class="btn btn-md btn-primary">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@trailer.Id" class="btn btn-md btn-danger">Delete</a>
-                        </div>
-                    </td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                                <a asp-action="Edit" asp-route-id="@trailer.Id" class="btn btn-md btn-primary">Edit</a>
+                                <a asp-action="Delete" asp-route-id="@trailer.Id" class="btn btn-md btn-danger">Delete</a>
+                            </div>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>Not Available</td>
+                    }
+
                 </tr>
             }
         </tbody>
@@ -50,7 +58,11 @@
         }
     </div>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a asp-action="Create" class="btn btn-success">Create New Trailer</a>
-    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a asp-action="Create" class="btn btn-success">Create New Trailer</a>
+        </div>
+    }
+    
 </div>

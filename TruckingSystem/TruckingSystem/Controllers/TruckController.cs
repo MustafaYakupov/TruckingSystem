@@ -28,7 +28,8 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> Create()
         {
             TruckAddInputModel model = new();
 
@@ -38,6 +39,7 @@ namespace TruckingSystem.Web.Controllers
         }
 
 		[HttpPost]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Create(TruckAddInputModel truckModel)
 		{
 			if (ModelState.IsValid == false)
@@ -52,7 +54,8 @@ namespace TruckingSystem.Web.Controllers
 		}
 
         [HttpGet]
-        public async Task<IActionResult> Edit(Guid id)
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> Edit(Guid id)
         {
             TruckEditInputModel? viewModel = await this.truckService
                 .GetEditTruckByIdAsync(id);
@@ -66,6 +69,7 @@ namespace TruckingSystem.Web.Controllers
         }
 
 		[HttpPost]
+		[Authorize(Roles = "Admin")]
 		public async Task<IActionResult> Edit(TruckEditInputModel truckModel, Guid id)
 		{
 			if (ModelState.IsValid == false)
@@ -87,7 +91,8 @@ namespace TruckingSystem.Web.Controllers
 		}
 
 		[HttpGet]
-        public async Task<IActionResult> Delete(Guid id)
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> Delete(Guid id)
         {
             TruckDeleteViewModel model = await this.truckService.DeleteTruckGetAsync(id);
 
@@ -95,7 +100,8 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(TruckDeleteViewModel model)
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> DeleteConfirmed(TruckDeleteViewModel model)
         {
             await this.truckService.DeleteTruckAsync(model);
 

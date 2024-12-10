@@ -27,7 +27,8 @@ namespace TruckingSystem.Web.Controllers
         }
 
 		[HttpGet]
-		public async Task<IActionResult> Create()
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create()
 		{
 			DriverAddInputModel model = new();
              
@@ -37,7 +38,8 @@ namespace TruckingSystem.Web.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Create(DriverAddInputModel model)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create(DriverAddInputModel model)
 		{
 			if (ModelState.IsValid == false)
 			{
@@ -51,6 +53,7 @@ namespace TruckingSystem.Web.Controllers
 		}
 
 		[HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid id)
         {
             DriverEditInputModel? viewModel = await this.driverService
@@ -65,6 +68,7 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(DriverEditInputModel model, Guid id)
         {
             if (ModelState.IsValid == false)
@@ -85,7 +89,8 @@ namespace TruckingSystem.Web.Controllers
         }
 
 		[HttpGet]
-		public async Task<IActionResult> Delete(Guid id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(Guid id)
 		{
 			DriverDeleteViewModel model = await this.driverService.DeleteDriverGetAsync(id);
 
@@ -93,6 +98,7 @@ namespace TruckingSystem.Web.Controllers
 		}
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(DriverDeleteViewModel model)
         {
             await this.driverService.DeleteDriverAsync(model);

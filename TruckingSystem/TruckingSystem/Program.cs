@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 using TruckingSystem.Data;
+using TruckingSystem.Data.Configuration;
 using TruckingSystem.Infrastructure.Repositories;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data;
@@ -11,7 +12,7 @@ namespace TruckingSystem.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,7 @@ namespace TruckingSystem.Web
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<TruckingSystemDbContext>(); 
 
             builder.Services.ConfigureApplicationCookie(cfg =>
@@ -93,6 +95,15 @@ namespace TruckingSystem.Web
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.MapRazorPages();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+
+                await DatabaseSeeder.SeedRoles(services);
+
+                await DatabaseSeeder.SeedUsers(services);
+            }
 
             app.Run();
         }

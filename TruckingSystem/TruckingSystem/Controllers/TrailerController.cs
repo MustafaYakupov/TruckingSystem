@@ -28,6 +28,7 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create()
         {
             TrailerAddInputModel model = new();
@@ -36,6 +37,7 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(TrailerAddInputModel model)
         {
             if (ModelState.IsValid == false)
@@ -49,6 +51,7 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
             TrailerDeleteViewModel model = await this.trailerService.DeleteTrailerGetAsync(id);
@@ -57,6 +60,7 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(TrailerDeleteViewModel model)
         {
             await this.trailerService.DeleteTrailerAsync(model);
@@ -65,6 +69,7 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid id)
         {
             TrailerEditInputModel? viewModel = await this.trailerService
@@ -79,7 +84,8 @@ namespace TruckingSystem.Web.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(TrailerEditInputModel model, Guid id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Edit(TrailerEditInputModel model, Guid id)
 		{
 			if (ModelState.IsValid == false)
 			{
