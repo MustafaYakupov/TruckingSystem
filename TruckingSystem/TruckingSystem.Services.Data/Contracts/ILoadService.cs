@@ -1,11 +1,12 @@
-﻿using TruckingSystem.Web.ViewModels.Driver;
+﻿using TruckingSystem.Web.ViewModels;
+using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Load;
 
 namespace TruckingSystem.Services.Data.Contracts
 {
     public interface ILoadService
     {
-        Task<IEnumerable<LoadAllViewModel>> GetAllLoadsAsync();
+        Task<PaginatedList<LoadAllViewModel>> GetAllLoadsAsync(int page, int pageSize);
 
         Task LoadBrokerCompanies(LoadAddInputModel model);
 

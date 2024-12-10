@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LoadAllViewModel>
+﻿@model PaginatedList<LoadAllViewModel>
 
 @{
     ViewBag.Title = "Available Loads";
@@ -24,7 +24,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var load in Model)
+            @foreach (var load in Model.Items)
             {
                 <tr>
                     <td>@load.PickupLocation</td>
@@ -48,6 +48,19 @@
             }
         </tbody>
     </table>
+
+    <div class="pagination">
+        @if (Model.HasPreviousPage)
+        {
+            <a href="@Url.Action("Index", new { page = Model.PageIndex - 1, pageSize = Model.PageSize })" class="btn btn-secondary">Previous</a>
+        }
+
+        @if (Model.HasNextPage)
+        {
+            <a href="@Url.Action("Index", new { page = Model.PageIndex + 1, pageSize = Model.PageSize })" class="btn btn-secondary">Next</a>
+        }
+    </div>
+
     <div class="text-right">
         <a asp-action="Create" class="btn btn-success">Create New Load</a>
     </div>

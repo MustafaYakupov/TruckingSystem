@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TruckingSystem.Services.Data;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Web.ViewModels.Dispatch;
 using TruckingSystem.Web.ViewModels.Driver;
 
@@ -18,19 +19,19 @@ namespace TruckingSystem.Web.Controllers
         }
 
 		[HttpGet]
-        public async Task<IActionResult> LoadsInProgress(string searchString)
+        public async Task<IActionResult> LoadsInProgress(string searchString, int page = 1, int pageSize = 5)
 		{
-			IEnumerable<DispatchInProgressViewModel> dispatchesInProgress =
-				await this.dispatchService.GetAllDispatchesInProgressAsync(searchString);
+            PaginatedList<DispatchInProgressViewModel> dispatchesInProgress =
+				await this.dispatchService.GetAllDispatchesInProgressAsync(searchString, page, pageSize);
 
 			return View(dispatchesInProgress);
 		}
 
         [HttpGet]
-        public async Task<IActionResult> CompletedLoads(string searchString)
+        public async Task<IActionResult> CompletedLoads(string searchString, int page = 1, int pageSize = 5)
         {
-            IEnumerable<DispatchCompletedViewModel> dispatchesCompleted =
-                await this.dispatchService.GetAllDispatchesCompletedAsync(searchString);
+            PaginatedList<DispatchCompletedViewModel> dispatchesCompleted =
+                await this.dispatchService.GetAllDispatchesCompletedAsync(searchString, page, pageSize);
 
             return View(dispatchesCompleted);
         }

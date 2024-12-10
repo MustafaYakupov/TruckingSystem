@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TrailerAllViewModel>
+﻿@model PaginatedList<TrailerAllViewModel>
 
 @{
     ViewBag.Title = "Trailers";
@@ -20,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var trailer in Model)
+            @foreach (var trailer in Model.Items)
             {
                 <tr>
                     <td>@trailer.TrailerNumber</td>
@@ -37,6 +37,19 @@
             }
         </tbody>
     </table>
+
+    <div class="pagination">
+        @if (Model.HasPreviousPage)
+        {
+            <a href="@Url.Action("Index", new { page = Model.PageIndex - 1, pageSize = Model.PageSize })" class="btn btn-secondary">Previous</a>
+        }
+
+        @if (Model.HasNextPage)
+        {
+            <a href="@Url.Action("Index", new { page = Model.PageIndex + 1, pageSize = Model.PageSize })" class="btn btn-secondary">Next</a>
+        }
+    </div>
+
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
         <a asp-action="Create" class="btn btn-success">Create New Trailer</a>
     </div>

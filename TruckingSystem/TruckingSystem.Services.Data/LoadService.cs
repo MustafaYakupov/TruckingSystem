@@ -7,6 +7,7 @@ using TruckingSystem.Data.Models.Enums;
 using TruckingSystem.Infrastructure.Repositories;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Load;
 using static TruckingSystem.Common.ValidationConstants.LoadConstants;
@@ -32,16 +33,25 @@ namespace TruckingSystem.Services.Data
             this.dispatchRepository = dispatchRepository;
         }
 
-        public async Task<IEnumerable<LoadAllViewModel>> GetAllLoadsAsync()
+        public async Task<PaginatedList<LoadAllViewModel>> GetAllLoadsAsync(int page, int pageSize)
         {
+            int totalLoads = await this.loadRepository
+                .GetAllAttached()
+                .Where(l => l.IsDeleted == false)
+                .Where(l => l.Status == DispatchStatus.Available)
+                .CountAsync();
+
             IEnumerable<Load> loads = await this.loadRepository
                 .GetAllAttached()
                 .Where(l => l.IsDeleted == false)
                 .Where(l => l.Status == DispatchStatus.Available)
                 .Include(l => l.BrokerCompany)
+                .OrderBy(l => l.PickupTime)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            IEnumerable<LoadAllViewModel> loadViewModel = loads
+            List<LoadAllViewModel> loadViewModel = loads
                 .Select(l => new LoadAllViewModel()
                 {
                     Id = l.Id,
@@ -53,9 +63,11 @@ namespace TruckingSystem.Services.Data
                     DeliveryTime = l.DeliveryTime.ToString(DateTimeFormat),
                     Distance = l.Distance,
                     BrokerCompany = l.BrokerCompany.CompanyName,
-                });
+                }).ToList();
 
-            return loadViewModel;
+            PaginatedList<LoadAllViewModel> paginatedList = new PaginatedList<LoadAllViewModel>(loadViewModel, totalLoads, page, pageSize);
+
+            return paginatedList;
         }
 
         public async Task<bool> CreateLoadAsync(LoadAddInputModel model)

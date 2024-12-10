@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing.Printing;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Web.ViewModels.Driver;
 
 namespace TruckingSystem.Web.Controllers
@@ -16,10 +18,10 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
         {
-            IEnumerable<DriverAllViewModel> drivers =
-                await this.driverService.GetAllDriversAsync();
+            PaginatedList<DriverAllViewModel> drivers =
+                await this.driverService.GetAllDriversAsync(page, pageSize);
 
             return View(drivers);
         }

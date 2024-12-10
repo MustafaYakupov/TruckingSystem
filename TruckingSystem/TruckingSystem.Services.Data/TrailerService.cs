@@ -3,6 +3,7 @@ using TruckingSystem.Data.Models;
 using TruckingSystem.Infrastructure.Repositories;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Trailer;
 
@@ -17,14 +18,22 @@ namespace TruckingSystem.Services.Data
             this.trailerRepository = trailerRepository;
         }
 
-        public async Task<IEnumerable<TrailerAllViewModel>> GetAllTrailersAsync()
+        public async Task<PaginatedList<TrailerAllViewModel>> GetAllTrailersAsync(int page, int pageSize)
         {
+            int totalTrailers = await this.trailerRepository
+                .GetAllAttached()
+                .Where(t => t.IsDeleted == false)
+                .CountAsync();
+
             IEnumerable<Trailer> trailers = await this.trailerRepository
                 .GetAllAttached()
                 .Where(t => t.IsDeleted == false)
+                .OrderBy(t => t.TrailerNumber)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            IEnumerable<TrailerAllViewModel> trailerViewModel = trailers
+            List<TrailerAllViewModel> trailerViewModel = trailers
                 .Select(t => new TrailerAllViewModel
                 {
                     Id = t.Id,
@@ -32,9 +41,11 @@ namespace TruckingSystem.Services.Data
                     Make = t.Make,
                     Type = t.Type,
                     ModelYear = t.ModelYear,
-                });
+                }).ToList();
 
-            return trailerViewModel;
+            PaginatedList<TrailerAllViewModel> paginatedList = new PaginatedList<TrailerAllViewModel>(trailerViewModel, totalTrailers, page, pageSize);
+
+            return paginatedList;
         }
 
         public async Task CreateTrailerAsync(TrailerAddInputModel model)

@@ -1,12 +1,13 @@
 ﻿using TruckingSystem.Data.Models;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
+using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Web.ViewModels.Driver;
 
 namespace TruckingSystem.Services.Data.Contracts
 {
     public interface IDriverService
     {
-        Task<IEnumerable<DriverAllViewModel>> GetAllDriversAsync();
+        Task<PaginatedList<DriverAllViewModel>> GetAllDriversAsync(int page, int pageSize);
 
         Task<DriverEditInputModel> GetEditDriverByIdAsync(Guid id);
 

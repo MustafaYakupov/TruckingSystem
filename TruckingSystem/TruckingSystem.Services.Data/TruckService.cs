@@ -3,6 +3,8 @@ using System.Security.AccessControl;
 using TruckingSystem.Data.Models;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels.Driver;
+using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Web.ViewModels.Truck;
 
 namespace TruckingSystem.Services.Data
@@ -18,17 +20,25 @@ namespace TruckingSystem.Services.Data
 			this.partRepository = partRepository;
 		}
 
-		public async Task<IEnumerable<TruckAllViewModel>> GetAllTrucksAsync()
+		public async Task<PaginatedList<TruckAllViewModel>> GetAllTrucksAsync(int page, int pageSize)
 		{
-			IEnumerable<Truck> trucks = await this.truckRepository
+			int totalTrucks = await truckRepository
+				.GetAllAttached()
+				.Where(t => t.IsDeleted == false)
+                .CountAsync();
+
+            IEnumerable<Truck> trucks = await this.truckRepository
 				.GetAllAttached()
 				.Include(t => t.TrucksParts)
 				.ThenInclude(tp => tp.Part.TruckParts)
 				.Where(t => t.IsDeleted == false)
-				.ToListAsync();
+				.OrderBy(t => t.TruckNumber)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
 
 
-			IEnumerable<TruckAllViewModel> truckViewModel = trucks
+            List<TruckAllViewModel> truckViewModel = trucks
 				.Select(t => new TruckAllViewModel()
 				{
 					Id = t.Id,
@@ -39,9 +49,11 @@ namespace TruckingSystem.Services.Data
 					ModelYear = t.ModelYear,
 					Color = t.Color,
 					Parts = t.TrucksParts.Select(tp => tp.Part)
-				});
+				}).ToList();
 
-			return truckViewModel;
+            PaginatedList<TruckAllViewModel> paginatedList = new PaginatedList<TruckAllViewModel>(truckViewModel, totalTrucks, page, pageSize);
+
+            return paginatedList;
 		}
 
 		public async Task CreateTruckAsync(TruckAddInputModel model)

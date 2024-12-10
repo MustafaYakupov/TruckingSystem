@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TruckingSystem.Services.Data;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Truck;
 
@@ -18,10 +19,10 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
         {
-            IEnumerable<TruckAllViewModel> trucks =
-                await this.truckService.GetAllTrucksAsync();
+            PaginatedList<TruckAllViewModel> trucks =
+                await this.truckService.GetAllTrucksAsync(page, pageSize);
 
             return View(trucks);
         }

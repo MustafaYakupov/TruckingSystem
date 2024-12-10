@@ -1,11 +1,12 @@
 ﻿using TruckingSystem.Data.Models;
+using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Web.ViewModels.Truck;
 
 namespace TruckingSystem.Services.Data.Contracts
 {
 	public interface ITruckService
 	{
-        Task<IEnumerable<TruckAllViewModel>> GetAllTrucksAsync();
+        Task<PaginatedList<TruckAllViewModel>> GetAllTrucksAsync(int page, int pageSize);
 
         Task<TruckDeleteViewModel> DeleteTruckGetAsync(Guid id);
 

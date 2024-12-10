@@ -4,7 +4,9 @@ using TruckingSystem.Data.Models;
 using TruckingSystem.Data.Models.Enums;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Web.ViewModels.Dispatch;
+using TruckingSystem.Web.ViewModels.Driver;
 using static TruckingSystem.Common.ValidationConstants.LoadConstants;
 
 namespace TruckingSystem.Services.Data
@@ -20,9 +22,16 @@ namespace TruckingSystem.Services.Data
 			this.loadRepository = loadRepository;
 		}
 
-		public async Task<IEnumerable<DispatchInProgressViewModel>> GetAllDispatchesInProgressAsync(string searchString)
+		public async Task<PaginatedList<DispatchInProgressViewModel>> GetAllDispatchesInProgressAsync(string searchString, int page, int pageSize)
 		{
-			IEnumerable<Load> loadsInProgress = await this.loadRepository
+			int dispatchesInProgressCoount = await	this.dispatchRepository
+				.GetAllAttached()
+                .Where(l => l.IsDeleted == false)
+                .Where(l => l.Driver != null)
+                .Where(l => l.Status == DispatchStatus.InProgress)
+                .CountAsync();
+
+            IEnumerable<Load> loadsInProgress = await this.loadRepository
 				.GetAllAttached()
 				.Where(l => l.IsDeleted == false)
 				.Where(l => l.Driver != null)
@@ -34,7 +43,9 @@ namespace TruckingSystem.Services.Data
 					.ThenInclude(d => d.Trailer)
 				.Include(l => l.Driver)
 					.ThenInclude(d => d.DriverManager)
-				.ToListAsync();
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -43,7 +54,7 @@ namespace TruckingSystem.Services.Data
                                        || l.Driver.FirstName.Contains(searchString));
             }
 
-            IEnumerable<DispatchInProgressViewModel> viewModel = loadsInProgress
+            List<DispatchInProgressViewModel> viewModel = loadsInProgress
 				.Select(l => new DispatchInProgressViewModel()
 				{
 					Id = l.Id,
@@ -59,14 +70,23 @@ namespace TruckingSystem.Services.Data
 					Distance = l.Distance,
 					Weight = l.Weight,
 					Temperature = l.Temperature?.ToString() ?? String.Empty
-				});
+				}).ToList();
 
-			return viewModel;
+            PaginatedList<DispatchInProgressViewModel> paginatedList = new PaginatedList<DispatchInProgressViewModel>(viewModel, dispatchesInProgressCoount, page, pageSize);
+
+            return paginatedList;
 
 		}
 
-        public async Task<IEnumerable<DispatchCompletedViewModel>> GetAllDispatchesCompletedAsync(string searchString)
+        public async Task<PaginatedList<DispatchCompletedViewModel>> GetAllDispatchesCompletedAsync(string searchString, int page, int pageSize)
         {
+			int dispatchesCompletedCount =
+				await this.dispatchRepository
+				.GetAllAttached()
+				.Where(d => d.IsDeleted == false)
+				.Where(d => d.Status == DispatchStatus.Completed)
+				.CountAsync();
+
             IEnumerable<Dispatch> dispatchesCompleted = await this.dispatchRepository
                 .GetAllAttached()
                 .Where(d => d.IsDeleted == false)
@@ -77,6 +97,8 @@ namespace TruckingSystem.Services.Data
                 .Include(d => d.DriverManager)
                 .Include(d => d.Load)
 					.ThenInclude(l => l.BrokerCompany)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
             if (!String.IsNullOrEmpty(searchString))
@@ -86,7 +108,7 @@ namespace TruckingSystem.Services.Data
                                        || d.Driver.FirstName.Contains(searchString));
             }
 
-            IEnumerable<DispatchCompletedViewModel> viewModel = dispatchesCompleted
+            List<DispatchCompletedViewModel> viewModel = dispatchesCompleted
                 .Select(d => new DispatchCompletedViewModel()
                 {
                     Id = d.Id,
@@ -102,9 +124,11 @@ namespace TruckingSystem.Services.Data
                     Distance = d.Load.Distance,
                     Weight = d.Load.Weight,
                     Temperature = d.Load.Temperature?.ToString() ?? String.Empty
-                });
+                }).ToList();
 
-            return viewModel;
+            PaginatedList<DispatchCompletedViewModel> paginatedList = new PaginatedList<DispatchCompletedViewModel>(viewModel, dispatchesCompletedCount, page, pageSize);
+
+            return paginatedList;
 
         }
 

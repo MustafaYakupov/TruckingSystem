@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TruckingSystem.Data.Models;
+using TruckingSystem.Infrastructure.Repositories;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Web.ViewModels.Driver;
 
 namespace TruckingSystem.Services.Data
@@ -26,17 +28,25 @@ namespace TruckingSystem.Services.Data
             this.trailerRepository = trailerRepository;
         }
 
-        public async Task<IEnumerable<DriverAllViewModel>> GetAllDriversAsync()
+        public async Task<PaginatedList<DriverAllViewModel>> GetAllDriversAsync(int page, int pageSize)
         {
+            int totalDrivers = await this.driverRepository
+                .GetAllAttached()
+                .Where(d => d.IsDeleted == false)
+                .CountAsync();
+
             IEnumerable<Driver> drivers = await this.driverRepository
                 .GetAllAttached()
                 .Include(d => d.Truck)
                 .Include(d => d.Trailer)
                 .Include(d => d.DriverManager)
                 .Where(d => d.IsDeleted == false)
+                .OrderBy(d => d.FirstName)
+                .Skip((page - 1) * pageSize) 
+                .Take(pageSize)              
                 .ToListAsync();
 
-            IEnumerable<DriverAllViewModel> driverViewModel = drivers
+            List<DriverAllViewModel> driverViewModel = drivers
                 .Select(d => new DriverAllViewModel
                 {
                     Id = d.Id,
@@ -46,13 +56,15 @@ namespace TruckingSystem.Services.Data
                     TruckNumber = d.Truck?.TruckNumber ?? string.Empty,
                     TrailerNumber = d.Trailer?.TrailerNumber ?? string.Empty,
                     DriverManager = d.DriverManager?.FirstName + " " + d.DriverManager?.LastName ?? string.Empty,
-                });
+                }).ToList();
 
-            return driverViewModel;
+            PaginatedList<DriverAllViewModel> paginatedList = new PaginatedList<DriverAllViewModel>(driverViewModel, totalDrivers, page, pageSize);
+
+            return paginatedList;
         }
 
-		public async Task CreateDriverAsync(DriverAddInputModel model)
-		{
+        public async Task CreateDriverAsync(DriverAddInputModel model)
+        {
             Driver driver = new()
             {
                 FirstName = model.FirstName,
@@ -64,11 +76,11 @@ namespace TruckingSystem.Services.Data
             };
 
             await this.driverRepository.AddAsync(driver);
-		}
+        }
 
-		public async Task<DriverEditInputModel> GetEditDriverByIdAsync(Guid id)
+        public async Task<DriverEditInputModel> GetEditDriverByIdAsync(Guid id)
         {
-			DriverEditInputModel? viewModel = await this.driverRepository
+            DriverEditInputModel? viewModel = await this.driverRepository
                 .GetAllAttached()
                 .Where(d => d.Id == id)
                 .Where(d => d.IsDeleted == false)
@@ -238,23 +250,23 @@ namespace TruckingSystem.Services.Data
             return true;
         }
 
-		public async Task<DriverDeleteViewModel> DeleteDriverGetAsync(Guid id)
-		{
-			DriverDeleteViewModel? deleteModel  = await this.driverRepository
+        public async Task<DriverDeleteViewModel> DeleteDriverGetAsync(Guid id)
+        {
+            DriverDeleteViewModel? deleteModel = await this.driverRepository
                 .GetAllAttached()
-				.Where(d => d.Id == id)
-				.Where(d => d.IsDeleted == false)
-				.AsNoTracking()
-				.Select(d => new DriverDeleteViewModel()
-				{
-					Id = d.Id,
-					FirstName = d.FirstName,
-					LastName = d.LastName
-				})
-				.FirstOrDefaultAsync();
+                .Where(d => d.Id == id)
+                .Where(d => d.IsDeleted == false)
+                .AsNoTracking()
+                .Select(d => new DriverDeleteViewModel()
+                {
+                    Id = d.Id,
+                    FirstName = d.FirstName,
+                    LastName = d.LastName
+                })
+                .FirstOrDefaultAsync();
 
             return deleteModel;
-		}
+        }
 
         public async Task DeleteDriverAsync(DriverDeleteViewModel model)
         {
@@ -310,5 +322,5 @@ namespace TruckingSystem.Services.Data
                 .Where(t => t.IsDeleted == false)
                 .ToListAsync();
         }
-	}
+    }
 }

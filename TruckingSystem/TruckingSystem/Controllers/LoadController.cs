@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 using TruckingSystem.Services.Data;
 using TruckingSystem.Services.Data.Contracts;
+using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Load;
 using static TruckingSystem.Common.ValidationMessages.LoadValidationMessages;
@@ -21,10 +22,10 @@ namespace TruckingSystem.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 5)
         {
-            IEnumerable<LoadAllViewModel> loads =
-                await this.loadService.GetAllLoadsAsync();
+            PaginatedList<LoadAllViewModel> loads =
+                await this.loadService.GetAllLoadsAsync(page, pageSize);
 
             return View(loads);
         }

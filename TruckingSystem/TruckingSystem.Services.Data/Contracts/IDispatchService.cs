@@ -1,12 +1,13 @@
-﻿using TruckingSystem.Web.ViewModels.Dispatch;
+﻿using TruckingSystem.Web.ViewModels;
+using TruckingSystem.Web.ViewModels.Dispatch;
 
 namespace TruckingSystem.Services.Data.Contracts
 {
 	public interface IDispatchService
 	{
-		Task<IEnumerable<DispatchInProgressViewModel>> GetAllDispatchesInProgressAsync(string searchString);
+        Task<PaginatedList<DispatchInProgressViewModel>> GetAllDispatchesInProgressAsync(string searchString, int page, int pageSize);
 
-        Task<IEnumerable<DispatchCompletedViewModel>> GetAllDispatchesCompletedAsync(string searchString);
+        Task<PaginatedList<DispatchCompletedViewModel>> GetAllDispatchesCompletedAsync(string searchString, int page, int pageSize);
 
         Task<bool> CompleteDispatchByIdAsync(Guid id);
     }
