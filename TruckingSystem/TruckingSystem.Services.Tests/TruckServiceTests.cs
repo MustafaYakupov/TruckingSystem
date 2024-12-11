@@ -5,10 +5,6 @@ using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data;
 using MockQueryable;
 using TruckingSystem.Web.ViewModels.Truck;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using System.IO;
-using MockQueryable.Moq;
 
 namespace TruckingSystem.Services.Tests
 {
@@ -240,7 +236,7 @@ namespace TruckingSystem.Services.Tests
         }
 
         [Test]
-        public void CreateTruckAsync_AddsNoParts_WhenNoPartsSelected()
+        public async Task CreateTruckAsync_AddsNoParts_WhenNoPartsSelected()
         {
             // Arrange
             var model = new TruckAddInputModel
@@ -270,7 +266,7 @@ namespace TruckingSystem.Services.Tests
                 .Callback<Truck>(t => truck = t);  // Capture the truck passed to AddAsync
 
             // Act
-            this.truckService.CreateTruckAsync(model);  // Call the method (note that it's not async here)
+            await this.truckService.CreateTruckAsync(model);  
 
             // Assert
             Assert.That(truck, Is.Not.Null);  // Ensure the truck is created
@@ -278,7 +274,7 @@ namespace TruckingSystem.Services.Tests
         }
 
         [Test]
-        public void CreateTruckAsync_CallsAddAsyncOnce()
+        public async Task CreateTruckAsync_CallsAddAsyncOnce()
         {
             // Arrange
             var model = new TruckAddInputModel
@@ -296,7 +292,7 @@ namespace TruckingSystem.Services.Tests
             };
 
             // Act
-            this.truckService.CreateTruckAsync(model);
+            await this.truckService.CreateTruckAsync(model);
 
             // Assert
             mockTruckRepository.Verify(r => r.AddAsync(It.IsAny<Truck>()), Times.Once);
