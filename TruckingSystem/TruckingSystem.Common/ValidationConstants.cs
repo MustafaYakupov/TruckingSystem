@@ -4,8 +4,8 @@
     {
         public static class DriverConstants
         {
-            public const byte DriverFirstAndLastNameMinLength = 2;
-            public const byte DriverFirstAndLastNameMaxLength = 100;
+            public const int DriverFirstAndLastNameMinLength = 2;
+            public const int DriverFirstAndLastNameMaxLength = 100;
             public const byte DriverLicenseNumberMinLength = 5;
             public const byte DriverLicenseNumberMaxLength = 20;
         }

@@ -72,8 +72,8 @@ namespace TruckingSystem.Services.Tests
             var result = await this.truckService.GetAllTrucksAsync(page, pageSize);
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.That(result.Items.Count, Is.EqualTo(2));
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Items, Has.Count.EqualTo(2));
             Assert.That(result.TotalCount, Is.EqualTo(2));
             Assert.That(result.Items.First().TruckNumber, Is.EqualTo("1234"));
         }
@@ -95,8 +95,8 @@ namespace TruckingSystem.Services.Tests
             var result = await this.truckService.GetAllTrucksAsync(page, pageSize);
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.That(result.Items.Count, Is.EqualTo(0));
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Items, Has.Count.EqualTo(0));
             Assert.That(result.TotalCount, Is.EqualTo(0));
         }
 
@@ -135,8 +135,8 @@ namespace TruckingSystem.Services.Tests
             var result = await this.truckService.GetAllTrucksAsync(page, pageSize);
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.That(result.Items.Count, Is.EqualTo(0));
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Items, Has.Count.EqualTo(0));
             Assert.That(result.TotalCount, Is.EqualTo(1)); // Total trucks count remains 1
         }
 
@@ -231,7 +231,7 @@ namespace TruckingSystem.Services.Tests
             Assert.That(truck.LicensePlate, Is.EqualTo(model.LicensePlate));  // Verify license plate
             Assert.That(truck.ModelYear, Is.EqualTo(model.ModelYear));  // Verify model year
             Assert.That(truck.Color, Is.EqualTo(model.Color));  // Verify truck color
-            Assert.That(truck.TrucksParts.Count, Is.EqualTo(2));  // Ensure two truck parts are added
+            Assert.That(truck.TrucksParts, Has.Count.EqualTo(2));  // Ensure two truck parts are added
         }
 
         [Test]
@@ -269,7 +269,7 @@ namespace TruckingSystem.Services.Tests
 
             // Assert
             Assert.That(truck, Is.Not.Null);  // Ensure the truck is created
-            Assert.That(truck.TrucksParts.Count, Is.EqualTo(0));  // Ensure no parts are added
+            Assert.That(truck.TrucksParts, Has.Count.EqualTo(0));  // Ensure no parts are added
         }
 
         [Test]
@@ -316,7 +316,7 @@ namespace TruckingSystem.Services.Tests
 
             // Assert
             Assert.That(result, Is.Not.Null);  // Check if the result is not null
-            Assert.That(result.Count, Is.EqualTo(2));  // Ensure there are two parts in the list
+            Assert.That(result, Has.Count.EqualTo(2));  // Ensure there are two parts in the list
             Assert.That(result[0].Id, Is.EqualTo(parts[0].Id));  // Assert the first part's Id
             Assert.That(result[0].Type, Is.EqualTo(parts[0].Type));  // Assert the first part's Type
             Assert.That(result[0].Make, Is.EqualTo(parts[0].Make));  // Assert the first part's Make
@@ -386,48 +386,12 @@ namespace TruckingSystem.Services.Tests
         {
             // Arrange
             var truckId = Guid.NewGuid();  // Existing truck ID
-            var truck = new Truck
-            {
-                Id = truckId,
-                TruckNumber = "1234",
-                Make = "Ford",
-                Model = "F-150",
-                LicensePlate = "XYZ123",
-                ModelYear = "2020",
-                Color = "Red",
-                IsDeleted = false
-            };
-
-            var model = new TruckEditInputModel()
-            {
-                TruckNumber = truck.TruckNumber,
-                Make = truck.Make,
-                Model = truck.Model,
-                LicensePlate = truck.LicensePlate,
-                ModelYear = truck.ModelYear,
-                Color = truck.Color
-            };
 
             // Act
             var result = this.truckService.GetEditTruckByIdAsync(truckId);
 
             // Assert
             Assert.That(result, Is.Not.Null);  // Ensure the result is not null
-        }
-
-
-        private TruckService GetServiceWithMockedDependencies()
-        {
-            var mockPartRepository = new Mock<IPartRepository>();
-            var service = new TruckService(mockTruckRepository.Object, mockPartRepository.Object);
-            return service;
-        }
-
-        private void SetupMockLoadPartsListAsync()
-        {
-            var mockService = new Mock<TruckService>(mockTruckRepository.Object, null);
-            mockService.Setup(s => s.LoadPartsListAsync(It.IsAny<TruckEditInputModel>()))
-                .Returns(Task.CompletedTask); // Simulate successful completion of the method
         }
 
         [Test]
