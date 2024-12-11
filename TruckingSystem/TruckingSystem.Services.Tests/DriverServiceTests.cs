@@ -1,14 +1,5 @@
 ﻿using Moq;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TruckingSystem.Data.Models;
-using TruckingSystem.Services;
-using TruckingSystem.Infrastructure.Repositories;
-using TruckingSystem.Data.Models;
-using Microsoft.EntityFrameworkCore;
 using MockQueryable.Moq;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data;

@@ -1,4 +1,3 @@
-using EntityFrameworkCore.Testing.Moq;
 using Moq;
 using TruckingSystem.Data.Models;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
