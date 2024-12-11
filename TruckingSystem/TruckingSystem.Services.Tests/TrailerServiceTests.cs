@@ -1,4 +1,5 @@
 ﻿using MockQueryable;
+using MockQueryable.Moq;
 using Moq;
 using TruckingSystem.Data.Models;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
@@ -291,6 +292,113 @@ namespace TruckingSystem.Services.Tests
             // Assert
             Assert.That(result, Is.True);
             mockTrailerRepository.Verify(repo => repo.UpdateAsync(It.IsAny<Trailer>()), Times.Once);
+        }
+
+        [Test]
+        public void GetEditTrailerByIdAsync_ReturnsNull_WhenTrailerNotFound()
+        {
+            // Arrange
+            Guid id = Guid.NewGuid();
+            this.mockTrailerRepository.Setup(r => r.GetAllAttached())
+                .Returns(new List<Trailer>().AsQueryable().BuildMockDbSet().Object);
+
+            // Act
+            var result = this.trailerService.GetEditTrailerByIdAsync(id).Result;
+
+            // Assert
+            Assert.That(result, Is.Null);
+            this.mockTrailerRepository.Verify(r => r.GetAllAttached(), Times.Once);
+        }
+
+        [Test]
+        public void DeleteTrailerGetAsync_ReturnsTrailerDeleteViewModel_WhenTrailerExistsAndIsNotDeleted()
+        {
+            // Arrange
+            Guid trailerId = Guid.NewGuid();
+            var trailers = new List<Trailer>
+        {
+            new Trailer
+            {
+                Id = trailerId,
+                TrailerNumber = "TR123",
+                IsDeleted = false
+            }
+        }.AsQueryable();
+
+            this.mockTrailerRepository.Setup(r => r.GetAllAttached())
+                .Returns(trailers.AsQueryable()
+                .BuildMockDbSet().Object);
+
+            // Act
+            var result = this.trailerService.DeleteTrailerGetAsync(trailerId).Result;
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Id, Is.EqualTo(trailerId));
+            Assert.That(result.TrailerNumber, Is.EqualTo("TR123"));
+            this.mockTrailerRepository.Verify(r => r.GetAllAttached(), Times.Once);
+        }
+
+        [Test]
+        public void DeleteTrailerGetAsync_ReturnsNull_WhenTrailerDoesNotExist()
+        {
+            // Arrange
+            Guid trailerId = Guid.NewGuid();
+            var trailers = new List<Trailer>
+        {
+            new Trailer
+            {
+                Id = Guid.NewGuid(),
+                TrailerNumber = "TR123",
+                IsDeleted = false
+            }
+        }.AsQueryable();
+
+            
+            this.mockTrailerRepository.Setup(r => r.GetAllAttached())
+                .Returns(trailers.AsQueryable()
+                .BuildMockDbSet().Object);
+
+            // Act
+            var result = this.trailerService.DeleteTrailerGetAsync(trailerId).Result;
+
+            // Assert
+            Assert.That(result, Is.Null);
+            this.mockTrailerRepository.Verify(r => r.GetAllAttached(), Times.Once);
+        }
+
+        [Test]
+        public void GetEditTrailerByIdAsync_ReturnsTrailerEditInputModel_WhenTrailerExistsAndIsNotDeleted()
+        {
+            // Arrange
+            Guid id = Guid.NewGuid();
+            var trailers = new List<Trailer>
+        {
+            new Trailer
+            {
+                Id = id,
+                TrailerNumber = "12345",
+                Make = "Make1",
+                Type = "Type1",
+                ModelYear = "2020",
+                IsDeleted = false
+            }
+        }.AsQueryable();
+
+            this.mockTrailerRepository.Setup(r => r.GetAllAttached())
+                .Returns(trailers.AsQueryable()
+                .BuildMockDbSet().Object);
+
+            // Act
+            var result = this.trailerService.GetEditTrailerByIdAsync(id).Result;
+
+            // Assert
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.TrailerNumber, Is.EqualTo("12345"));
+            Assert.That(result.Make, Is.EqualTo("Make1"));
+            Assert.That(result.Type, Is.EqualTo("Type1"));
+            Assert.That(result.ModelYear, Is.EqualTo("2020"));
+            this.mockTrailerRepository.Verify(r => r.GetAllAttached(), Times.Once);
         }
     }
 }
