@@ -75,7 +75,6 @@ namespace TruckingSystem.Services.Data
             PaginatedList<DispatchInProgressViewModel> paginatedList = new PaginatedList<DispatchInProgressViewModel>(viewModel, dispatchesInProgressCoount, page, pageSize);
 
             return paginatedList;
-
 		}
 
         public async Task<PaginatedList<DispatchCompletedViewModel>> GetAllDispatchesCompletedAsync(string searchString, int page, int pageSize)

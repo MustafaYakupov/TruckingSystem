@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using TruckingSystem.Data.Models;
 using TruckingSystem.Data.Models.Enums;
-using TruckingSystem.Infrastructure.Repositories;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
 using TruckingSystem.Web.ViewModels;
-using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Load;
 using static TruckingSystem.Common.ValidationConstants.LoadConstants;
 
