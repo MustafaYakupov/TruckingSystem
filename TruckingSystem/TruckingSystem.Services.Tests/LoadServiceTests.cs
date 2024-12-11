@@ -1,10 +1,7 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-using MockQueryable;
+﻿using MockQueryable;
 using MockQueryable.Moq;
 using Moq;
 using System.Globalization;
-using System.Runtime.Serialization;
 using TruckingSystem.Data.Models;
 using TruckingSystem.Data.Models.Enums;
 using TruckingSystem.Infrastructure.Repositories.Contracts;

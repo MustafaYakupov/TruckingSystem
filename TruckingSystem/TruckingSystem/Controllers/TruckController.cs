@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TruckingSystem.Services.Data;
 using TruckingSystem.Services.Data.Contracts;
 using TruckingSystem.Web.ViewModels;
-using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Truck;
 
 namespace TruckingSystem.Web.Controllers

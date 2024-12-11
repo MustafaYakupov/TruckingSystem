@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Drawing.Printing;
 using TruckingSystem.Services.Data.Contracts;
 using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Web.ViewModels.Driver;

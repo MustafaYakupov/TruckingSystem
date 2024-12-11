@@ -1,17 +1,9 @@
 ﻿using Moq;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TruckingSystem.Services.Data;
-using TruckingSystem.Web.ViewModels;
 using TruckingSystem.Data.Models;
 using TruckingSystem.Data.Models.Enums;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
-using TruckingSystem.Web.ViewModels.Dispatch;
 using MockQueryable.Moq;
-using MockQueryable;
 
 namespace TruckingSystem.Services.Tests
 {

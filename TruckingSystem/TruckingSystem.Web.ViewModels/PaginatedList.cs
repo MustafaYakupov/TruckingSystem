@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace TruckingSystem.Web.ViewModels
+﻿namespace TruckingSystem.Web.ViewModels
 {
     public class PaginatedList<T>
     {

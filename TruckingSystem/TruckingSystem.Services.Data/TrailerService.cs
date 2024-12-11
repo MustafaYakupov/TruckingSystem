@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TruckingSystem.Data.Models;
-using TruckingSystem.Infrastructure.Repositories;
 using TruckingSystem.Infrastructure.Repositories.Contracts;
 using TruckingSystem.Services.Data.Contracts;
 using TruckingSystem.Web.ViewModels;
-using TruckingSystem.Web.ViewModels.Driver;
 using TruckingSystem.Web.ViewModels.Trailer;
 
 namespace TruckingSystem.Services.Data
