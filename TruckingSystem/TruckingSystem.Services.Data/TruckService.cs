@@ -218,5 +218,7 @@ namespace TruckingSystem.Services.Data
 				})
 				.ToListAsync();
 		}
+
+
 	}
 }
