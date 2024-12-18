@@ -85,13 +85,13 @@ When the application starts for the first time, the necessary data (Broker Compa
 ## MVC Structure:
 The application follows the **MVC (Model-View-Controller)** design pattern:
 - **Models**: Represents the data structure, including entities like `Load`, `Truck`, `Trailer`, `Driver`, etc.
-- **Views**: Razor Pages that handle the UI and user interaction.
+- **Views**: Razor Views that handle the UI and user interaction.
 - **Controllers**: Handles user input, interactions, and business logic.
 
 ## Technologies Used:
 - **ASP.NET Core 8**: The framework for building web applications.
 - **Entity Framework Core 8**: ORM (Object-Relational Mapping) for interacting with the database.
-- **Razor Pages**: For rendering dynamic web pages with C# code and Bootstrap.
+- **Razor Views**: For rendering dynamic web pages with C# code and Bootstrap.
 - **SQL Server**: Default database provider used for data storage.
 
 ## License:
