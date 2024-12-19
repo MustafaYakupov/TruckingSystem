@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **Trucking System** is a web application developed with **ASP.NET Core 8**, **Entity Framework Core 8**, and **Razor Pages** using the **MVC (Model-View-Controller)** architecture. This application is designed to help manage and track trucking operations, including the management of loads, drivers, trucks, trailers, and broker companies.
+The **Trucking System** is a web application created as a final project for the ASP.NET Advanced course in SoftUni. Developed with **ASP.NET Core 8**, **Entity Framework Core 8**, and **Razor Pages** using the **MVC (Model-View-Controller)** architecture. This application is designed to help manage and track trucking operations, including the management of loads, drivers, trucks, trailers, and broker companies.
 
 ## Features
 
@@ -96,6 +96,3 @@ The application follows the **MVC (Model-View-Controller)** design pattern:
 
 ## License:
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contributing:
-If you'd like to contribute to the project, feel free to fork the repository and submit a pull request with your changes. Please ensure to follow the project's coding standards and best practices.
